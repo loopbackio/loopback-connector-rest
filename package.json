@@ -1,0 +1,22 @@
+{
+    "name": "sl-rest",
+    "version": "0.0.1",
+    "description": "REST Connector",
+    "main": "index.js",
+    "scripts": {
+        "test": "./node_modules/.bin/mocha --timeout 30000 --require test/*.test.js"
+    },
+    "dependencies": {
+        "request": "latest",
+        "restler": "git://github.com/raymondfeng/restler.git",
+        "ql.io-engine": "latest"
+    },
+    "devDependencies": {
+        "should": "latest",
+        "mocha": "latest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/strongloop/sl-rest.git"
+    }
+}
