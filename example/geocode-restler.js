@@ -1,4 +1,4 @@
-restler = require('restler');
+var restler = require('restler');
 
 var processResponse = function (prefix, body, response) {
     // console.log(body);

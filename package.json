@@ -9,6 +9,7 @@
     "dependencies": {
         "request": "latest",
         "restler": "git://github.com/raymondfeng/restler.git",
+        "superagent": "latest",
         "ql.io-engine": "latest"
     },
     "devDependencies": {
