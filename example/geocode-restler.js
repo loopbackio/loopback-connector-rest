@@ -35,12 +35,12 @@ var GeoService = restler.service(function (sensor) {
 }, {
     baseURL: 'http://maps.googleapis.com/maps/api/geocode/'
 }, {
-    getAddress: function (latlng) {
-        return this.get('json', {query: {sensor: true, latlng: latlng}}).on('complete', processResponse.bind(null, '3'));
+    getAddress: function (latlng, cb) {
+        return this.get('json', {query: {sensor: true, latlng: latlng}}).on('complete', cb);
     }
 });
 
 
 var geoService = new GeoService(false);
 // geoService.getAddress('40.714224,-73.961452');
-geoService.getAddress('40.714224,-73.961452');
+geoService.getAddress('40.714224,-73.961452', processResponse.bind(null, '3'));

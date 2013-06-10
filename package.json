@@ -7,12 +7,15 @@
         "test": "./node_modules/.bin/mocha --timeout 30000 --require test/*.test.js"
     },
     "dependencies": {
+        "jugglingdb": "git+ssh://git@github.com:strongloop/jugglingdb.git",
         "request": "latest",
         "restler": "git://github.com/raymondfeng/restler.git",
         "superagent": "latest",
+        "swagger-client": "latest",
         "ql.io-engine": "latest"
     },
     "devDependencies": {
+        "express": "latest",
         "should": "latest",
         "mocha": "latest"
     },
