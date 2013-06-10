@@ -40,8 +40,7 @@ describe('REST connector', function () {
 
             app.get('/Users', function (req, res, next) {
                 res.setHeader('Content-Type', 'application/json');
-                res.json(users);
-                res.end();
+                res.json(200, users);
             });
 
             app.post('/Users', function (req, res, next) {
@@ -53,7 +52,6 @@ describe('REST connector', function () {
                 res.setHeader('Location', req.protocol + '://' + req.headers['host'] + '/' + body.id);
                 users.push(body);
                 res.json(201, body);
-                res.end();
             });
 
             app.put('/Users/:id', function (req, res, next) {
@@ -87,8 +85,7 @@ describe('REST connector', function () {
                     var user = users[i];
                     if (user.id == req.params.id) {
                         res.setHeader('Content-Type', 'application/json');
-                        res.json(user);
-                        res.end();
+                        res.json(200, user);
                         return;
                     }
                 }
@@ -106,6 +103,7 @@ describe('REST connector', function () {
             rest.query(function (err, response, body) {
                 assert.equal(200, response.statusCode);
                 console.log(body);
+                assert.equal(2, body.length);
                 done(err, body);
             });
         });
@@ -115,6 +113,8 @@ describe('REST connector', function () {
                 assert.equal(200, response.statusCode);
                 console.log(err, response && response.statusCode);
                 console.log(body);
+                assert.equal(1, body.id);
+                assert.equal('Ray', body.name);
                 done(err, body);
             });
         });
@@ -159,6 +159,7 @@ describe('REST connector', function () {
                 assert.equal(200, response.statusCode);
                 console.log(response && response.statusCode);
                 console.log(body);
+                assert.equal(2, body.length);
                 done(err, body);
             });
         });
