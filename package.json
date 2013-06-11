@@ -16,7 +16,8 @@
         "qs": "0.6.5",
         "mime": "1.2.5",
         "methods": "0.0.1",
-        "traverse": "latest"
+        "traverse": "latest",
+        "JSONPath": "latest"
     },
     "devDependencies": {
         "express": "latest",

@@ -1,16 +1,10 @@
-var ejs = require('ejs');
 var builder = require('../lib/rest-builder');
+var jsonPath = require('JSONPath');
 
 var req = builder.get('http://maps.googleapis.com/maps/api/geocode/{format:json}')
-    .query({latlng: '{latitude},{longitude}', sensor: '{sensor}'});
+    .query({latlng: '{latitude},{longitude}', sensor: '{sensor}'})
+    .body({x: 1, y: 'y', z: [1, 2, '{z:3}']});
 
-req.data({x: 1, y: 'y', z: [1, 2, '{z:3}']});
-
-var options = {latitude: 40.714224, longitude: -73.961452, sensor: true};
-
-var json = req.build(options);
-
-var request = require('request');
 
 var processResponse = function (error, response, body) {
     if (!error) {
@@ -19,6 +13,7 @@ var processResponse = function (error, response, body) {
         }
 
         if (body.status === 'OK') {
+            console.log(jsonPath.eval(body, '$..formatted_address'));
             console.log(body.results[0].formatted_address);
         } else {
             console.log('Error: ', body.status);
@@ -30,13 +25,4 @@ var processResponse = function (error, response, body) {
     }
 };
 
-request(
-    {
-        method: json.method,
-        uri: json.url,
-        qs: json.queryParameters,
-        headers: json.headers
-    },
-    processResponse
-)
-
+req.request({latitude: 40.714224, longitude: -73.961452, sensor: true}, processResponse);
