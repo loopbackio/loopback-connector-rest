@@ -4,7 +4,7 @@
     "description": "REST Connector",
     "main": "index.js",
     "scripts": {
-        "test": "./node_modules/.bin/mocha --timeout 30000 --require test/*.test.js"
+        "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js"
     },
     "dependencies": {
         "jugglingdb": "git+ssh://git@github.com:strongloop/jugglingdb.git",
