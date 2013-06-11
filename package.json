@@ -16,7 +16,7 @@
         "qs": "0.6.5",
         "mime": "1.2.5",
         "methods": "0.0.1",
-        "ejs": "latest"
+        "traverse": "latest"
     },
     "devDependencies": {
         "express": "latest",

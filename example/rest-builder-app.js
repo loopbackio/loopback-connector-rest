@@ -1,12 +1,12 @@
 var ejs = require('ejs');
 var builder = require('../lib/rest-builder');
 
-var req = builder.get('http://maps.googleapis.com/maps/api/geocode/{{=format}}')
-    .query({latlng: '{{=latitude}},{{=longitude}}', sensor: '{{=sensor}}'});
+var req = builder.get('http://maps.googleapis.com/maps/api/geocode/{format:json}')
+    .query({latlng: '{latitude},{longitude}', sensor: '{sensor}'});
 
-req.data({x: 1, y: 'y'});
+req.data({x: 1, y: 'y', z: [1, 2, '{z:3}']});
 
-var options = {open: '{{', close: '}}', latitude: 40.714224, longitude: -73.961452, sensor: true, format: 'json'};
+var options = {latitude: 40.714224, longitude: -73.961452, sensor: true};
 
 var json = req.build(options);
 
