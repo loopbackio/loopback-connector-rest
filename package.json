@@ -10,9 +10,13 @@
         "jugglingdb": "git+ssh://git@github.com:strongloop/jugglingdb.git",
         "request": "latest",
         "restler": "git://github.com/raymondfeng/restler.git",
-        "superagent": "latest",
+        "superagent": "git://github.com/raymondfeng/superagent.git",
         "swagger-client": "latest",
-        "ql.io-engine": "latest"
+        "ql.io-engine": "latest",
+        "qs": "0.6.5",
+        "mime": "1.2.5",
+        "methods": "0.0.1",
+        "ejs": "latest"
     },
     "devDependencies": {
         "express": "latest",
