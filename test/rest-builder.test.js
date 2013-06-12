@@ -61,7 +61,7 @@ describe('REST Request Builder', function () {
         });
 
         it('should support default variables', function (done) {
-            var builder = new RequestBuilder('GET', 'http://localhost:3000/{p:100}').query({x: '{x:ME}', y: 2});
+            var builder = new RequestBuilder('GET', 'http://localhost:3000/{p=100}').query({x: '{x=ME}', y: 2});
             builder.invoke({p: 1},
                 function (err, response, body) {
                     // console.log(response.headers);

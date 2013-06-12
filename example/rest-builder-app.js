@@ -22,8 +22,8 @@ var processResponse = function (error, response, body) {
 };
 
 // Build a REST API request using templates
-var req = restConnector.get('http://maps.googleapis.com/maps/api/geocode/{format:json}')
-    .query({latlng: '{latitude},{longitude}', sensor: '{sensor:true}'})
+var req = restConnector.get('http://maps.googleapis.com/maps/api/geocode/{format=json}')
+    .query({latlng: '{latitude},{longitude}', sensor: '{sensor=true}'})
     // .body({x: 1, y: 'y', z: [1, 2, '{z:3}']});
 
 // Now we can invoke the REST API using an object that provide values to the templatized variables
