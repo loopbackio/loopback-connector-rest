@@ -47,3 +47,10 @@ restConnector.request( {
             sensor: true
         }
     }, processResponse);
+
+// Load the spec from json doc
+var spec = require('./geocode.json');
+req = restConnector.fromJSON(spec);
+
+// Now we can invoke the REST API using an object that provide values to the templatized variables
+req.invoke({latitude: 40.714224, longitude: -73.961452, sensor: true}, processResponse);
