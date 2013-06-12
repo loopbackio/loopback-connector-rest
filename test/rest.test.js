@@ -19,6 +19,7 @@ var rest = new RestResource(User, 'http://localhost:3000');
 describe('REST connector', function () {
     describe('CRUD methods supported', function () {
 
+        var server = null;
         before(function (done) {
             var express = require('express');
             var app = express();
@@ -92,10 +93,14 @@ describe('REST connector', function () {
                 res.send(404);
             });
 
-            app.listen(app.get('port'), function (err, data) {
+            server = app.listen(app.get('port'), function (err, data) {
                 console.log('Server listening on ', app.get('port'));
                 done(err, data);
             });
+        });
+
+        after(function(done) {
+           server && server.close(done);
         });
 
         it('should find two users', function (done) {

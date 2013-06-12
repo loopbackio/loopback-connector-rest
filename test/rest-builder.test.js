@@ -5,6 +5,7 @@ var RequestBuilder = require('../lib/rest-builder');
 describe('REST Request Builder', function () {
     describe('Request templating', function () {
 
+        var server = null;
         before(function (done) {
             var express = require('express');
             var app = express();
@@ -33,15 +34,19 @@ describe('REST Request Builder', function () {
             });
 
 
-            app.listen(app.get('port'), function (err, data) {
+            server = app.listen(app.get('port'), function (err, data) {
                 console.log('Server listening on ', app.get('port'));
                 done(err, data);
             });
         });
 
+        after(function(done) {
+            server && server.close(done);
+        });
+
         it('should substitute the variables', function (done) {
             var builder = new RequestBuilder('GET', 'http://localhost:3000/{p}').query({x: '{x}', y: 2});
-            builder.request({p: 1, x: 'X'},
+            builder.invoke({p: 1, x: 'X'},
                 function (err, response, body) {
                     // console.log(response.headers);
                     assert.equal(200, response.statusCode);
@@ -57,7 +62,7 @@ describe('REST Request Builder', function () {
 
         it('should support default variables', function (done) {
             var builder = new RequestBuilder('GET', 'http://localhost:3000/{p:100}').query({x: '{x:ME}', y: 2});
-            builder.request({p: 1},
+            builder.invoke({p: 1},
                 function (err, response, body) {
                     // console.log(response.headers);
                     assert.equal(200, response.statusCode);
