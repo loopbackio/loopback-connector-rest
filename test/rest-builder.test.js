@@ -87,7 +87,7 @@ describe('REST Request Builder', function () {
                     if (typeof body === 'string') {
                         body = JSON.parse(body);
                     }
-                    console.log(body);
+                    // console.log(body);
                     assert.equal(0, body.url.indexOf('/1'));
                     assert.equal(100, body.query.x);
                     assert.equal(2, body.query.y);
@@ -95,6 +95,49 @@ describe('REST Request Builder', function () {
                     assert.equal(false, body.body.b);
                     done(err, body);
                 });
+        });
+
+        it('should report missing required variables', function (done) {
+            var builder = new RequestBuilder('POST', 'http://localhost:3000/{!p}').query({x: '{x=100:number}', y: 2})
+                .body({a: '{^a:number}', b: '{!b=true:boolean}'});
+            try {
+            builder.invoke({a: 100, b: false},
+                function (err, response, body) {
+                    // console.log(response.headers);
+                    assert.equal(200, response.statusCode);
+                    if (typeof body === 'string') {
+                        body = JSON.parse(body);
+                    }
+                    // console.log(body);
+                    done(err, body);
+                });
+                assert.fail();
+            } catch(err) {
+                // This is expected
+                done(null, null);
+            }
+        });
+
+        it('should support required variables', function (done) {
+            var builder = new RequestBuilder('POST', 'http://localhost:3000/{!p}').query({x: '{x=100:number}', y: 2})
+                .body({a: '{^a:number}', b: '{!b=true:boolean}'});
+
+            builder.invoke({p: 1, a: 100, b: false},
+                function (err, response, body) {
+                    // console.log(response.headers);
+                    assert.equal(200, response.statusCode);
+                    if (typeof body === 'string') {
+                        body = JSON.parse(body);
+                    }
+                    // console.log(body);
+                    assert.equal(0, body.url.indexOf('/1'));
+                    assert.equal(100, body.query.x);
+                    assert.equal(2, body.query.y);
+                    assert.equal(100, body.body.a);
+                    assert.equal(false, body.body.b);
+                    done(err, body);
+                });
+
         });
 
         it('should build an operation with the parameter names', function (done) {
