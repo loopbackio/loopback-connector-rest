@@ -160,5 +160,26 @@ describe('REST Request Builder', function () {
                 });
         });
 
+        it('should build an operation with the parameter names as args', function (done) {
+            var builder = new RequestBuilder('POST', 'http://localhost:3000/{p}').query({x: '{x}', y: 2});
+
+            var fn = builder.operation('p', 'x');
+
+            fn(1, 'X',
+                function (err, response, body) {
+                    assert.equal(200, response.statusCode);
+                    if (typeof body === 'string') {
+                        body = JSON.parse(body);
+                    }
+                    // console.log(body);
+                    assert.equal(0, body.url.indexOf('/1'));
+                    assert.equal('X', body.query.x);
+                    assert.equal(2, body.query.y);
+                    // console.log(body);
+                    done(err, body);
+                });
+        });
+
+
     });
 });
