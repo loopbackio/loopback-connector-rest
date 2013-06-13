@@ -118,4 +118,7 @@ app.listen(app.get('port'), function (err, data) {
         console.log(body);
     });
 
+    console.log('Press Ctrl+C to exit.');
+
+
 });

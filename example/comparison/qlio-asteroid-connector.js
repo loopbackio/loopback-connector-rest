@@ -4,7 +4,7 @@ var path = require('path');
 console.log(__dirname);
 
 var engine = new Engine({
-    connectors : path.join(__dirname, '../qlio-connector')
+    connectors : path.join(__dirname, './qlio-connector')
 });
 var script = 'create table asteroid.inventory via asteroid on '
 + ' select do find at "inventory where product={^product}"'
