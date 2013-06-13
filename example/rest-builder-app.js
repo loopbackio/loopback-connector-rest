@@ -10,7 +10,8 @@ var processResponse = function (error, response, body) {
 
         if (body.status === 'OK') {
             console.log(jsonPath.eval(body, '$..formatted_address'));
-            console.log(body.results[0].formatted_address);
+            console.log('formatted_address', body.results[0].formatted_address);
+            console.log('geometry.location', body.results[0].geometry.location);
         } else {
             console.log('Error: ', body.status);
         }
@@ -57,3 +58,10 @@ req = restConnector.fromJSON(spec);
 
 // Now we can invoke the REST API using an object that provide values to the templatized variables
 req.invoke({latitude: 40.714224, longitude: -73.961452, sensor: true}, processResponse);
+
+// Lookup by address
+var req2 = restConnector.get('http://maps.googleapis.com/maps/api/geocode/{format=json}')
+    .query({address: '{address}', sensor: '{sensor=false}', components: 'country:US'});
+
+req2.invoke({address: '107 S B St, San Mateo, CA'}, processResponse);
+
