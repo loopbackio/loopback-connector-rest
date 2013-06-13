@@ -38,6 +38,7 @@ uri, method, query, headers, ...
   * retry
   * batching
 
+
     req.get('/')
     .header('Accept', 'application/json')
     .header('X-API-Key', 'foobar')
@@ -45,10 +46,11 @@ uri, method, query, headers, ...
     .end(cb);
 
 
-Define a spec for the REST API and map the operations to a list of methods
-Templatize the HTTP request & response
-Build a request from the method parameters
+* Define a spec for the REST API and map the operations to a list of methods
+* Templatize the HTTP request & response
+* Build a request from the method parameters
 Extract the data of interest from the response (status code, body, headers, ...)
+
 
     // Build a REST API request using templates
     var req = builder.get('http://maps.googleapis.com/maps/api/geocode/{format=json}')
