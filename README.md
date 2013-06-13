@@ -18,6 +18,8 @@ Bind a model to a REST resource that supports CRUD operations that follow REST c
 * update: PUT /users/:id
 * query: GET /users?limit=5&username=ray&order=email
 
+Sample code
+
     var RestResource = require('../lib/rest');
     var users = new RestResource(User, 'http://localhost:3000');
     users.query(cb);
@@ -39,6 +41,8 @@ uri, method, query, headers, ...
   * batching
 
 
+Sample code
+
     req.get('/')
     .header('Accept', 'application/json')
     .header('X-API-Key', 'foobar')
@@ -51,6 +55,8 @@ uri, method, query, headers, ...
 * Build a request from the method parameters
 Extract the data of interest from the response (status code, body, headers, ...)
 
+
+Sample code
 
     // Build a REST API request using templates
     var req = builder.get('http://maps.googleapis.com/maps/api/geocode/{format=json}')
@@ -72,6 +78,7 @@ The template variable syntax is as follows:
 The variable is required if the name has a prefix of ! or ^
 
 For example:
+
     '{x=100:number}'
     '{x:number}'
     '{x}'
@@ -81,7 +88,9 @@ For example:
 
 
 Map a query language to the REST resources
+
 ql.io
+
     -- Define a mapping using create table
     create table google.geocode
     on select get from "http://maps.googleapis.com/maps/api/geocode/{format}?sensor=true&latlng={^latlng}"
