@@ -12,7 +12,7 @@ var User = modelBuilder.define('User', {
     age: Number
 });
 
-var RestResource = require('../lib/rest');
+var RestResource = require('../lib/rest-model');
 
 var rest = new RestResource(User, 'http://localhost:3000');
 
