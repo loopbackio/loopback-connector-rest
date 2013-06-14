@@ -180,6 +180,26 @@ describe('REST Request Builder', function () {
                 });
         });
 
+        it('should build from a json doc', function (done) {
+            var builder = new RequestBuilder(require('./request-template.json'));
+            console.log(builder.parse());
+            builder.invoke({p: 1, a: 100, b: false},
+                function (err, response, body) {
+                    // console.log(response.headers);
+                    assert.equal(200, response.statusCode);
+                    if (typeof body === 'string') {
+                        body = JSON.parse(body);
+                    }
+                    // console.log(body);
+                    assert.equal(0, body.url.indexOf('/1'));
+                    assert.equal(100, body.query.x);
+                    assert.equal(2, body.query.y);
+                    assert.equal(100, body.body.a);
+                    assert.equal(false, body.body.b);
+                    done(err, body);
+                });
+        });
+
 
     });
 });
