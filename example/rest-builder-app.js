@@ -1,15 +1,17 @@
 var restConnector = require('../lib/rest-builder');
-var jsonPath = require('JSONPath');
 
 // Define a callback to handle the response
-var processResponse = function (error, response, body) {
+var processResponse = function (error, response, result) {
     if (!error) {
+        var body = response.body;
         if (typeof body === 'string') {
             body = JSON.parse(body);
         }
 
         if (body.status === 'OK') {
-            console.log(jsonPath.eval(body, '$..formatted_address'));
+            if(Array.isArray(result)) {
+                console.log('Result:', result);
+            }
             console.log('formatted_address', body.results[0].formatted_address);
             console.log('geometry.location', body.results[0].geometry.location);
         } else {
@@ -24,7 +26,7 @@ var processResponse = function (error, response, body) {
 
 // Build a REST API request using templates
 var req = restConnector.get('http://maps.googleapis.com/maps/api/geocode/{format=json}')
-    .query({latlng: '{!latitude:number},{!longitude:number}', sensor: '{sensor=true}'})
+    .query({latlng: '{!latitude:number},{!longitude:number}', sensor: '{sensor=true}'}).responsePath('$.results[0].formatted_address')
     // .body({x: 1, y: 'y', z: [1, 2, '{z:3}']});
 
 // var schema = req.parse();
