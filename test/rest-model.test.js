@@ -14,7 +14,7 @@ var User = modelBuilder.define('User', {
 
 var RestResource = require('../lib/rest-model');
 
-var rest = new RestResource(User, 'http://localhost:3000');
+var rest = new RestResource('Users', 'http://localhost:3000');
 
 describe('REST connector', function () {
     describe('CRUD methods supported', function () {

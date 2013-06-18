@@ -89,7 +89,7 @@ app.listen(app.get('port'), function (err, data) {
     console.log('Server listening on 3000.');
     var RestResource = require('../lib/rest-model');
 
-    var rest = new RestResource(User, 'http://localhost:3000');
+    var rest = new RestResource('Users', 'http://localhost:3000');
 
     rest.query(function (err, response, body) {
         console.log(body);
