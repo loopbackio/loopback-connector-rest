@@ -1,7 +1,7 @@
 {
-    "name": "sl-rest",
+    "name": "asteroid-connector-rest",
     "version": "0.0.1",
-    "description": "REST Connector",
+    "description": "Asteroid REST Connector",
     "main": "index.js",
     "scripts": {
         "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js"
