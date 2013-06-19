@@ -11,9 +11,7 @@ describe('REST connector', function () {
                 debug: true,
                 operations: [
                 {
-                    name: 'geocode',
-                    parameters: ['latitude', 'longitude'],
-                    request: {
+                    template: {
                         "method": "GET",
                         "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
                         "headers": {
@@ -24,10 +22,16 @@ describe('REST connector', function () {
                             "latlng": "{latitude},{longitude}",
                             "sensor": "{sensor=true}"
                         }
+                    },
+                    // Bind the template to one or more JavaScript functions
+                    // The key is the function name and the value is an array of variable names
+                    functions: {
+                        'geocode': ['latitude', 'longitude']
                     }
                 }
             ]};
             var ds = new DataSource(require('../lib/rest-adapter'), spec);
+            assert(ds.invoke);
             assert(ds.geocode);
             ds.geocode(40.714224, -73.961452, function (err, response) {
                 // console.log(response.headers);
@@ -40,13 +44,12 @@ describe('REST connector', function () {
 
         });
 
-        it('should mix in custom methods without parameters', function (done) {
+        it('should mix in custom methods for all functions', function (done) {
             var spec = {
                 debug: true,
                 operations: [
                 {
-                    name: 'geocode',
-                    request: {
+                    template: {
                         "method": "GET",
                         "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
                         "headers": {
@@ -54,15 +57,58 @@ describe('REST connector', function () {
                             "content-type": "application/json"
                         },
                         "query": {
-                            "latlng": "{latitude},{longitude}",
+                            "latlng": "{location}",
+                            "address": "{address}",
                             "sensor": "{sensor=true}"
                         }
+                    },
+                    functions: {
+                        'getAddress': ['location'],
+                        'getGeoLocation': ['address']
                     }
                 }
             ]};
             var ds = new DataSource(require('../lib/rest-adapter'), spec);
-            assert(ds.geocode);
-            ds.geocode({latitude: 40.714224, longitude: -73.961452}, function (err, response) {
+            assert(ds.getAddress);
+            ds.getAddress('40.714224,-73.961452', function (err, response) {
+                var body = response.body;
+                var address = body.results[0].formatted_address;
+                console.log('Address', address);
+                assert.equal('285 Bedford Avenue, Brooklyn, NY 11211, USA', address);
+                assert(ds.getGeoLocation);
+                ds.getGeoLocation('107 S B St, San Mateo, CA', function (err, response) {
+                    // console.log(response.headers);
+                    var body = response.body;
+                    var loc = body.results[0].geometry.location;
+                    console.log('Location', loc);
+                    done(err, loc);
+                });
+            });
+
+        });
+
+        it('should mix in invoke method', function (done) {
+            var spec = {
+                debug: true,
+                operations: [
+                    {
+                        template: {
+                            "method": "GET",
+                            "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
+                            "headers": {
+                                "accepts": "application/json",
+                                "content-type": "application/json"
+                            },
+                            "query": {
+                                "latlng": "{latitude},{longitude}",
+                                "sensor": "{sensor=true}"
+                            }
+                        }
+                    }
+                ]};
+            var ds = new DataSource(require('../lib/rest-adapter'), spec);
+            assert(ds.invoke);
+            ds.invoke({latitude: 40.714224, longitude: -73.961452}, function (err, response) {
                 // console.log(response.headers);
                 var body = response.body;
                 var address = body.results[0].formatted_address;
@@ -72,7 +118,6 @@ describe('REST connector', function () {
             });
 
         });
-
 
     });
 });
