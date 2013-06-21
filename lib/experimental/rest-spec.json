@@ -1,0 +1,46 @@
+{
+    "method": "POST",
+    "url": "http://localhost:3000/{p}",
+    "headers": {
+        "accepts": "application/{format}"
+    },
+    "query": {
+        "x": "{x}",
+        "y": 2
+    },
+    "body": {
+        "a": "{a:number}",
+        "b": "{b=true}"
+    },
+
+    "doc": "Random api",
+    "variables": {
+        "format": {
+            "type": "string",
+            "default": "json",
+            "enum": ["json", "xml"]
+        },
+        "x": {
+            "type": "number",
+            "default": 100,
+            "doc": "x"
+        },
+        "a": {
+            "type": "number",
+            "default": 1,
+            "doc": "a"
+        },
+        "b": {
+            "type": "boolean"
+        }
+    },
+
+    "response": {
+        "errors": {
+            "404": "Not found",
+            "500": "Internal Error"
+        },
+        "headers": {},
+        "body": "{body}"
+    }
+}

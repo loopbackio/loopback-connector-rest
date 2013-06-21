@@ -2,6 +2,8 @@ var assert = require('assert');
 
 var DataSource = require('jugglingdb').DataSource;
 
+const TEST_ADDRESS = /Bedford Avenue, Brooklyn, NY 11211, USA/;
+
 describe('REST connector', function () {
     describe('JugglingDB adapter', function () {
 
@@ -38,7 +40,8 @@ describe('REST connector', function () {
                 var body = response.body;
                 var address = body.results[0].formatted_address;
                 console.log(address);
-                assert.equal('285 Bedford Avenue, Brooklyn, NY 11211, USA', address);
+
+                assert.ok(address.match(TEST_ADDRESS));
                 done(err, address);
             });
 
@@ -74,7 +77,7 @@ describe('REST connector', function () {
                 var body = response.body;
                 var address = body.results[0].formatted_address;
                 console.log('Address', address);
-                assert.equal('285 Bedford Avenue, Brooklyn, NY 11211, USA', address);
+                assert.ok(address.match(TEST_ADDRESS));
                 assert(ds.getGeoLocation);
                 ds.getGeoLocation('107 S B St, San Mateo, CA', function (err, response) {
                     // console.log(response.headers);
@@ -113,7 +116,7 @@ describe('REST connector', function () {
                 var body = response.body;
                 var address = body.results[0].formatted_address;
                 console.log(address);
-                assert.equal('285 Bedford Avenue, Brooklyn, NY 11211, USA', address);
+                assert.ok(address.match(TEST_ADDRESS));
                 done(err, address);
             });
 
