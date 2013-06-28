@@ -103,7 +103,7 @@ describe('REST connector', function () {
 
         it('should find two users', function (done) {
 
-            User.all(function (err, body) {
+            User.find(function (err, body) {
                 console.log(body);
                 assert.equal(2, body.length);
                 done(err, body);
@@ -112,7 +112,7 @@ describe('REST connector', function () {
 
 
         it('should find the user with id 1', function (done) {
-            User.find(1, function (err, body) {
+            User.findById(1, function (err, body) {
                 console.log(body);
                 assert.equal(1, body.id);
                 assert.equal('Ray', body.name);
@@ -121,7 +121,7 @@ describe('REST connector', function () {
         });
 
         it('should not find the user with id 100', function (done) {
-            User.find(100, function (err, body) {
+            User.findById(100, function (err, body) {
                 console.log(err, body);
                 assert.ok(err);
                 done(null, body);
@@ -136,7 +136,7 @@ describe('REST connector', function () {
         });
 
         it('should delete user 1', function (done) {
-            User.find(1, function (err, body) {
+            User.findById(1, function (err, body) {
                 console.log(body);
                 assert.equal(1, body.id);
                 assert.equal('Raymond', body.name);
@@ -156,7 +156,7 @@ describe('REST connector', function () {
         });
 
         it('should list all users', function (done) {
-            User.all(function (err, body) {
+            User.find(function (err, body) {
                 console.log(body);
                 assert.equal(2, body.length);
                 done(err, body);
