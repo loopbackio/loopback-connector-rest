@@ -1,7 +1,7 @@
 {
-    "name": "asteroid-connector-rest",
+    "name": "loopback-connector-rest",
     "version": "0.0.1",
-    "description": "Asteroid REST Connector",
+    "description": "Loopback REST Connector",
     "main": "index.js",
     "scripts": {
         "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js"
@@ -26,6 +26,6 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/strongloop/asteroid-connector-rest.git"
+        "url": "https://github.com/strongloop/loopback-connector-rest.git"
     }
 }

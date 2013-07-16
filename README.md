@@ -1,14 +1,14 @@
-Asteroid REST Connector
+Loopback REST Connector
 =======================
 
 Why REST connector?
 ===================
-REST APIs are the de facto standard to access cloud services as well as many enterprise systems. Being able to consume REST apis in a simple and flexible way is critical to Asteroid for mobile backend developers.
+REST APIs are the de facto standard to access cloud services as well as many enterprise systems. Being able to consume REST apis in a simple and flexible way is critical to Loopback for mobile backend developers.
 
 User experience with REST connector
 ===================================
 
-As an Asteroid developer, I would like t use the REST connector to:
+As an Loopback developer, I would like t use the REST connector to:
 
 Bind a model to a REST resource that supports CRUD operations that follow REST conventions
 
