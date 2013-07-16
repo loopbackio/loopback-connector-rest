@@ -17,7 +17,7 @@
     },
     "devDependencies": {
         "restler": "git://github.com/raymondfeng/restler.git",
-        "superagent": "git://github.com/raymondfeng/superagent.git",
+        "superagent": "latest",
         "swagger-client": "latest",
         "ql.io-engine": "latest",
         "express": "latest",
