@@ -1,75 +1,81 @@
-Loopback REST Connector
-=======================
+# Loopback REST Connector
 
-Why REST connector?
-===================
-REST APIs are the de facto standard to access cloud services as well as many enterprise systems. Being able to consume REST apis in a simple and flexible way is critical to Loopback for mobile backend developers.
+Loopback REST connector allows Node.js application to interact with HTTP REST APIs using a template driven approach.
 
-User experience with REST connector
-===================================
+# Features
 
-As an Loopback developer, I would like t use the REST connector to:
+Loopback REST connector supports three styles of API invocations:
 
-Bind a model to a REST resource that supports CRUD operations that follow REST conventions
+1. Bind a model to a REST data source to supports CRUD operations that follow REST conventions
 
 * create: POST /users
-* find: GET /users/:id
+* findById: GET /users/:id
 * delete: DELETE /users/:id
 * update: PUT /users/:id
-* query: GET /users?limit=5&username=ray&order=email
+* find: GET /users?limit=5&username=ray&order=email
 
 Sample code
 
-    var RestResource = require('../lib/rest');
-    var users = new RestResource(User, 'http://localhost:3000');
-    users.query(cb);
-    users.find(1, cb);
-    users.update(1, new User({name: 'Raymond'}), cb);
-    users.delete(1, cb);
-    users.create(new User({name: 'Mary'}), cb);
+    var ds = loopback.createDataSource({
+        connector: require("loopback-connector-rest"),
+        debug: false,
+        baseURL: 'http://localhost:3000'
+    });
 
-Invoke a REST/HTTP API using free-form or DSL
-uri, method, query, headers, ...
-* support json and/or xml
-* support streaming
-* support forms
-* support advanced features
-  * authentication: basic, digest, oauth 1 & 2
-  * proxy
-  * cache
-  * retry
-  * batching
+    var User = ds.createModel('user', {
+        name: String,
+        bio: String,
+        approved: Boolean,
+        joinedAt: Date,
+        age: Number
+    });
 
+    User.find(function (err, user) {
+        console.log(user);
+    });
 
-Sample code
+    User.findById(1, function (err, user) {
+        console.log(err, user);
+    });
 
-    req.get('/')
-    .header('Accept', 'application/json')
-    .header('X-API-Key', 'foobar')
-    .query({limit: 10, fields: 'name,id'}).
-    .end(cb);
+    User.upsert(new User({id: 1, name: 'Raymond'}), function (err, user) {
+        console.log(err, user);
+    });
 
 
-* Define a spec for the REST API and map the operations to a list of methods
-* Templatize the HTTP request & response
-* Build a request from the method parameters
-Extract the data of interest from the response (status code, body, headers, ...)
+    User.create(new User({name: 'Mary'}), function (err, user) {
+        console.log(user);
+    });
 
 
-Sample code
+2. Define a custom method using REST template
 
-    // Build a REST API request using templates
-    var req = builder.get('http://maps.googleapis.com/maps/api/geocode/{format=json}')
-        .query({latlng: '{latitude},{longitude}', sensor: '{sensor=true}'});
- 
-    // Now we can invoke the REST API using an object that provide values to the templatized variables
-    req.request({latitude: 40.714224, longitude: -73.961452, sensor: true}, processResponse);
- 
-    // The 2nd flavor is to construct a function from the request by
-    // specifying an array of parameter names corresponding to the templatized variables
-    var fn = req.operation(['latitude', 'longitude']);
-    // Now we invoke the REST API as a method
-    fn(40.714224, -73.961452, processResponse);
+
+    var loopback = require("loopback");
+
+    var ds = loopback.createDataSource({
+        connector: require("loopback-connector-rest"),
+        debug: false,
+        operations: [
+        {
+            template: {
+                "method": "GET",
+                "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
+                "headers": {
+                    "accepts": "application/json",
+                    "content-type": "application/json"
+                },
+                "query": {
+                    "address": "{street},{city},{zipcode}",
+                    "sensor": "{sensor=false}"
+                },
+                "responsePath": "$.results[0].geometry.location"
+            },
+            functions: {
+               "geocode": ["street", "city", "zipcode"]
+            }
+        }
+    ]});
 
 The template variable syntax is as follows:
 
@@ -86,17 +92,4 @@ For example:
     '{!x}'
     '{x=100}ABC{^y}123'
 
-
-Map a query language to the REST resources
-
-ql.io
-
-    -- Define a mapping using create table
-    create table google.geocode
-    on select get from "http://maps.googleapis.com/maps/api/geocode/{format}?sensor=true&latlng={^latlng}"
-    using defaults format = 'json'
-    resultset 'results'
-  
-    -- Run the query to get formatted_address from the response
-    select formatted_address from google.geocode where latlng='40.714224,-73.961452'
 
