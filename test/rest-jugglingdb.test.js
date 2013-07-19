@@ -1,7 +1,7 @@
 var assert = require('assert');
 
 var DataSource = require('loopback-data').DataSource;
-var ds = new DataSource(require('../lib/rest-adapter'), {baseURL: 'http://localhost:3000'});
+var ds = new DataSource(require('../lib/rest-connector'), {baseURL: 'http://localhost:3000'});
 
 // simplier way to describe model
 var User = ds.define('User', {

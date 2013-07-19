@@ -32,7 +32,7 @@ describe('REST connector', function () {
                     }
                 }
             ]};
-            var ds = new DataSource(require('../lib/rest-adapter'), spec);
+            var ds = new DataSource(require('../lib/rest-connector'), spec);
             assert(ds.invoke);
             assert(ds.geocode);
             ds.geocode(40.714224, -73.961452, function (err, response) {
@@ -71,7 +71,7 @@ describe('REST connector', function () {
                     }
                 }
             ]};
-            var ds = new DataSource(require('../lib/rest-adapter'), spec);
+            var ds = new DataSource(require('../lib/rest-connector'), spec);
             assert(ds.getAddress);
             ds.getAddress('40.714224,-73.961452', function (err, response) {
                 var body = response.body;
@@ -109,7 +109,7 @@ describe('REST connector', function () {
                         }
                     }
                 ]};
-            var ds = new DataSource(require('../lib/rest-adapter'), spec);
+            var ds = new DataSource(require('../lib/rest-connector'), spec);
             assert(ds.invoke);
             ds.invoke({latitude: 40.714224, longitude: -73.961452}, function (err, response) {
                 // console.log(response.headers);

@@ -16,6 +16,7 @@
         "JSONPath": "latest"
     },
     "devDependencies": {
+        "loopback": "git+ssh://git@github.com:strongloop/loopback.git",
         "restler": "git://github.com/raymondfeng/restler.git",
         "superagent": "latest",
         "swagger-client": "latest",
