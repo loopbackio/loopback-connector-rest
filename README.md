@@ -2,11 +2,11 @@
 
 Loopback REST connector allows Node.js application to interact with HTTP REST APIs using a template driven approach.
 
-# Features
-
 Loopback REST connector supports three styles of API invocations:
 
-1. Bind a model to a REST data source to supports CRUD operations that follow REST conventions
+## Bind a model to a REST data source to supports CRUD operations that follow REST conventions
+
+### CRUD mappings to REST APIs
 
 * create: POST /users
 * findById: GET /users/:id
@@ -30,6 +30,10 @@ Sample code
         age: Number
     });
 
+    User.create(new User({name: 'Mary'}), function (err, user) {
+        console.log(user);
+    });
+
     User.find(function (err, user) {
         console.log(user);
     });
@@ -43,13 +47,50 @@ Sample code
     });
 
 
-    User.create(new User({name: 'Mary'}), function (err, user) {
-        console.log(user);
-    });
+## Define a custom method using REST template
 
+Imagine that you use browser or REST client to test drive a REST API, you will specify the following HTTP request properties:
 
-2. Define a custom method using REST template
+* method: HTTP method
+* url: The URL of the request
+* headers: HTTP headers
+* query: Query strings
+* responsePath: JSONPath applied to the HTTP body
 
+Loopback REST connector allows you to define the API invocation as a json template. For example,
+
+        template: {
+                "method": "GET",
+                "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
+                "headers": {
+                    "accepts": "application/json",
+                    "content-type": "application/json"
+                },
+                "query": {
+                    "address": "{street},{city},{zipcode}",
+                    "sensor": "{sensor=false}"
+                },
+                "responsePath": "$.results[0].geometry.location"
+            }
+
+The template variable syntax is as follows:
+
+    {name=defaultValue:type}
+
+The variable is required if the name has a prefix of ! or ^
+
+For example:
+
+    '{x=100:number}'
+    '{x:number}'
+    '{x}'
+    '{x=100}ABC{y}123'
+    '{!x}'
+    '{x=100}ABC{^y}123'
+
+To use custom methods, you can configure the REST connector with the `operations` property, which is an array of
+objects that contain `template` and `functions`. The `template` property defines the API structure while the `functions`
+property defines JavaScript methods that takes the list of parameter names.
 
     var loopback = require("loopback");
 
@@ -77,19 +118,15 @@ Sample code
         }
     ]});
 
-The template variable syntax is as follows:
+Now you can invoke the geocode API as follows:
 
-    {name=defaultValue:type}
+    Model.invoke('107 S B St', 'San Mateo', '94401', processResponse);
 
-The variable is required if the name has a prefix of ! or ^
+By default, Loopback REST connector also provides an 'invoke' method to call the REST API with an object of parameters,
+for example:
 
-For example:
+    Model.invoke({street: '107 S B St', city: 'San Mateo', zipcode: '94401'}, processResponse);
 
-    '{x=100:number}'
-    '{x:number}'
-    '{x}'
-    '{x=100}ABC{y}123'
-    '{!x}'
-    '{x=100}ABC{^y}123'
+
 
 
