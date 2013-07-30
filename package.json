@@ -7,7 +7,7 @@
         "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js"
     },
     "dependencies": {
-        "loopback-data": "git+ssh://git@github.com:strongloop/loopback-data.git",
+        "loopback-datasource-juggler": "git+ssh://git@github.com:strongloop/loopback-datasource-juggler.git",
         "request": "latest",
         "qs": "0.6.5",
         "mime": "1.2.5",

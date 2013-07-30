@@ -1,6 +1,6 @@
 var assert = require('assert');
 
-var DataSource = require('loopback-data').DataSource;
+var DataSource = require('loopback-datasource-juggler').DataSource;
 
 const TEST_ADDRESS = /Bedford Avenue, Brooklyn, NY 11211, USA/;
 

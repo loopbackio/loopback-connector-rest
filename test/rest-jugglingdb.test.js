@@ -1,6 +1,6 @@
 var assert = require('assert');
 
-var DataSource = require('loopback-data').DataSource;
+var DataSource = require('loopback-datasource-juggler').DataSource;
 var ds = new DataSource(require('../lib/rest-connector'), {baseURL: 'http://localhost:3000'});
 
 // simplier way to describe model

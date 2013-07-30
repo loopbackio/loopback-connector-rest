@@ -1,6 +1,6 @@
 var assert = require('assert');
 
-var ModelBuilder = require('loopback-data').ModelBuilder;
+var ModelBuilder = require('loopback-datasource-juggler').ModelBuilder;
 var modelBuilder = new ModelBuilder();
 
 // simplier way to describe model
