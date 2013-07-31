@@ -15,7 +15,7 @@ var User = ds.define('User', {
 ds.attach(User);
 
 describe('REST connector', function () {
-    describe('JugglingDB adapter', function () {
+    describe('CRUD apis', function () {
 
         var server = null;
         before(function (done) {

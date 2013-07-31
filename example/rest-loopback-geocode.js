@@ -33,7 +33,7 @@ var loc = {
 };
 
 
-model.geocode(loc.street, loc.city, loc.zipcode, function (err, res, result) {
+model.geocode(loc.street, loc.city, loc.zipcode, function (err, result) {
     if(result && result[0]) {
         console.log(result[0]);
     }

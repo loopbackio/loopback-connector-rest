@@ -35,7 +35,7 @@ describe('REST connector', function () {
             var ds = new DataSource(require('../lib/rest-connector'), spec);
             assert(ds.invoke);
             assert(ds.geocode);
-            ds.geocode(40.714224, -73.961452, function (err, response) {
+            ds.geocode(40.714224, -73.961452, function (err, result, response) {
                 // console.log(response.headers);
                 var body = response.body;
                 var address = body.results[0].formatted_address;
@@ -73,13 +73,13 @@ describe('REST connector', function () {
             ]};
             var ds = new DataSource(require('../lib/rest-connector'), spec);
             assert(ds.getAddress);
-            ds.getAddress('40.714224,-73.961452', function (err, response) {
+            ds.getAddress('40.714224,-73.961452', function (err, result, response) {
                 var body = response.body;
                 var address = body.results[0].formatted_address;
                 console.log('Address', address);
                 assert.ok(address.match(TEST_ADDRESS));
                 assert(ds.getGeoLocation);
-                ds.getGeoLocation('107 S B St, San Mateo, CA', function (err, response) {
+                ds.getGeoLocation('107 S B St, San Mateo, CA', function (err, result, response) {
                     // console.log(response.headers);
                     var body = response.body;
                     var loc = body.results[0].geometry.location;
@@ -111,7 +111,7 @@ describe('REST connector', function () {
                 ]};
             var ds = new DataSource(require('../lib/rest-connector'), spec);
             assert(ds.invoke);
-            ds.invoke({latitude: 40.714224, longitude: -73.961452}, function (err, response) {
+            ds.invoke({latitude: 40.714224, longitude: -73.961452}, function (err, result, response) {
                 // console.log(response.headers);
                 var body = response.body;
                 var address = body.results[0].formatted_address;

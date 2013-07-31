@@ -1,7 +1,7 @@
 var restConnector = require('../lib/rest-builder');
 
 // Define a callback to handle the response
-var processResponse = function (error, response, result) {
+var processResponse = function (error, result, response) {
     if (!error) {
         var body = response.body;
         if (typeof body === 'string') {
@@ -19,7 +19,7 @@ var processResponse = function (error, response, result) {
         }
 
     } else {
-        console.log('Error: ' + response.statusCode)
+        console.log('Error: ' + error)
         console.log('Body: ', body)
     }
 };

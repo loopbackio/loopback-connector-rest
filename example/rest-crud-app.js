@@ -91,30 +91,30 @@ app.listen(app.get('port'), function (err, data) {
 
     var rest = new RestResource('Users', 'http://localhost:3000');
 
-    rest.query(function (err, response, body) {
+    rest.query(function (err, body, response) {
         console.log(body);
     });
 
-    rest.find(1, function (err, response, body) {
+    rest.find(1, function (err, body, response) {
         console.log(err, response && response.statusCode);
         console.log(body);
     });
 
-    rest.update(1, new User({name: 'Raymond'}), function (err, response, body) {
+    rest.update(1, new User({name: 'Raymond'}), function (err, body, response) {
         console.log(err, response && response.statusCode);
     });
 
-    rest.delete(1, function (err, response, body) {
+    rest.delete(1, function (err, body, response) {
         console.log(err, response && response.statusCode);
     });
 
-    rest.create(new User({name: 'Mary'}), function (err, response, body) {
+    rest.create(new User({name: 'Mary'}), function (err, body, response) {
         console.log(response && response.statusCode);
         console.log(response && response.headers['location']);
         console.log(body);
     });
 
-    rest.query(function (err, response, body) {
+    rest.query(function (err, body, response) {
         console.log(body);
     });
 
