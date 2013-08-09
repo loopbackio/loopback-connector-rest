@@ -1,12 +1,14 @@
 # Loopback REST Connector
 
 Loopback REST connector allows Node.js application to interact with HTTP REST APIs using a template driven approach.
+It supports two different styles of API invocations:
 
-Loopback REST connector supports three styles of API invocations:
+## Resource CRUD
 
-## Bind a model to a REST data source to supports CRUD operations that follow REST conventions
+If the REST APIs supports CRUD operations for resources, such as users or orders, you can simply bind the model to
+a REST endpoint that follows REST conventions.
 
-### CRUD mappings to REST APIs
+The following methods are mixed into your model class:
 
 * create: POST /users
 * findById: GET /users/:id
@@ -14,7 +16,7 @@ Loopback REST connector supports three styles of API invocations:
 * update: PUT /users/:id
 * find: GET /users?limit=5&username=ray&order=email
 
-Sample code
+Below is a simple example:
 
     var ds = loopback.createDataSource({
         connector: require("loopback-connector-rest"),
@@ -120,7 +122,7 @@ property defines JavaScript methods that takes the list of parameter names.
 
 Now you can invoke the geocode API as follows:
 
-    Model.invoke('107 S B St', 'San Mateo', '94401', processResponse);
+    Model.geocode('107 S B St', 'San Mateo', '94401', processResponse);
 
 By default, Loopback REST connector also provides an 'invoke' method to call the REST API with an object of parameters,
 for example:
