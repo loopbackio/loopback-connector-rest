@@ -1,0 +1,12 @@
+{
+"content": [
+    "README.md",
+    {"title": "LoopBack REST Connector API", "depth": 2},
+    "lib/rest-builder.js",
+    "lib/rest-connector.js",
+    "lib/rest-model.js",
+    "index.js"
+  ],
+  "codeSectionDepth": 3
+}
+
