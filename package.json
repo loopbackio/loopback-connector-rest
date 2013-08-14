@@ -4,7 +4,11 @@
     "description": "Loopback REST Connector",
     "main": "index.js",
     "scripts": {
-        "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js"
+      "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js",
+      "blanket": {
+	  "pattern": "//^((?!(node_modules|test)).)*$/"
+	},
+      "coverage": "mocha -r blanket -R html-cov > coverage_loopback-datasource-juggler.html"
     },
     "dependencies": {
         "loopback-datasource-juggler": "git+ssh://git@github.com:strongloop/loopback-datasource-juggler.git",
@@ -23,7 +27,8 @@
         "ql.io-engine": "latest",
         "express": "latest",
         "should": "latest",
-        "mocha": "latest"
+        "mocha": "latest",
+ 	"blanket": "latest"
     },
     "repository": {
         "type": "git",
