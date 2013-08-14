@@ -8,7 +8,7 @@
       "blanket": {
 	  "pattern": "//^((?!(node_modules|test)).)*$/"
 	},
-      "coverage": "mocha -r blanket -R html-cov > coverage_loopback-datasource-juggler.html"
+      "coverage": "mocha -r blanket -R html-cov > coverage_loopback-connector-rest.html"
     },
     "dependencies": {
         "loopback-datasource-juggler": "git+ssh://git@github.com:strongloop/loopback-datasource-juggler.git",
