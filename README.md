@@ -1,6 +1,6 @@
-# Loopback REST Connector
+# LoopBack REST Connector
 
-Loopback REST connector allows Node.js application to interact with HTTP REST APIs using a template driven approach.
+LoopBack REST connector allows Node.js application to interact with HTTP REST APIs using a template driven approach.
 It supports two different styles of API invocations:
 
 ## Resource CRUD
@@ -44,7 +44,7 @@ Below is a simple example:
         console.log(err, user);
     });
 
-    User.upsert(new User({id: 1, name: 'Raymond'}), function (err, user) {
+    User.update(new User({id: 1, name: 'Raymond'}), function (err, user) {
         console.log(err, user);
     });
 
@@ -59,7 +59,7 @@ Imagine that you use browser or REST client to test drive a REST API, you will s
 * query: Query strings
 * responsePath: JSONPath applied to the HTTP body
 
-Loopback REST connector allows you to define the API invocation as a json template. For example,
+LoopBack REST connector allows you to define the API invocation as a json template. For example,
 
         template: {
                 "method": "GET",
@@ -124,7 +124,7 @@ Now you can invoke the geocode API as follows:
 
     Model.geocode('107 S B St', 'San Mateo', '94401', processResponse);
 
-By default, Loopback REST connector also provides an 'invoke' method to call the REST API with an object of parameters,
+By default, LoopBack REST connector also provides an 'invoke' method to call the REST API with an object of parameters,
 for example:
 
     Model.invoke({street: '107 S B St', city: 'San Mateo', zipcode: '94401'}, processResponse);
