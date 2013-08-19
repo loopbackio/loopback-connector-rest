@@ -35,7 +35,7 @@ describe('REST Request Builder', function () {
 
 
             server = app.listen(app.get('port'), function (err, data) {
-                console.log('Server listening on ', app.get('port'));
+                // console.log('Server listening on ', app.get('port'));
                 done(err, data);
             });
         });
@@ -182,7 +182,7 @@ describe('REST Request Builder', function () {
 
         it('should build from a json doc', function (done) {
             var builder = new RequestBuilder(require('./request-template.json'));
-            console.log(builder.parse());
+            // console.log(builder.parse());
             builder.invoke({p: 1, a: 100, b: false},
                 function (err, body, response) {
                     // console.log(response.headers);

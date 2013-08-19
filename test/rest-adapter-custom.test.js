@@ -10,7 +10,7 @@ describe('REST connector', function () {
 
         it('should mix in custom methods', function (done) {
             var spec = {
-                debug: true,
+                debug: false,
                 operations: [
                 {
                     template: {
@@ -39,7 +39,7 @@ describe('REST connector', function () {
                 // console.log(response.headers);
                 var body = response.body;
                 var address = body.results[0].formatted_address;
-                console.log(address);
+                // console.log(address);
 
                 assert.ok(address.match(TEST_ADDRESS));
                 done(err, address);
@@ -49,7 +49,7 @@ describe('REST connector', function () {
 
         it('should mix in custom methods for all functions', function (done) {
             var spec = {
-                debug: true,
+                debug: false,
                 operations: [
                 {
                     template: {
@@ -76,14 +76,14 @@ describe('REST connector', function () {
             ds.getAddress('40.714224,-73.961452', function (err, result, response) {
                 var body = response.body;
                 var address = body.results[0].formatted_address;
-                console.log('Address', address);
+                // console.log('Address', address);
                 assert.ok(address.match(TEST_ADDRESS));
                 assert(ds.getGeoLocation);
                 ds.getGeoLocation('107 S B St, San Mateo, CA', function (err, result, response) {
                     // console.log(response.headers);
                     var body = response.body;
                     var loc = body.results[0].geometry.location;
-                    console.log('Location', loc);
+                    // console.log('Location', loc);
                     done(err, loc);
                 });
             });
@@ -92,7 +92,7 @@ describe('REST connector', function () {
 
         it('should mix in invoke method', function (done) {
             var spec = {
-                debug: true,
+                debug: false,
                 operations: [
                     {
                         template: {
@@ -115,7 +115,7 @@ describe('REST connector', function () {
                 // console.log(response.headers);
                 var body = response.body;
                 var address = body.results[0].formatted_address;
-                console.log(address);
+                // console.log(address);
                 assert.ok(address.match(TEST_ADDRESS));
                 done(err, address);
             });

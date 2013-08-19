@@ -92,7 +92,7 @@ describe('REST connector', function () {
             });
 
             server = app.listen(app.get('port'), function (err, data) {
-                console.log('Server listening on ', app.get('port'));
+                // console.log('Server listening on ', app.get('port'));
                 done(err, data);
             });
         });
@@ -104,7 +104,7 @@ describe('REST connector', function () {
         it('should find two users', function (done) {
 
             User.find(function (err, body) {
-                console.log(body);
+                // console.log(body);
                 assert.equal(2, body.length);
                 done(err, body);
             });
@@ -113,7 +113,7 @@ describe('REST connector', function () {
 
         it('should find the user with id 1', function (done) {
             User.findById(1, function (err, body) {
-                console.log(body);
+                // console.log(body);
                 assert.equal(1, body.id);
                 assert.equal('Ray', body.name);
                 done(err, body);
@@ -122,7 +122,7 @@ describe('REST connector', function () {
 
         it('should not find the user with id 100', function (done) {
             User.findById(100, function (err, body) {
-                console.log(err, body);
+                // console.log(err, body);
                 assert.ok(err);
                 done(null, body);
             });
@@ -130,19 +130,19 @@ describe('REST connector', function () {
 
         it('should update user 1', function (done) {
             new User({id: 1, name: 'Raymond'}).save(function (err, body) {
-                console.log(err, body);
+                // console.log(err, body);
                 done(err, body);
             });
         });
 
         it('should delete user 1', function (done) {
             User.findById(1, function (err, body) {
-                console.log(body);
+                // console.log(body);
                 assert.equal(1, body.id);
                 assert.equal('Raymond', body.name);
 
                 body.destroy(function (err, body) {
-                    console.log(err, body);
+                    // console.log(err, body);
                     done(err, body);
                 });
             });
@@ -150,14 +150,14 @@ describe('REST connector', function () {
 
         it('should create a new id named Mary', function (done) {
             User.create({name: 'Mary'}, function (err, body) {
-                console.log(body);
+                // console.log(body);
                 done(err, body);
             });
         });
 
         it('should list all users', function (done) {
             User.find(function (err, body) {
-                console.log(body);
+                // console.log(body);
                 assert.equal(2, body.length);
                 done(err, body);
             });
