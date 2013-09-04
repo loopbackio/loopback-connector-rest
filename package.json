@@ -1,37 +1,38 @@
 {
-    "name": "loopback-connector-rest",
-    "version": "0.0.1",
-    "description": "Loopback REST Connector",
-    "main": "index.js",
-    "scripts": {
-      "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js",
-      "blanket": {
-	  "pattern": "//^((?!(node_modules|test)).)*$/"
-	},
-      "coverage": "mocha -r blanket -R html-cov > coverage_loopback-connector-rest.html"
+  "name": "loopback-connector-rest",
+  "version": "1.0.0",
+  "description": "Loopback REST Connector",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js",
+    "blanket": {
+      "pattern": "//^((?!(node_modules|test)).)*$/"
     },
-    "dependencies": {
-        "loopback-datasource-juggler": "git+ssh://git@github.com:strongloop/loopback-datasource-juggler.git",
-        "request": "latest",
-        "qs": "0.6.5",
-        "mime": "1.2.5",
-        "methods": "0.0.1",
-        "traverse": "latest",
-        "JSONPath": "latest"
-    },
-    "devDependencies": {
-        "loopback": "git+ssh://git@github.com:strongloop/loopback.git",
-        "restler": "git://github.com/raymondfeng/restler.git",
-        "superagent": "latest",
-        "swagger-client": "latest",
-        "ql.io-engine": "latest",
-        "express": "latest",
-        "should": "latest",
-        "mocha": "latest",
- 	"blanket": "latest"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/strongloop/loopback-connector-rest.git"
-    }
+    "coverage": "mocha -r blanket -R html-cov > coverage_loopback-connector-rest.html"
+  },
+  "dependencies": {
+    "loopback-datasource-juggler": "git+ssh://git@github.com:strongloop/loopback-datasource-juggler.git",
+    "request": "~2.27.0",
+    "qs": "0.6.5",
+    "mime": "1.2.5",
+    "methods": "0.0.1",
+    "traverse": "~0.6.5",
+    "JSONPath": "~0.9.1"
+  },
+  "devDependencies": {
+    "loopback": "git+ssh://git@github.com:strongloop/loopback.git",
+    "restler": "git://github.com/raymondfeng/restler.git",
+    "superagent": "~0.15.4",
+    "swagger-client": "~2.0.6",
+    "ql.io-engine": "~0.8.8",
+    "express": "~3.3.8",
+    "should": "~1.2.2",
+    "mocha": "~1.12.1",
+    "blanket": "~1.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/strongloop/loopback-connector-rest.git"
+  },
+  "license": "MIT"
 }
