@@ -129,7 +129,7 @@ describe('REST connector', function () {
                 assert.equal(404, response.statusCode);
                 // console.log(err, response && response.statusCode);
                 // console.log(body);
-                done(err, body);
+                done(null, body);
             });
         });
 
