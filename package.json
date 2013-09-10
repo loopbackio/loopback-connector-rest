@@ -11,7 +11,7 @@
     "coverage": "mocha -r blanket -R html-cov > coverage_loopback-connector-rest.html"
   },
   "dependencies": {
-    "loopback-da`tasource-juggler": "git+ssh://git@github.com:strongloop/loopback-datasource-juggler.git#strongloopsuite-1.0.0-0",
+    "loopback-datasource-juggler": "git+ssh://git@github.com:strongloop/loopback-datasource-juggler.git#strongloopsuite-1.0.0-2",
     "request": "~2.27.0",
     "qs": "0.6.5",
     "mime": "1.2.5",
@@ -20,7 +20,7 @@
     "JSONPath": "~0.9.1"
   },
   "devDependencies": {
-    "loopback": "git+ssh://git@github.com:strongloop/loopback.git#strongloopsuite-1.0.0-0",
+    "loopback": "git+ssh://git@github.com:strongloop/loopback.git#strongloopsuite-1.0.0-2",
     "restler": "git://github.com/raymondfeng/restler.git",
     "superagent": "~0.15.4",
     "swagger-client": "~2.0.6",
