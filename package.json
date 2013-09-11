@@ -2,6 +2,7 @@
   "name": "loopback-connector-rest",
   "version": "1.0.0",
   "description": "Loopback REST Connector",
+  "keywords": [ "StrongLoop", "LoopBack", "REST", "DataSource", "Connector" ],
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js",
