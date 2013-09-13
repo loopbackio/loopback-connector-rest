@@ -2,6 +2,7 @@
   "name": "loopback-connector-rest",
   "version": "1.0.0",
   "description": "Loopback REST Connector",
+  "keywords": [ "StrongLoop", "LoopBack", "REST", "DataSource", "Connector" ],
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js",
@@ -11,7 +12,7 @@
     "coverage": "mocha -r blanket -R html-cov > coverage_loopback-connector-rest.html"
   },
   "dependencies": {
-    "loopback-datasource-juggler": "git+ssh://git@github.com:strongloop/loopback-datasource-juggler.git",
+    "loopback-datasource-juggler": "~1.0.0",
     "request": "~2.27.0",
     "qs": "0.6.5",
     "mime": "1.2.5",
@@ -20,12 +21,12 @@
     "JSONPath": "~0.9.1"
   },
   "devDependencies": {
-    "loopback": "git+ssh://git@github.com:strongloop/loopback.git",
-    "restler": "git://github.com/raymondfeng/restler.git",
+    "loopback": "~1.0.0",
+    "restler": "~2.0.1",
     "superagent": "~0.15.4",
     "swagger-client": "~2.0.6",
     "ql.io-engine": "~0.8.8",
-    "express": "~3.3.8",
+    "express": "~3.4.0",
     "should": "~1.2.2",
     "mocha": "~1.12.1",
     "blanket": "~1.1.5"
