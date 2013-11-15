@@ -6,7 +6,7 @@ var ds = new DataSource(require('../lib/rest-connector'), {baseURL: 'http://loca
 // simplier way to describe model
 var User = ds.define('User', {
     name: String,
-    bio: DataSource.Text,
+    bio: String,
     approved: Boolean,
     joinedAt: Date,
     age: Number
