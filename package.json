@@ -5,11 +5,7 @@
   "keywords": [ "StrongLoop", "LoopBack", "REST", "DataSource", "Connector" ],
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js",
-    "blanket": {
-      "pattern": "//^((?!(node_modules|test)).)*$/"
-    },
-    "coverage": "mocha -r blanket -R html-cov > coverage_loopback-connector-rest.html"
+    "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js"
   },
   "dependencies": {
     "loopback-datasource-juggler": "1.x.x",
@@ -27,9 +23,8 @@
     "swagger-client": "~2.0.7",
     "ql.io-engine": "~0.8.8",
     "express": "~3.4.0",
-    "should": "~2.1.0",
     "mocha": "~1.14.0",
-    "blanket": "~1.1.5"
+    "should": "~1.2.2"
   },
   "repository": {
     "type": "git",
