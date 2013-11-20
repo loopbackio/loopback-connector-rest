@@ -5,7 +5,7 @@
     {"title": "LoopBack REST Connector", "depth": 2},    
     "lib/rest-connector.js",
     {"title": "LoopBack REST Model API", "depth": 2},    
-    "lib/rest-model.js"
+    "lib/rest-model.js" ],
   "codeSectionDepth": 3
 }
 
