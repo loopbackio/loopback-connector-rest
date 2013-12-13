@@ -21,10 +21,6 @@
   "devDependencies": {
     "loopback-datasource-juggler": "1.x.x",
     "loopback": "1.x.x",
-    "restler": "~3.0.0",
-    "superagent": "~0.15.7",
-    "swagger-client": "~2.0.7",
-    "ql.io-engine": "~0.8.8",
     "express": "~3.4.7",
     "mocha": "~1.15.1",
     "should": "~2.1.1"
