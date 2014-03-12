@@ -1,3 +1,5 @@
 module.exports = require('./lib/rest-builder');
 
-module.exports.initialize = require('./lib/rest-connector').initialize;
+var connector = require('./lib/rest-connector');
+module.exports.RestConnector = connector.RestConnector;
+module.exports.initialize = connector.initialize;
