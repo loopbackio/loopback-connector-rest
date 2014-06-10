@@ -5,8 +5,70 @@ var DataSource = require('loopback-datasource-juggler').DataSource;
 const TEST_ADDRESS = /Bedford Avenue, Brooklyn, NY 11211, USA/;
 
 describe('REST connector', function () {
-    describe('JugglingDB adapter', function () {
+    describe('custom operations', function () {
 
+      var server = null;
+      before(function (done) {
+        var express = require('express');
+        var app = express();
+
+        app.configure(function () {
+          app.set('port', process.env.PORT || 3000);
+          app.set('views', __dirname + '/views');
+          app.set('view engine', 'ejs');
+          app.use(express.favicon());
+          // app.use(express.logger('dev'));
+          app.use(express.bodyParser());
+          app.use(express.methodOverride());
+          app.use(app.router);
+        });
+
+        app.all('*', function (req, res, next) {
+          res.setHeader('Content-Type', 'application/json');
+          var payload = {
+            method: req.method,
+            url: req.url,
+            headers: req.headers,
+            query: req.query,
+            body: req.body
+          };
+          res.json(200, payload);
+        });
+
+
+        server = app.listen(app.get('port'), function (err, data) {
+          // console.log('Server listening on ', app.get('port'));
+          done(err, data);
+        });
+      });
+
+      after(function(done) {
+        server && server.close(done);
+      });
+
+      it('should configure remote methods', function (done) {
+        var spec = require('./request-template.json');
+        var template = {
+          operations: [
+            {template: spec, functions: {
+              m1: ["x", "a", "b"]
+            }}
+          ]
+        };
+        var ds = new DataSource(require('../lib/rest-connector'), template);
+        var model = ds.createModel('rest');
+        assert(model.m1);
+        assert(model.m1.shared);
+        assert.deepEqual(model.m1.http, {verb: 'post'});
+        model.m1(3, 5, false, function (err, result) {
+          delete result.headers;
+          assert.deepEqual(result, { method: 'POST',
+            url: '/?x=3&y=2',
+            query: { x: '3', y: '2' },
+            body: { a: 5, b: false } });
+          done(err, result);
+        });
+      });
 
         it('should mix in custom methods', function (done) {
             var spec = {
@@ -17,7 +79,7 @@ describe('REST connector', function () {
                         "method": "GET",
                         "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
                         "headers": {
-                            "accepts": "application/json",
+                            "accept": "application/json",
                             "content-type": "application/json"
                         },
                         "query": {
@@ -56,7 +118,7 @@ describe('REST connector', function () {
                         "method": "GET",
                         "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
                         "headers": {
-                            "accepts": "application/json",
+                            "accept": "application/json",
                             "content-type": "application/json"
                         },
                         "query": {
@@ -99,7 +161,7 @@ describe('REST connector', function () {
                             "method": "GET",
                             "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
                             "headers": {
-                                "accepts": "application/json",
+                                "accept": "application/json",
                                 "content-type": "application/json"
                             },
                             "query": {

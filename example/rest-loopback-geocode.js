@@ -9,7 +9,7 @@ var ds = loopback.createDataSource({
                 "method": "GET",
                 "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
                 "headers": {
-                    "accepts": "application/json",
+                    "accept": "application/json",
                     "content-type": "application/json"
                 },
                 "query": {

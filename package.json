@@ -2,18 +2,25 @@
   "name": "loopback-connector-rest",
   "version": "1.1.4",
   "description": "Loopback REST Connector",
-  "keywords": [ "StrongLoop", "LoopBack", "REST", "DataSource", "Connector" ],
+  "keywords": [
+    "StrongLoop",
+    "LoopBack",
+    "REST",
+    "DataSource",
+    "Connector"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js"
   },
   "dependencies": {
-    "request": "~2.34.0",
+    "request": "~2.36.0",
     "qs": "~0.6.6",
     "mime": "~1.2.11",
-    "methods": "~0.1.0",
+    "methods": "~1.0.1",
     "traverse": "~0.6.6",
-    "JSONPath": "~0.10.0"
+    "JSONPath": "~0.10.0",
+    "debug": "~0.8.0"
   },
   "peerDependencies": {
     "loopback-datasource-juggler": "1.x.x"
