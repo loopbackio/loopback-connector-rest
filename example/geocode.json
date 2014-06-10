@@ -1,11 +1,11 @@
 {
-    "method": "GET",
-    "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
-    "headers": {
-        "accept": "application/json"
-    },
-    "query": {
-        "latlng": "{latitude},{longitude}",
-        "sensor": "{sensor=true}"
-    }
+  "method": "GET",
+  "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
+  "headers": {
+    "accept": "application/json"
+  },
+  "query": {
+    "latlng": "{latitude},{longitude}",
+    "sensor": "{sensor=true}"
+  }
 }

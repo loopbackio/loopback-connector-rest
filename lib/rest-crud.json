@@ -1,91 +1,91 @@
 {
-    "operations": [
-        {
-            "template": {
-                "method": "POST",
-                "url": "{!url}",
-                "headers": {
-                    "accepts": "application/json",
-                    "content-type": "application/json"
-                },
-                "query": "{query}",
-                "body": "{body}"
-            },
-            "functions": {
-                "create": ["url", "body", "query"]
-            }
+  "operations": [
+    {
+      "template": {
+        "method": "POST",
+        "url": "{!url}",
+        "headers": {
+          "accepts": "application/json",
+          "content-type": "application/json"
         },
-        {
-            "template": {
-                "method": "PUT",
-                "url": "{!url}/{!id}",
-                "headers": {
-                    "accepts": "application/json",
-                    "content-type": "application/json"
-                },
-                "query": "{query}",
-                "body": "{body}"
-            },
-            "functions": {
-                "update": ["url", "id", "body", "query"]
-            }
+        "query": "{query}",
+        "body": "{body}"
+      },
+      "functions": {
+        "create": ["url", "body", "query"]
+      }
+    },
+    {
+      "template": {
+        "method": "PUT",
+        "url": "{!url}/{!id}",
+        "headers": {
+          "accepts": "application/json",
+          "content-type": "application/json"
         },
-        {
-            "template": {
-                "method": "DELETE",
-                "url": "{!url}/{!id}",
-                "headers": {
-                    "accepts": "application/json",
-                    "content-type": "application/json"
-                },
-                "query": "{query}"
-            },
-            "functions": {
-                "delete": ["url", "id", "query"]
-            }
+        "query": "{query}",
+        "body": "{body}"
+      },
+      "functions": {
+        "update": ["url", "id", "body", "query"]
+      }
+    },
+    {
+      "template": {
+        "method": "DELETE",
+        "url": "{!url}/{!id}",
+        "headers": {
+          "accepts": "application/json",
+          "content-type": "application/json"
         },
-        {
-            "template": {
-                "method": "DELETE",
-                "url": "{!url}",
-                "headers": {
-                    "accepts": "application/json",
-                    "content-type": "application/json"
-                },
-                "query": "{query}"
-            },
-            "functions": {
-                "deleteAll": ["url", "query"]
-            }
+        "query": "{query}"
+      },
+      "functions": {
+        "delete": ["url", "id", "query"]
+      }
+    },
+    {
+      "template": {
+        "method": "DELETE",
+        "url": "{!url}",
+        "headers": {
+          "accepts": "application/json",
+          "content-type": "application/json"
         },
-        {
-            "template": {
-                "method": "GET",
-                "url": "{!url}/{!id}",
-                "headers": {
-                    "accepts": "application/json",
-                    "content-type": "application/json"
-                },
-                "query": "{query}"
-            },
-            "functions": {
-                "find": ["url", "id", "query"]
-            }
+        "query": "{query}"
+      },
+      "functions": {
+        "deleteAll": ["url", "query"]
+      }
+    },
+    {
+      "template": {
+        "method": "GET",
+        "url": "{!url}/{!id}",
+        "headers": {
+          "accepts": "application/json",
+          "content-type": "application/json"
         },
-        {
-            "template": {
-                "method": "GET",
-                "url": "{!url}",
-                "headers": {
-                    "accepts": "application/json",
-                    "content-type": "application/json"
-                },
-                "query": "{query}"
-            },
-            "functions": {
-                "all": ["url", "query"]
-            }
-        }
-    ]
+        "query": "{query}"
+      },
+      "functions": {
+        "find": ["url", "id", "query"]
+      }
+    },
+    {
+      "template": {
+        "method": "GET",
+        "url": "{!url}",
+        "headers": {
+          "accepts": "application/json",
+          "content-type": "application/json"
+        },
+        "query": "{query}"
+      },
+      "functions": {
+        "all": ["url", "query"]
+      }
+    }
+  ]
 }
 
