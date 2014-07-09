@@ -22,9 +22,6 @@
     "JSONPath": "~0.10.0",
     "debug": "~0.8.0"
   },
-  "peerDependencies": {
-    "loopback-datasource-juggler": "1.x.x"
-  },
   "devDependencies": {
     "loopback-datasource-juggler": "1.x.x",
     "loopback": "1.x.x",
