@@ -21,26 +21,15 @@ describe('REST connector', function () {
 
     var server = null;
     before(function (done) {
-      var express = require('express');
-      var app = express();
 
-      app.configure(function () {
-        app.set('port', process.env.PORT || 3000);
-        app.set('views', __dirname + '/views');
-        app.set('view engine', 'ejs');
-        app.use(express.favicon());
-        // app.use(express.logger('dev'));
-        app.use(express.bodyParser());
-        app.use(express.methodOverride());
-        app.use(app.router);
-      });
+      var app = require('./express-helper')();
 
       var count = 2;
       var users = [new User({id: 1, name: 'Ray'}), new User({id: 2, name: 'Joe'})]
 
       app.get('/Users', function (req, res, next) {
         res.setHeader('Content-Type', 'application/json');
-        res.json(200, users);
+        res.status(200).json(users);
       });
 
       app.post('/Users', function (req, res, next) {
@@ -51,7 +40,7 @@ describe('REST connector', function () {
         }
         res.setHeader('Location', req.protocol + '://' + req.headers['host'] + '/' + body.id);
         users.push(body);
-        res.json(201, body);
+        res.status(201).json(body);
       });
 
       app.put('/Users/:id', function (req, res, next) {
@@ -60,11 +49,11 @@ describe('REST connector', function () {
           if (user.id == req.params.id) {
             res.setHeader('Content-Type', 'application/json');
             users[i] = req.body;
-            res.send(200);
+            res.status(200).end();
             return;
           }
         }
-        res.send(404);
+        res.status(404).end();
       });
 
       app.delete('/Users/:id', function (req, res, next) {
@@ -73,11 +62,11 @@ describe('REST connector', function () {
           if (user.id == req.params.id) {
             res.setHeader('Content-Type', 'application/json');
             users.splice(i, 1);
-            res.send(200);
+            res.status(200).end();
             return;
           }
         }
-        res.send(404);
+        res.status(404).end();
       });
 
       app.get('/Users/:id', function (req, res, next) {
@@ -85,11 +74,11 @@ describe('REST connector', function () {
           var user = users[i];
           if (user.id == req.params.id) {
             res.setHeader('Content-Type', 'application/json');
-            res.json(200, user);
+            res.status(200).json(user);
             return;
           }
         }
-        res.send(404);
+        res.status(404).end();
       });
 
       server = app.listen(app.get('port'), function (err, data) {

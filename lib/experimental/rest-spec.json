@@ -2,7 +2,7 @@
   "method": "POST",
   "url": "http://localhost:3000/{p}",
   "headers": {
-    "accepts": "application/{format}"
+    "accept": "application/{format}"
   },
   "query": {
     "x": "{x}",
