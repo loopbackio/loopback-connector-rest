@@ -7,19 +7,8 @@ describe('REST Request Builder', function () {
 
     var server = null;
     before(function (done) {
-      var express = require('express');
-      var app = express();
 
-      app.configure(function () {
-        app.set('port', process.env.PORT || 3000);
-        app.set('views', __dirname + '/views');
-        app.set('view engine', 'ejs');
-        app.use(express.favicon());
-        // app.use(express.logger('dev'));
-        app.use(express.bodyParser());
-        app.use(express.methodOverride());
-        app.use(app.router);
-      });
+      var app = require('./express-helper')();
 
       app.all('*', function (req, res, next) {
         res.setHeader('Content-Type', 'application/json');
@@ -30,7 +19,7 @@ describe('REST Request Builder', function () {
           query: req.query,
           body: req.body
         };
-        res.json(200, payload);
+        res.status(200).json(payload);
       });
 
       server = app.listen(app.get('port'), function (err, data) {
