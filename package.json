@@ -14,8 +14,8 @@
     "test": "./node_modules/.bin/mocha --timeout 30000 test/*test.js"
   },
   "dependencies": {
-    "request": "~2.36.0",
-    "qs": "~0.6.6",
+    "request": "~2.40.0",
+    "qs": "~1.2.1",
     "mime": "~1.2.11",
     "methods": "~1.0.1",
     "traverse": "~0.6.6",
