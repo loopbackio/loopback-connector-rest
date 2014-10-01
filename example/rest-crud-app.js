@@ -1,10 +1,9 @@
-var ModelBuilder = require('loopback-datasource-juggler').ModelBuilder;
-var modelBuilder = new ModelBuilder();
+var loopback = require('loopback');
 
 // simplier way to describe model
-var User = modelBuilder.define('User', {
+var User = loopback.createModel('User', {
   name: String,
-  bio: ModelBuilder.Text,
+  bio: String,
   approved: Boolean,
   joinedAt: Date,
   age: Number
@@ -12,19 +11,10 @@ var User = modelBuilder.define('User', {
 
 console.log(User.modelName);
 
-var express = require('express');
-var app = express();
+var app = loopback();
 
-app.configure(function () {
-  app.set('port', process.env.PORT || 3000);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
-  app.use(express.favicon());
-  // app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-});
+app.set('port', process.env.PORT || 3000);
+app.use(loopback.bodyParser.json({extended: false}));
 
 var count = 2;
 var users = [new User({id: 1, name: 'Ray'}), new User({id: 2, name: 'Joe'})]
@@ -43,7 +33,7 @@ app.post('/Users', function (req, res, next) {
   }
   res.setHeader('Location', req.protocol + '://' + req.headers['host'] + '/' + body.id);
   users.push(body);
-  res.json(201, body);
+  res.status(201).json(body);
   res.end();
 });
 

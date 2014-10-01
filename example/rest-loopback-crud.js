@@ -1,11 +1,8 @@
 var loopback = require("loopback");
 var app = loopback();
 
-app.configure(function () {
-  app.set('port', process.env.PORT || 3000);
-// expose a rest api
-  app.use(loopback.rest());
-});
+app.set('port', process.env.PORT || 3000);
+app.use(loopback.bodyParser.json({extended: false}));
 
 var ds = loopback.createDataSource({
   connector: require("../index"),
@@ -38,7 +35,7 @@ app.post('/Users', function (req, res, next) {
   }
   res.setHeader('Location', req.protocol + '://' + req.headers['host'] + '/' + body.id);
   users.push(body);
-  res.json(201, body);
+  res.status(201).json(body);
   res.end();
 });
 
