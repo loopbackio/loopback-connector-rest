@@ -98,11 +98,13 @@ describe('REST connector', function () {
       });
     });
 
+    var user1;
     it('should find the user with id 1', function (done) {
       User.findById(1, function (err, body) {
         // console.log(body);
         assert.equal(1, body.id);
         assert.equal('Ray', body.name);
+        user1 = body;
         done(err, body);
       });
     });
@@ -116,7 +118,8 @@ describe('REST connector', function () {
     });
 
     it('should update user 1', function (done) {
-      new User({id: 1, name: 'Raymond'}).save(function (err, body) {
+      user1.name = 'Raymond';
+      user1.save(function (err, body) {
         // console.log(err, body);
         done(err, body);
       });
