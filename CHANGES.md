@@ -1,3 +1,11 @@
+2014-11-27, Version 1.5.0
+=========================
+
+ * Add tests (Raymond Feng)
+
+ * Allow options to be configured for request module (Raymond Feng)
+
+
 2014-11-27, Version 1.4.1
 =========================
 
@@ -90,12 +98,12 @@
  * Reset git dep (Raymond Feng)
 
 
-2013-09-11, Version strongloopsuite-1.0.0-3
+2013-09-11, Version strongloopsuite-1.0.0-4
 ===========================================
 
 
 
-2013-09-11, Version strongloopsuite-1.0.0-4
+2013-09-11, Version strongloopsuite-1.0.0-3
 ===========================================
 
 
