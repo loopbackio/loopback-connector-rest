@@ -1,7 +1,15 @@
 var assert = require('assert');
 
 var DataSource = require('loopback-datasource-juggler').DataSource;
-var ds = new DataSource(require('../lib/rest-connector'), {baseURL: 'http://localhost:3000'});
+var ds = new DataSource(require('../lib/rest-connector'),
+  {
+    baseURL: 'http://localhost:3000',
+    defaults: {
+      headers: {
+        'X-MY-HEADER': 'my-header'
+      }
+    }
+  });
 
 // simplier way to describe model
 var User = ds.define('User', {
@@ -72,6 +80,7 @@ describe('REST connector', function () {
           var user = users[i];
           if (user.id == req.params.id) {
             res.setHeader('Content-Type', 'application/json');
+            user.myHeader = req.get('x-my-header');
             res.status(200).json(user);
             return;
           }
@@ -105,6 +114,15 @@ describe('REST connector', function () {
         assert.equal(1, body.id);
         assert.equal('Ray', body.name);
         user1 = body;
+        done(err, body);
+      });
+    });
+
+    it('should honor defaults for request', function (done) {
+      User.findById(1, function (err, body) {
+        // console.log(body);
+        assert.equal(1, body.id);
+        assert.equal('my-header', body.myHeader);
         done(err, body);
       });
     });

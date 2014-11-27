@@ -188,5 +188,20 @@ describe('REST Request Builder', function () {
         });
     });
 
+    it('should support custom request funciton', function (done) {
+      var requestFunc = require('request').
+        defaults({headers: {'X-MY-HEADER': 'my-header'}});
+      var builder = new RequestBuilder(require('./request-template.json'),
+        requestFunc);
+      // console.log(builder.parse());
+      builder.invoke({p: 1, a: 100, b: false},
+        function (err, body, response) {
+          // console.log(response.headers);
+          assert.equal(200, response.statusCode);
+          assert.equal(body.headers['x-my-header'], 'my-header');
+          done(err, body);
+        });
+    });
+
   });
 });
