@@ -1,6 +1,6 @@
 {
   "name": "loopback-connector-rest",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Loopback REST Connector",
   "keywords": [
     "StrongLoop",
@@ -39,6 +39,6 @@
     "url": "https://github.com/strongloop/loopback-connector-rest/blob/master/LICENSE"
   },
   "optionalDependencies": {
-    "sl-blip": "http://blip.strongloop.com/loopback-connector-rest@1.5.0"
+    "sl-blip": "http://blip.strongloop.com/loopback-connector-rest@1.6.0"
   }
 }

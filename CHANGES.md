@@ -1,3 +1,13 @@
+2015-02-24, Version 1.6.0
+=========================
+
+ * Upgrade deps (Raymond Feng)
+
+ * Fix/workaround the test failure (Raymond Feng)
+
+ * Fix bad CLA URL in CONTRIBUTING.md (Ryan Graham)
+
+
 2014-11-27, Version 1.5.0
 =========================
 
