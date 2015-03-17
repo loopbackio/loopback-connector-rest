@@ -1,4 +1,5 @@
 var assert = require('assert');
+var should = require('should');
 
 var JsonTemplate = require('../lib/template');
 
@@ -127,6 +128,24 @@ describe('JsonTemplate', function () {
       assert.equal(2, result.body[1]);
       assert.equal(3, result.body[2]);
       done(null, result);
+    });
+
+    it('should allow template with vars in keys', function(done) {
+      var json = require('./request-template-with-key-var.json');
+
+      var template = new JsonTemplate(json);
+      var result = template.build({uniqueId: 1, email: 'x@y.com',
+        clientId: 'c1', clientSecret: 's1'});
+      result.should.be.eql({ method: 'POST',
+        url: 'https://example.com/v1/authenticate',
+        body: { auth_data: { '1': {
+          emailAddress: 'x@y.com',
+          id: 'third_party'
+        } },
+          grant_type: 'client_credentials',
+          client_id: 'c1',
+          client_secret: 's1' } });
+      done();
     });
 
   });

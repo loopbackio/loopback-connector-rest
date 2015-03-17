@@ -1,0 +1,15 @@
+{
+  "method": "POST",
+  "url": "https://example.com/v1/authenticate",
+  "body": {
+    "auth_data": {
+      "{!uniqueId}": {
+        "id": "third_party",
+        "emailAddress": "{!email}"
+      }
+    },
+    "grant_type": "client_credentials",
+    "client_id": "{!clientId}",
+    "client_secret": "{!clientSecret}"
+  }
+}
