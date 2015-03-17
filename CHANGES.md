@@ -1,4 +1,16 @@
-2015-02-24, Version 1.6.0
+2015-03-17, Version 1.7.0
+=========================
+
+ * Clean up the comments (Raymond Feng)
+
+ * Remove commented out code (Raymond Feng)
+
+ * Allow vars in keys for the template (Raymond Feng)
+
+ * add lodash and merge defaults in order of precedence (Bryan Clark)
+
+
+2015-02-23, Version 1.6.0
 =========================
 
  * Upgrade deps (Raymond Feng)
@@ -108,7 +120,7 @@
  * Reset git dep (Raymond Feng)
 
 
-2013-09-11, Version strongloopsuite-1.0.0-4
+2013-09-11, Version strongloopsuite-1.0.0-5
 ===========================================
 
 
@@ -118,7 +130,7 @@
 
 
 
-2013-09-11, Version strongloopsuite-1.0.0-5
+2013-09-11, Version strongloopsuite-1.0.0-4
 ===========================================
 
  * Add keywords to package.json (Raymond Feng)
@@ -142,12 +154,12 @@
  * Changed tag to strongloopsuite-1.0.0-2 (cgole)
 
 
-2013-09-05, Version strongloopsuite-1.0.0-0
+2013-09-05, Version strongloopsuite-1.0.0-1
 ===========================================
 
 
 
-2013-09-05, Version strongloopsuite-1.0.0-1
+2013-09-05, Version strongloopsuite-1.0.0-0
 ===========================================
 
  * Updated to use tagged version strongloopsuite-1.0.0-0 of dependencies (cgole)
