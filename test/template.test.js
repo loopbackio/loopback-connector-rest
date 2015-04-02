@@ -113,6 +113,19 @@ describe('JsonTemplate', function () {
       done(null, result);
     });
 
+    it('should support object variables with expressions {var} when is not defined in template', function (done) {
+      var template = new JsonTemplate({
+        url: 'http://localhost:3000/update',
+        body: '{body}'
+      });
+
+      var bodyContent = {id: 1, template: 'this is a normal content with ${var} variables'};
+
+      var result = template.build({body: bodyContent});
+      assert.equal(bodyContent, result.body);
+      done(null, result);
+    });
+
     it('should support array variables', function (done) {
       var template = new JsonTemplate({
         url: 'http://localhost:3000/{!p}',
