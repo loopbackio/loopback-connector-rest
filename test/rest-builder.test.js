@@ -204,4 +204,13 @@ describe('REST Request Builder', function () {
     });
 
   });
+
+  describe('invoke', function(){
+    it('should return a promise when no callback is specified', function(){
+      var builder = new RequestBuilder(require('./request-template.json'));
+      var promise = builder.invoke({p: 1, a: 100, b: false});
+      assert(promise.hasOwnProperty('then'));
+      assert(promise.hasOwnProperty('catch'));
+    });
+  })
 });
