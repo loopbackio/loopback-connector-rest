@@ -1,5 +1,9 @@
 var assert = require('assert');
 
+if (!global.Promise) {
+  global.Promise = require('bluebird');
+}
+
 var RequestBuilder = require('../lib/rest-builder');
 
 describe('REST Request Builder', function () {
@@ -204,4 +208,13 @@ describe('REST Request Builder', function () {
     });
 
   });
+
+  describe('invoke', function(){
+    it('should return a promise when no callback is specified', function(){
+      var builder = new RequestBuilder(require('./request-template.json'));
+      var promise = builder.invoke({p: 1, a: 100, b: false});
+      assert(typeof promise['then'] === 'function');
+      assert(typeof promise['catch'] === 'function');
+    });
+  })
 });
