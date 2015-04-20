@@ -1,3 +1,13 @@
+2015-04-20, Version 1.8.0
+=========================
+
+ * Add bluebird as a dev dep (Raymond Feng)
+
+ * Fix the assertions (Raymond Feng)
+
+ * add promise support for rest-builder invoke method (Esco Obong)
+
+
 2015-03-17, Version 1.7.0
 =========================
 
