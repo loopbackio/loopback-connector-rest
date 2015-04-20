@@ -24,6 +24,7 @@
     "debug": "^2.1.1"
   },
   "devDependencies": {
+    "bluebird": "^2.9.24",
     "body-parser": "^1.12.0",
     "express": "^4.12.0",
     "loopback": "2.x.x",

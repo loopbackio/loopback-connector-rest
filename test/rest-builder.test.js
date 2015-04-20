@@ -1,5 +1,9 @@
 var assert = require('assert');
 
+if (!global.Promise) {
+  global.Promise = require('bluebird');
+}
+
 var RequestBuilder = require('../lib/rest-builder');
 
 describe('REST Request Builder', function () {
