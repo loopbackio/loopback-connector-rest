@@ -1,3 +1,9 @@
+2015-05-15, Version 1.8.1
+=========================
+
+ * fix issue #29 (MuSTa1nE)
+
+
 2015-04-20, Version 1.8.0
 =========================
 
@@ -130,17 +136,17 @@
  * Reset git dep (Raymond Feng)
 
 
+2013-09-11, Version strongloopsuite-1.0.0-4
+===========================================
+
+
+
 2013-09-11, Version strongloopsuite-1.0.0-5
 ===========================================
 
 
 
 2013-09-11, Version strongloopsuite-1.0.0-3
-===========================================
-
-
-
-2013-09-11, Version strongloopsuite-1.0.0-4
 ===========================================
 
  * Add keywords to package.json (Raymond Feng)
@@ -164,12 +170,12 @@
  * Changed tag to strongloopsuite-1.0.0-2 (cgole)
 
 
-2013-09-05, Version strongloopsuite-1.0.0-1
+2013-09-05, Version strongloopsuite-1.0.0-0
 ===========================================
 
 
 
-2013-09-05, Version strongloopsuite-1.0.0-0
+2013-09-05, Version strongloopsuite-1.0.0-1
 ===========================================
 
  * Updated to use tagged version strongloopsuite-1.0.0-0 of dependencies (cgole)
