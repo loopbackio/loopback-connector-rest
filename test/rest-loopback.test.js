@@ -171,5 +171,26 @@ describe('REST connector', function () {
       });
     });
 
+    it('should invoke hooks', function(done) {
+      var events = [];
+      var connector = ds.connector;
+      connector.observe('before execute', function(ctx, next) {
+        assert(ctx.req);
+        events.push('before execute');
+        next();
+      });
+      connector.observe('after execute', function(ctx, next) {
+        assert(ctx.res);
+        events.push('after execute');
+        next();
+      });
+      User.find(function(err, body) {
+        assert.deepEqual(events, ['before execute', 'after execute']);
+        // console.log(body);
+        assert.equal(2, body.length);
+        done(err, body);
+      });
+    });
+
   });
 });
