@@ -53,7 +53,7 @@ describe('JsonTemplate', function () {
       var template = new JsonTemplate({
         url: 'http://localhost:3000/{p=100}',
         query: {x: '{x=100:number}', y: 2},
-        body: {a: '{a=1:number}', b: '{b=true:boolean}'}
+        body: {a: '{a=1:number}', b: '{b=true:boolean}', c:'{c=[99]:json}'}
       });
       var result = template.build({p: 1, a: 100, b: false});
 
@@ -63,6 +63,8 @@ describe('JsonTemplate', function () {
       assert.equal(2, result.query.y);
       assert.equal(100, result.body.a);
       assert.equal(false, result.body.b);
+      assert(Array.isArray(result.body.c));
+      assert.equal(99, result.body.c[0]);
       done(null, result);
     });
 
