@@ -1,3 +1,9 @@
+2015-07-10, Version 1.10.0
+==========================
+
+ * Use JSON.parse for default json values (Raymond Feng)
+
+
 2015-05-27, Version 1.9.0
 =========================
 
@@ -142,17 +148,17 @@
  * Reset git dep (Raymond Feng)
 
 
-2013-09-11, Version strongloopsuite-1.0.0-4
-===========================================
-
-
-
 2013-09-11, Version strongloopsuite-1.0.0-5
 ===========================================
 
 
 
 2013-09-11, Version strongloopsuite-1.0.0-3
+===========================================
+
+
+
+2013-09-11, Version strongloopsuite-1.0.0-4
 ===========================================
 
  * Add keywords to package.json (Raymond Feng)
