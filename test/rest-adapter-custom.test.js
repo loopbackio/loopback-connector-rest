@@ -2,7 +2,7 @@ var assert = require('assert');
 
 var DataSource = require('loopback-datasource-juggler').DataSource;
 
-const TEST_ADDRESS = /Bedford Avenue, Brooklyn, NY 11211, USA/;
+const TEST_ADDRESS = /Bedford Ave.*, Brooklyn, NY 11211, USA/;
 
 describe('REST connector', function () {
   describe('custom operations', function () {
@@ -164,7 +164,7 @@ describe('REST connector', function () {
         // console.log(response.headers);
         var body = response.body;
         var address = body.results[0].formatted_address;
-        // console.log(address);
+        console.log(address);
         assert.ok(address.match(TEST_ADDRESS));
         done(err, address);
       });
