@@ -187,7 +187,7 @@ describe('REST connector', function () {
       assert.equal(ds.connector._settings.cert, template.clientCert);
     });
 
-    it('should keep order of prececence: options, top level, and defaults', function (done) {
+    it('should keep order of precedence: options, top level, and defaults', function (done) {
       var spec = require('./request-template.json');
       var template = {
         options : {
@@ -208,7 +208,7 @@ describe('REST connector', function () {
         },
         operations: [
           {template: spec, functions: {
-              m1: ["x"]
+              m1: ['x']
           }}
         ]
       };
