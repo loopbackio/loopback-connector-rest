@@ -1,3 +1,15 @@
+2016-02-19, Version 1.10.2
+==========================
+
+ * Remove sl-blip from dependencies (Miroslav Bajtoš)
+
+ * Remove example dir (Simon Ho)
+
+ * Refer to licenses with a link (Sam Roberts)
+
+ * Use strongloop conventions for licensing (Sam Roberts)
+
+
 2015-09-18, Version 1.10.1
 ==========================
 
@@ -154,12 +166,12 @@
  * Reset git dep (Raymond Feng)
 
 
-2013-09-11, Version strongloopsuite-1.0.0-4
+2013-09-11, Version strongloopsuite-1.0.0-5
 ===========================================
 
 
 
-2013-09-11, Version strongloopsuite-1.0.0-5
+2013-09-11, Version strongloopsuite-1.0.0-4
 ===========================================
 
 
@@ -188,12 +200,12 @@
  * Changed tag to strongloopsuite-1.0.0-2 (cgole)
 
 
-2013-09-05, Version strongloopsuite-1.0.0-0
+2013-09-05, Version strongloopsuite-1.0.0-1
 ===========================================
 
 
 
-2013-09-05, Version strongloopsuite-1.0.0-1
+2013-09-05, Version strongloopsuite-1.0.0-0
 ===========================================
 
  * Updated to use tagged version strongloopsuite-1.0.0-0 of dependencies (cgole)
