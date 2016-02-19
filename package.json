@@ -36,8 +36,5 @@
     "type": "git",
     "url": "https://github.com/strongloop/loopback-connector-rest.git"
   },
-  "license": "MIT",
-  "optionalDependencies": {
-    "sl-blip": "http://blip.strongloop.com/loopback-connector-rest@1.10.1"
-  }
+  "license": "MIT"
 }
