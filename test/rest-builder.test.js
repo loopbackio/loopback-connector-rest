@@ -216,5 +216,57 @@ describe('REST Request Builder', function () {
       assert(typeof promise['then'] === 'function');
       assert(typeof promise['catch'] === 'function');
     });
-  })
+  });
+
+  describe('handling of 4XX status codes', function() {
+    var server = null;
+    before(function (done) {
+
+      var app = require('./express-helper')();
+
+      app.all('*', function (req, res, next) {
+        res.setHeader('Content-Type', 'application/json');
+        var payload = {
+          method: req.method,
+          url: req.url,
+          headers: req.headers,
+          query: req.query,
+          body: req.body
+        };
+        res.status(400).json(payload);
+      });
+
+      server = app.listen(app.get('port'), function (err, data) {
+        // console.log('Server listening on ', app.get('port'));
+        done(err, data);
+      });
+    });
+
+    after(function (done) {
+      server && server.close(done);
+    });
+
+    it('should consider the response an error', function (done) {
+      var builder = new RequestBuilder('GET', 'http://localhost:3000/');
+      builder.invoke(
+        function (err, body, response) {
+          // console.log(response.headers);
+          assert.equal(400, response.statusCode);
+          assert.deepEqual({}, err.body);
+          done();
+        });
+    });
+
+    it('should consider the promise failed', function (done) {
+      var builder = new RequestBuilder('GET', 'http://localhost:3000/');
+      builder.invoke()
+        .then(function() {
+          assert.fail();
+        })
+        .catch(function (err) {
+          assert.deepEqual({}, err.body);
+          done();
+        });
+    });
+  });
 });
