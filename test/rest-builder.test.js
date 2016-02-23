@@ -193,8 +193,7 @@ describe('REST Request Builder', function () {
     });
 
     it('should support custom request funciton', function (done) {
-      var requestFunc = require('request').
-        defaults({headers: {'X-MY-HEADER': 'my-header'}});
+      var requestFunc = require('request').defaults({headers: {'X-MY-HEADER': 'my-header'}});
       var builder = new RequestBuilder(require('./request-template.json'),
         requestFunc);
       // console.log(builder.parse());
@@ -209,8 +208,8 @@ describe('REST Request Builder', function () {
 
   });
 
-  describe('invoke', function(){
-    it('should return a promise when no callback is specified', function(){
+  describe('invoke', function () {
+    it('should return a promise when no callback is specified', function () {
       var builder = new RequestBuilder(require('./request-template.json'));
       var promise = builder.invoke({p: 1, a: 100, b: false});
       assert(typeof promise['then'] === 'function');
@@ -218,7 +217,7 @@ describe('REST Request Builder', function () {
     });
   });
 
-  describe('handling of 4XX status codes', function() {
+  describe('handling of 4XX status codes', function () {
     var server = null;
     before(function (done) {
 
@@ -250,9 +249,9 @@ describe('REST Request Builder', function () {
       var builder = new RequestBuilder('GET', 'http://localhost:3000/');
       builder.invoke(
         function (err, body, response) {
-          // console.log(response.headers);
           assert.equal(400, response.statusCode);
-          assert.deepEqual({}, err.body);
+          assert.equal(400, err.statusCode);
+          assert.deepEqual({}, err.message.body);
           done();
         });
     });
@@ -260,11 +259,12 @@ describe('REST Request Builder', function () {
     it('should consider the promise failed', function (done) {
       var builder = new RequestBuilder('GET', 'http://localhost:3000/');
       builder.invoke()
-        .then(function() {
+        .then(function () {
           assert.fail();
         })
         .catch(function (err) {
-          assert.deepEqual({}, err.body);
+          assert.equal(400, err.statusCode);
+          assert.deepEqual({}, err.message.body);
           done();
         });
     });
