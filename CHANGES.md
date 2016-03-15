@@ -1,3 +1,17 @@
+2016-03-15, Version 1.11.0
+==========================
+
+ * Upgrade deps (Raymond Feng)
+
+ * Switch to jsonpath-plus (Raymond Feng)
+
+ * This should fix issue #21 'Delete api not working' (Jouke Visser)
+
+ * use an error object (Horia Radu)
+
+ * handle http status code >= 4XX as errors (Horia Radu)
+
+
 2016-02-19, Version 1.10.2
 ==========================
 
