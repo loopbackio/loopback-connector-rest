@@ -33,24 +33,54 @@ describe('REST connector', function () {
       server && server.close(done);
     });
 
-    it('should configure remote methods', function (done) {
+    it('should configure remote methods', function(done) {
       var spec = require('./request-template.json');
       var template = {
         operations: [
-          {template: spec, functions: {
-            m1: ["x", "a", "b"]
-          }}
+          {
+            template: spec, functions: {
+            m1: ["p", "x", "a", {name: 'b', source: 'header'}]
+          }
+          }
         ]
       };
       var ds = new DataSource(require('../lib/rest-connector'), template);
       var model = ds.createModel('rest');
       assert(model.m1);
+      assert.deepEqual(model.m1.accepts, [
+          {
+            arg: 'p',
+            http: {
+              source: 'path'
+            },
+            required: false,
+            type: 'string'
+          },
+          {
+            arg: 'x',
+            type: 'number',
+            required: false,
+            http: {source: 'query'}
+          },
+          {
+            arg: 'a',
+            type: 'number',
+            required: false,
+            http: {source: 'body'}
+          },
+          {
+            arg: 'b',
+            type: 'boolean',
+            required: false,
+            http: {source: 'header'}
+          }]
+      );
       assert(model.m1.shared);
-      assert.deepEqual(model.m1.http, {verb: 'post'});
-      model.m1(3, 5, false, function (err, result) {
+      assert.deepEqual(model.m1.http, {verb: 'post', path: '/m1/:p'});
+      model.m1('1', 3, 5, false, function (err, result) {
         delete result.headers;
         assert.deepEqual(result, { method: 'POST',
-          url: '/?x=3&y=2',
+          url: '/1?x=3&y=2',
           query: { x: '3', y: '2' },
           body: { a: 5, b: false } });
         done(err, result);
@@ -187,7 +217,7 @@ describe('REST connector', function () {
       assert.equal(ds.connector._settings.cert, template.clientCert);
     });
 
-    it('should keep order of prececence: options, top level, and defaults', function (done) {
+    it('should keep order of precedence: options, top level, and defaults', function (done) {
       var spec = require('./request-template.json');
       var template = {
         options : {
@@ -208,7 +238,7 @@ describe('REST connector', function () {
         },
         operations: [
           {template: spec, functions: {
-              m1: ["x"]
+              m1: ['x']
           }}
         ]
       };
