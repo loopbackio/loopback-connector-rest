@@ -1,3 +1,11 @@
+2016-03-18, Version 2.0.0
+=========================
+
+ * Derive the http source from the template (Raymond Feng)
+
+ * Allow functions to specify param http source (Raymond Feng)
+
+
 2016-03-15, Version 1.11.0
 ==========================
 
