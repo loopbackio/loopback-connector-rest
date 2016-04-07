@@ -1,4 +1,5 @@
 var assert = require('assert');
+var should = require('should');
 
 var DataSource = require('loopback-datasource-juggler').DataSource;
 
@@ -39,7 +40,7 @@ describe('REST connector', function () {
         operations: [
           {
             template: spec, functions: {
-            m1: ["p", "x", "a", {name: 'b', source: 'header'}]
+            m1: ['p', 'x', 'a', {name: 'b', source: 'header'}, 'z']
           }
           }
         ]
@@ -73,11 +74,18 @@ describe('REST connector', function () {
             type: 'boolean',
             required: false,
             http: {source: 'header'}
+          },
+          {
+            arg: 'z',
+            type: 'string',
+            required: false,
+            http: {source: 'header'}
           }]
       );
       assert(model.m1.shared);
       assert.deepEqual(model.m1.http, {verb: 'post', path: '/m1/:p'});
-      model.m1('1', 3, 5, false, function (err, result) {
+      model.m1('1', 3, 5, false, 'zzz', function (err, result) {
+        result.headers.should.have.property('x-test', 'zzz');
         delete result.headers;
         assert.deepEqual(result, { method: 'POST',
           url: '/1?x=3&y=2',
@@ -93,15 +101,15 @@ describe('REST connector', function () {
         operations: [
           {
             template: {
-              "method": "GET",
-              "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
-              "headers": {
-                "accept": "application/json",
-                "content-type": "application/json"
+              'method': 'GET',
+              'url': 'http://maps.googleapis.com/maps/api/geocode/{format=json}',
+              'headers': {
+                'accept': 'application/json',
+                'content-type': 'application/json'
               },
-              "query": {
-                "latlng": "{latitude},{longitude}",
-                "sensor": "{sensor=true}"
+              'query': {
+                'latlng': '{latitude},{longitude}',
+                'sensor': '{sensor=true}'
               }
             },
             // Bind the template to one or more JavaScript functions
@@ -132,16 +140,16 @@ describe('REST connector', function () {
         operations: [
           {
             template: {
-              "method": "GET",
-              "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
-              "headers": {
-                "accept": "application/json",
-                "content-type": "application/json"
+              'method': 'GET',
+              'url': 'http://maps.googleapis.com/maps/api/geocode/{format=json}',
+              'headers': {
+                'accept': 'application/json',
+                'content-type': 'application/json'
               },
-              "query": {
-                "latlng": "{location}",
-                "address": "{address}",
-                "sensor": "{sensor=true}"
+              'query': {
+                'latlng': '{location}',
+                'address': '{address}',
+                'sensor': '{sensor=true}'
               }
             },
             functions: {
@@ -175,15 +183,15 @@ describe('REST connector', function () {
         operations: [
           {
             template: {
-              "method": "GET",
-              "url": "http://maps.googleapis.com/maps/api/geocode/{format=json}",
-              "headers": {
-                "accept": "application/json",
-                "content-type": "application/json"
+              'method': 'GET',
+              'url': 'http://maps.googleapis.com/maps/api/geocode/{format=json}',
+              'headers': {
+                'accept': 'application/json',
+                'content-type': 'application/json'
               },
-              "query": {
-                "latlng": "{latitude},{longitude}",
-                "sensor": "{sensor=true}"
+              'query': {
+                'latlng': '{latitude},{longitude}',
+                'sensor': '{sensor=true}'
               }
             }
           }
@@ -208,7 +216,7 @@ describe('REST connector', function () {
         clientCert: 'CLIENT.CERT',
         operations: [
           {template: spec, functions: {
-              m1: ["x"]
+              m1: ['x']
           }}
         ]
       };
