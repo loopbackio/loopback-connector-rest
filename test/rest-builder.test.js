@@ -13,10 +13,8 @@ var RequestBuilder = require('../lib/rest-builder');
 
 describe('REST Request Builder', function() {
   describe('Request templating', function() {
-
     var server = null;
     before(function(done) {
-
       var app = require('./express-helper')();
 
       app.all('*', function(req, res, next) {
@@ -134,7 +132,6 @@ describe('REST Request Builder', function() {
           assert.equal(false, body.body.b);
           done(err, body);
         });
-
     });
 
     it('should build an operation with the parameter names', function(done) {
@@ -210,7 +207,6 @@ describe('REST Request Builder', function() {
           done(err, body);
         });
     });
-
   });
 
   describe('invoke', function() {
@@ -225,7 +221,6 @@ describe('REST Request Builder', function() {
   describe('handling of 4XX status codes', function() {
     var server = null;
     before(function(done) {
-
       var app = require('./express-helper')();
 
       app.all('*', function(req, res, next) {

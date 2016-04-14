@@ -29,10 +29,8 @@ ds.attach(User);
 
 describe('REST connector', function() {
   describe('CRUD apis', function() {
-
     var server = null;
     before(function(done) {
-
       var app = require('./express-helper')();
 
       var count = 2;
@@ -104,7 +102,6 @@ describe('REST connector', function() {
     });
 
     it('should find two users', function(done) {
-
       User.find(function(err, body) {
         // console.log(body);
         assert.equal(2, body.length);
@@ -196,6 +193,5 @@ describe('REST connector', function() {
         done(err, body);
       });
     });
-
   });
 });

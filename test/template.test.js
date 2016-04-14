@@ -10,7 +10,6 @@ var JsonTemplate = require('../lib/template');
 
 describe('JsonTemplate', function() {
   describe('Request templating', function() {
-
     it('should substitute the variables', function(done) {
       var template = new JsonTemplate({
         url: 'http://localhost:3000/{p}',
@@ -51,14 +50,13 @@ describe('JsonTemplate', function() {
       assert.equal('ME', result.query.x);
       assert.equal(2, result.query.y);
       done(null, result);
-
     });
 
     it('should support typed variables', function(done) {
       var template = new JsonTemplate({
         url: 'http://localhost:3000/{p=100}',
         query: { x: '{x=100:number}', y: 2 },
-        body: { a: '{a=1:number}', b: '{b=true:boolean}', c:'{c=[99]:json}' },
+        body: { a: '{a=1:number}', b: '{b=true:boolean}', c: '{c=[99]:json}' },
       });
       var result = template.build({ p: 1, a: 100, b: false });
 
@@ -120,18 +118,19 @@ describe('JsonTemplate', function() {
       done(null, result);
     });
 
-    it('should support object variables with expressions {var} when is not defined in template', function(done) {
-      var template = new JsonTemplate({
-        url: 'http://localhost:3000/update',
-        body: '{body}',
+    it('should support object variables with expressions {var} when is not defined in template',
+      function(done) {
+        var template = new JsonTemplate({
+          url: 'http://localhost:3000/update',
+          body: '{body}',
+        });
+
+        var bodyContent = { id: 1, template: 'this is a normal content with ${var} variables' };
+
+        var result = template.build({ body: bodyContent });
+        assert.equal(bodyContent, result.body);
+        done(null, result);
       });
-
-      var bodyContent = { id: 1, template: 'this is a normal content with ${var} variables' };
-
-      var result = template.build({ body: bodyContent });
-      assert.equal(bodyContent, result.body);
-      done(null, result);
-    });
 
     it('should support array variables', function(done) {
       var template = new JsonTemplate({
@@ -156,6 +155,7 @@ describe('JsonTemplate', function() {
       var template = new JsonTemplate(json);
       var result = template.build({ uniqueId: 1, email: 'x@y.com',
         clientId: 'c1', clientSecret: 's1' });
+      /* eslint-disable camelcase */
       result.should.be.eql({ method: 'POST',
         url: 'https://example.com/v1/authenticate',
         body: { auth_data: { '1': {
@@ -165,9 +165,9 @@ describe('JsonTemplate', function() {
           grant_type: 'client_credentials',
           client_id: 'c1',
           client_secret: 's1' }});
+      /* eslint-enable camelcase */
+
       done();
     });
-
   });
-
 });

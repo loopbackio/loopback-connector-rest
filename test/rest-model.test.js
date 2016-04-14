@@ -23,10 +23,8 @@ var rest = new RestResource('Users', 'http://localhost:3000');
 
 describe('REST connector', function() {
   describe('CRUD methods supported', function() {
-
     var server = null;
     before(function(done) {
-
       var app = require('./express-helper')();
 
       var count = 2;
@@ -97,7 +95,6 @@ describe('REST connector', function() {
     });
 
     it('should find two users', function(done) {
-
       rest.query(function(err, body, response) {
         assert.equal(200, response.statusCode);
         // console.log(body);
@@ -161,6 +158,5 @@ describe('REST connector', function() {
         done(err, body);
       });
     });
-
   });
 });
