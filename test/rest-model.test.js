@@ -14,30 +14,28 @@ var User = modelBuilder.define('User', {
   bio: ModelBuilder.Text,
   approved: Boolean,
   joinedAt: Date,
-  age: Number
+  age: Number,
 });
 
 var RestResource = require('../lib/rest-model');
 
 var rest = new RestResource('Users', 'http://localhost:3000');
 
-describe('REST connector', function () {
-  describe('CRUD methods supported', function () {
-
+describe('REST connector', function() {
+  describe('CRUD methods supported', function() {
     var server = null;
-    before(function (done) {
-
+    before(function(done) {
       var app = require('./express-helper')();
 
       var count = 2;
-      var users = [new User({id: 1, name: 'Ray'}), new User({id: 2, name: 'Joe'})]
+      var users = [new User({ id: 1, name: 'Ray' }), new User({ id: 2, name: 'Joe' })];
 
-      app.get('/Users', function (req, res, next) {
+      app.get('/Users', function(req, res, next) {
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(users);
       });
 
-      app.post('/Users', function (req, res, next) {
+      app.post('/Users', function(req, res, next) {
         res.setHeader('Content-Type', 'application/json');
         var body = req.body;
         if (!body.id) {
@@ -48,7 +46,7 @@ describe('REST connector', function () {
         res.status(201).json(body);
       });
 
-      app.put('/Users/:id', function (req, res, next) {
+      app.put('/Users/:id', function(req, res, next) {
         for (var i = 0; i < users.length; i++) {
           var user = users[i];
           if (user.id == req.params.id) {
@@ -61,7 +59,7 @@ describe('REST connector', function () {
         res.status(404).end();
       });
 
-      app.delete('/Users/:id', function (req, res, next) {
+      app.delete('/Users/:id', function(req, res, next) {
         for (var i = 0; i < users.length; i++) {
           var user = users[i];
           if (user.id == req.params.id) {
@@ -74,7 +72,7 @@ describe('REST connector', function () {
         res.status(404).end();
       });
 
-      app.get('/Users/:id', function (req, res, next) {
+      app.get('/Users/:id', function(req, res, next) {
         for (var i = 0; i < users.length; i++) {
           var user = users[i];
           if (user.id == req.params.id) {
@@ -86,19 +84,18 @@ describe('REST connector', function () {
         res.status(404).end();
       });
 
-      server = app.listen(app.get('port'), function (err, data) {
+      server = app.listen(app.get('port'), function(err, data) {
         // console.log('Server listening on ', app.get('port'));
         done(err, data);
       });
     });
 
-    after(function (done) {
+    after(function(done) {
       server && server.close(done);
     });
 
-    it('should find two users', function (done) {
-
-      rest.query(function (err, body, response) {
+    it('should find two users', function(done) {
+      rest.query(function(err, body, response) {
         assert.equal(200, response.statusCode);
         // console.log(body);
         assert.equal(2, body.length);
@@ -106,8 +103,8 @@ describe('REST connector', function () {
       });
     });
 
-    it('should find the user with id 1', function (done) {
-      rest.find(1, function (err, body, response) {
+    it('should find the user with id 1', function(done) {
+      rest.find(1, function(err, body, response) {
         assert.equal(200, response.statusCode);
         // console.log(err, response && response.statusCode);
         // console.log(body);
@@ -117,8 +114,8 @@ describe('REST connector', function () {
       });
     });
 
-    it('should not find the user with id 100', function (done) {
-      rest.find(100, function (err, body, response) {
+    it('should not find the user with id 100', function(done) {
+      rest.find(100, function(err, body, response) {
         assert.equal(404, response.statusCode);
         // console.log(err, response && response.statusCode);
         // console.log(body);
@@ -126,24 +123,24 @@ describe('REST connector', function () {
       });
     });
 
-    it('should update user 1', function (done) {
-      rest.update(1, new User({id: 1, name: 'Raymond'}), function (err, body, response) {
+    it('should update user 1', function(done) {
+      rest.update(1, new User({ id: 1, name: 'Raymond' }), function(err, body, response) {
         assert.equal(200, response.statusCode);
         // console.log(err, response && response.statusCode);
         done(err, body);
       });
     });
 
-    it('should delete user 1', function (done) {
-      rest.delete(1, function (err, body, response) {
+    it('should delete user 1', function(done) {
+      rest.delete(1, function(err, body, response) {
         assert.equal(200, response.statusCode);
         // console.log(err, response && response.statusCode);
         done(err, body);
       });
     });
 
-    it('should create a new id named Mary', function (done) {
-      rest.create(new User({name: 'Mary'}), function (err, body, response) {
+    it('should create a new id named Mary', function(done) {
+      rest.create(new User({ name: 'Mary' }), function(err, body, response) {
         assert.equal(201, response.statusCode);
         // console.log(response && response.statusCode);
         // console.log(response && response.headers['location']);
@@ -152,8 +149,8 @@ describe('REST connector', function () {
       });
     });
 
-    it('should list all users', function (done) {
-      rest.query(function (err, body, response) {
+    it('should list all users', function(done) {
+      rest.query(function(err, body, response) {
         assert.equal(200, response.statusCode);
         // console.log(response && response.statusCode);
         // console.log(body);
@@ -161,6 +158,5 @@ describe('REST connector', function () {
         done(err, body);
       });
     });
-
   });
 });

@@ -12,4 +12,4 @@ module.exports = function createApp() {
   app.use(require('body-parser').json());
 
   return app;
-}
+};
