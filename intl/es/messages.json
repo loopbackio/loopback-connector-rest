@@ -1,7 +1,7 @@
 {
   "1ac3e8c0df67a21b80179ec52ff48740": "{{undefined}} no es un objeto {{uri}} o {{options}} válido.",
   "a4b088cf7543f9d0e894a32cc84481a2": "Respuesta de error: {0} {1}",
-  "aa7f77e663b832d5b0e544c5511e680c": "No soportado ",
+  "aa7f77e663b832d5b0e544c5511e680c": "No soportado",
   "db47a57922ba3074885610d2fd9bd292": "Falta la plantilla de operación: {0}",
   "efeb8cb16bb3cdcedb893b716ab1bfff": "El recurso para {0} no está definido",
   "d9773c20f7f37550e52375be23b0d5be": "Combinación en método: {0} {1}",
