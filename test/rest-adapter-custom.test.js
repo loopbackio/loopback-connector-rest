@@ -55,6 +55,7 @@ describe('REST connector', function() {
       assert.deepEqual(model.m1.accepts, [
         {
           arg: 'p',
+          default: undefined,
           http: {
             source: 'path',
           },
@@ -63,24 +64,28 @@ describe('REST connector', function() {
         },
         {
           arg: 'x',
+          default: 100,
           type: 'number',
           required: false,
           http: { source: 'query' },
         },
         {
           arg: 'a',
+          default: 1,
           type: 'number',
           required: false,
           http: { source: 'body' },
         },
         {
           arg: 'b',
+          default: 'true',
           type: 'boolean',
           required: false,
           http: { source: 'header' },
         },
         {
           arg: 'z',
+          default: undefined,
           type: 'string',
           required: false,
           http: { source: 'header' },
