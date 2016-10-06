@@ -6,26 +6,7 @@
 var assert = require('assert');
 
 var DataSource = require('loopback-datasource-juggler').DataSource;
-var ds = new DataSource(require('../lib/rest-connector'),
-  {
-    baseURL: 'http://localhost:3000',
-    defaults: {
-      headers: {
-        'X-MY-HEADER': 'my-header',
-      },
-    },
-  });
-
-// simplier way to describe model
-var User = ds.define('User', {
-  name: String,
-  bio: String,
-  approved: Boolean,
-  joinedAt: Date,
-  age: Number,
-}, { plural: 'Users' });
-
-ds.attach(User);
+var ds, User;
 
 describe('REST connector', function() {
   describe('CRUD apis', function() {
@@ -34,7 +15,7 @@ describe('REST connector', function() {
       var app = require('./express-helper')();
 
       var count = 2;
-      var users = [new User({ id: 1, name: 'Ray' }), new User({ id: 2, name: 'Joe' })];
+      var users;
 
       app.get('/Users', function(req, res, next) {
         res.setHeader('Content-Type', 'application/json');
@@ -90,9 +71,32 @@ describe('REST connector', function() {
         }
         res.status(404).end();
       });
-
       server = app.listen(app.get('port'), function(err, data) {
-        // console.log('Server listening on ', app.get('port'));
+        ds = new DataSource(require('../lib/rest-connector'),
+          {
+            baseURL: 'http://localhost:' + server.address().port,
+            defaults: {
+              headers: {
+                'X-MY-HEADER': 'my-header',
+              },
+            },
+          });
+
+        // simplier way to describe model
+        User = ds.define('User', {
+          name: String,
+          bio: String,
+          approved: Boolean,
+          joinedAt: Date,
+          age: Number,
+        }, { plural: 'Users' });
+
+        ds.attach(User);
+        users = [
+          new User({ id: 1, name: 'Ray' }),
+          new User({ id: 2, name: 'Joe' }),
+        ];
+        // console.log('Server listening on ', server.address().port);
         done(err, data);
       });
     });

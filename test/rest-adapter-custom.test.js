@@ -13,6 +13,8 @@ var TEST_ADDRESS = /Bedford Ave.*, Brooklyn, NY 11211, USA/;
 describe('REST connector', function() {
   describe('custom operations', function() {
     var server = null;
+    var hostURL = 'http://localhost:';
+
     before(function(done) {
       var app = require('./express-helper')();
 
@@ -29,7 +31,8 @@ describe('REST connector', function() {
       });
 
       server = app.listen(app.get('port'), function(err, data) {
-        // console.log('Server listening on ', app.get('port'));
+        // console.log('Server listening on ', server.address().port);
+        hostURL += server.address().port;
         done(err, data);
       });
     });
@@ -40,6 +43,7 @@ describe('REST connector', function() {
 
     it('should configure remote methods', function(done) {
       var spec = require('./request-template.json');
+      spec.url = hostURL + '/{p}'; // replace template.url to use current host
       var template = {
         operations: [
           {
@@ -55,9 +59,7 @@ describe('REST connector', function() {
       assert.deepEqual(model.m1.accepts, [
         {
           arg: 'p',
-          http: {
-            source: 'path',
-          },
+          http: { source: 'path' },
           required: false,
           type: 'string',
         },
