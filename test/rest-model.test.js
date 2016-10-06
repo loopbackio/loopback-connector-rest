@@ -19,7 +19,7 @@ var User = modelBuilder.define('User', {
 
 var RestResource = require('../lib/rest-model');
 
-var rest = new RestResource('Users', 'http://localhost:3000');
+var rest;
 
 describe('REST connector', function() {
   describe('CRUD methods supported', function() {
@@ -85,7 +85,9 @@ describe('REST connector', function() {
       });
 
       server = app.listen(app.get('port'), function(err, data) {
-        // console.log('Server listening on ', app.get('port'));
+        // console.log('Server listening on ', server.address().port);
+        rest = new RestResource('Users',
+          'http://localhost:' + server.address().port);
         done(err, data);
       });
     });

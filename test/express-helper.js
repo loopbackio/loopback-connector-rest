@@ -8,7 +8,8 @@ var express = require('express');
 module.exports = function createApp() {
   var app = express();
 
-  app.set('port', process.env.PORT || 3000);
+  // dynamically allocate available PORT if no port provided
+  app.set('port', process.env.PORT || 0);
   app.use(require('body-parser').json());
 
   return app;
