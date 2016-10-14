@@ -1,3 +1,35 @@
+2016-10-14, Version 2.1.0
+=========================
+
+ * Update tests to be port independent (gunjpan)
+
+ * Update translation files - round#2 (Candy)
+
+ * Add translated files (gunjpan)
+
+ * Update deps to loopback 3.0.0 RC (Miroslav Bajtoš)
+
+ * Update juggler in package.json (Amir Jafarian)
+
+ * Globalize using strong-globalize (gunjpan)
+
+ * Update URLs in CONTRIBUTING.md (#65) (Ryan Graham)
+
+ * Add Eslint infrastructure (Amir-61)
+
+ * Fix linting errors (Amir Jafarian)
+
+ * Auto-update by eslint --fix (Amir Jafarian)
+
+ * Add eslint infrastructure (Amir Jafarian)
+
+ * relicense as MIT only (Ryan Graham)
+
+ * insert IBM copyrights (Ryan Graham)
+
+ * Add a test for header var (Raymond Feng)
+
+
 2016-03-18, Version 2.0.0
 =========================
 
