@@ -16,7 +16,7 @@ In your application root directory, enter:
 $ npm install loopback-connector-rest --save
 ```
 
-This will install the module from npm and add it as a dependency to the application's [package.json](package.json.html) file.
+This will install the module from npm and add it as a dependency to the application's [package.json](http://loopback.io/doc/en/lb2/package.json.html) file.
 
 ## Creating a REST data source
 
