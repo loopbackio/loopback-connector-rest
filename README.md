@@ -20,7 +20,7 @@ This will install the module from npm and add it as a dependency to the applicat
 
 ## Creating a REST data source
 
-Use the [DataSource generator](http://loopback.io/doc/en/lb2/Data-source-generator) to add a REST data source to your application.
+Use the [data source generator](http://loopback.io/doc/en/lb2/Data-source-generator) to add a REST data source to your application:
 
 ```shell
 $ apic create --type datasource
@@ -75,12 +75,10 @@ Configure the REST connector by editing `datasources.json` manually (for examp
 ...
 ```
 
-For a REST data source, you can define an array of  _operation_ objects to specify the REST API mapping. Each operation object can have the following two properties:
+The  `operation` property is an array of objects, each of which can have these two properties:
 
 * `template`: See how to define a custom method template [below](#defining-a-custom-method-using-a-template).
-* `functions`: An object that maps a JavaScript function to a list of parameter names.
-  For example, a function `geocode(street, city, zipcode)` will be created so that the first argument will be the value of street variable in the template, second for city, and third for zipcode. 
-  The function can be executed anywhere by the server (in a boot script, through middleware, or within a model's JavaScript file if attached to the REST datasource). 
+* `functions`: An object that maps a JavaScript function to a list of parameter names.  For example, a function `geocode(street, city, zipcode)` will be created so that the first argument is the value of street variable in the template, second for city, and third for zip code.  The function can be executed anywhere by the server (in a boot script, through middleware, or within a model's JavaScript file if attached to the REST datasource). 
 
 ## Configure options for request
 
@@ -211,15 +209,23 @@ Without setting `resourceName` the calls would have been made to `baseUrl - '
 
 ## Defining a custom method using a template
 
-Imagine that you use a web browser or REST client to test drive a REST API; you will specify the following HTTP request properties:
+The `template` object specifies the REST API invocation as a JSON template, with the following properties:
 
-* `method`: HTTP method
-* `url`: The URL of the request
-* `headers`: HTTP headers
-* `query`: Query strings
-* `responsePath`: an optional JSONPath applied to the HTTP body. See [https://github.com/s3u/JSONPath](https://github.com/s3u/JSONPath) for syntax of JSON paths.
+| Property | Description | Type |
+|----------|-------------|------|
+| `method`| HTTP method | String (one of "GET", "POST", "PUT", and so on). |
+| `url`| The URL of the request | String; template values allowed. |
+| `headers`| HTTP headers | Object |
+| `query`| Query strings | Object; template values allowed. |
+| `responsePath`| Optional JSONPath applied to the HTTP body. See [https://github.com/s3u/JSONPath](https://github.com/s3u/JSONPath) for syntax of JSON paths.| String |
 
-Then you define the API invocation as a JSON template. For example:
+The template variable syntax is:
+
+`{name=defaultValue:type}`
+
+To specify that the variable value is required, add the prefix `!` or `^`.
+
+For example:
 
 ```javascript
 template: {
@@ -237,13 +243,7 @@ template: {
   }
 ```
 
-The template variable syntax is:
-
-`{name=defaultValue:type}`
-
-The variable is required if the name has a prefix of ! or ^
-
-For example:
+The following table provides several examples:
 
 <table>
   <tbody>
@@ -252,54 +252,36 @@ For example:
       <th>Description</th>
     </tr>
     <tr>
-      <td>
-        <pre><code>'{x=100:number}'</code>
-        </pre>
-      </td>
-      <td>Define a variable x of number type and default value 100</td>
+      <td><code>'{x=100:number}'</code></td>
+      <td>Define a variable x of number type and default value 100.</td>
     </tr>
     <tr>
-      <td>
-        <pre><code>'{x:number}'</code>
-        </pre>
-      </td>
+      <td><code>'{x:number}'</code></td>
       <td>Define a variable x of number type</td>
     </tr>
     <tr>
-      <td>
-        <pre><code>'{x}'</code>
-        </pre>
-      </td>
+      <td><code>'{x}'</code></td>
       <td>Define a variable x</td>
     </tr>
     <tr>
+      <td><code>'{x=100}ABC{y}123'</code></td>
       <td>
-        <pre><code>'{x=100}ABC{y}123'</code>
-        </pre>
-      </td>
-      <td>
-        <p>Define two variables x and y. The default value of x is 100\. The resolved value will be a concatenation of x, 'ABC', y, and '123'. For example, x=50, y=YYY will produce '50ABCYYY123'</p>
+        <p>Define two variables x and y. The default value of x is 100. The resolved value will be a concatenation of x, 'ABC', y, and '123'. For example, x=50, y=YYY will produce '50ABCYYY123'</p>
       </td>
     </tr>
     <tr>
-      <td>
-        <pre><code>'{!x}'</code>
-        </pre>
-      </td>
+      <td><code>'{!x}'</code></td>
       <td>Define a required variable x</td>
     </tr>
     <tr>
-      <td>
-        <pre><code>'{x=100}ABC{^y}123'</code>
-        </pre>
-      </td>
-      <td>Define two variables x and y. The default value of x is 100\. y is required.</td>
+      <td><code>'{x=100}ABC{^y}123'</code></td>
+      <td>Define two variables, x and y. The default value of x is 100, and y is required.</td>
     </tr>
   </tbody>
 </table>
 
-To use custom methods, you can configure the REST connector with the `operations` property, which is an array of objects that contain `template` and `functions`.
-The `template` property defines the API structure while the `functions` property defines JavaScript methods that takes the list of parameter names.
+To use custom methods, configure the REST connector with the `operations` property, which is an array of objects, each of which can have `template` and `functions` properties.  
+The `template` property defines the API structure while the `functions` property defines JavaScript methods that accept the list of parameter names.
 
 ```javascript
 var loopback = require("loopback");
@@ -328,13 +310,13 @@ var ds = loopback.createDataSource({
 });
 ```
 
-Now you can invoke the geocode API as follows:
+Now you can invoke the geocode API in Node.js as follows:
 
 ```javascript
 Model.geocode('107 S B St', 'San Mateo', '94401', processResponse);
 ```
 
-By default, LoopBack REST connector also provides an 'invoke' method to call the REST API with an object of parameters, for example:
+By default, the REST connector also provides an 'invoke' method to call the REST API with an object of parameters, for example:
 
 ```javascript
 Model.invoke({street: '107 S B St', city: 'San Mateo', zipcode: '94401'}, processResponse);
