@@ -75,10 +75,12 @@ Configure the REST connector by editing `datasources.json` manually (for examp
 ...
 ```
 
-The  `operation` property is an array of objects, each of which can have these two properties:
+The `` property is an array of objects, each of which can have these properties:
 
-* `template`: See how to define a custom method template [below](#defining-a-custom-method-using-a-template).
-* `functions`: An object that maps a JavaScript function to a list of parameter names.  For example, a function `geocode(street, city, zipcode)` will be created so that the first argument is the value of street variable in the template, second for city, and third for zip code.  The function can be executed anywhere by the server (in a boot script, through middleware, or within a model's JavaScript file if attached to the REST datasource). 
+* `template`: An object that defines a custom method using a template; see [Defining a custom method using a template](#defining-a-custom-method-using-a-template).
+* `functions`: An object that maps a JavaScript function to a list of parameter names.  
+
+The example above creates a function `geocode(street, city, zipcode)` whose first argument is `street`, second is `city`, and third is `zipcode`.  LoopBack application code can call the function anywhere; for example, in a boot script, via  middleware, or within a model's JavaScript file if attached to the REST datasource. 
 
 ## Configure options for request
 
@@ -91,8 +93,8 @@ You can configure options `options` property at two levels:
 * Data source level (common to all operations)
 * Operation level (specific to the declaring operation)
 
-For example, the following example sets `Accept` and `Content-Type` to `"application/json"` for all requests.
-It also sets `strictSSL` to false so that the connector allows self-signed SSL certificates.
+The following example sets `Accept` and `Content-Type` to `"application/json"` for all requests.
+It also sets `strictSSL` to false so the connector allows self-signed SSL certificates.
 
 **/server/datasources.json**
 
@@ -280,8 +282,10 @@ The following table provides several examples:
   </tbody>
 </table>
 
-To use custom methods, configure the REST connector with the `operations` property, which is an array of objects, each of which can have `template` and `functions` properties.  
-The `template` property defines the API structure while the `functions` property defines JavaScript methods that accept the list of parameter names.
+To use custom methods, configure the REST connector with the `operations` property, which is an array of objects, each of which can have these properties:
+
+- `template` defines the API structure. 
+- `functions` defines JavaScript methods that accept the specified list of parameter names.
 
 ```javascript
 var loopback = require("loopback");
