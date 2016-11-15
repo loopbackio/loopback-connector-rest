@@ -75,7 +75,7 @@ Configure the REST connector by editing `datasources.json` manually (for examp
 ...
 ```
 
-The `` property is an array of objects, each of which can have these properties:
+The `operations` property is an array of objects, each of which can have these properties:
 
 * `template`: An object that defines a custom method using a template; see [Defining a custom method using a template](#defining-a-custom-method-using-a-template).
 * `functions`: An object that maps a JavaScript function to a list of parameter names.  
@@ -134,7 +134,7 @@ It also sets `strictSSL` to false so the connector allows self-signed SSL cert
 
 ### Resource operations
 
-If the REST API supports create, read, update, and delete (CRUD) operations for resources, such as users or orders,
+If the REST API supports create, read, update, and delete (CRUD) operations for resources,
 you can simply bind the model to a REST endpoint that follows REST conventions.
 
 For example, the following methods would be mixed into your model class:
