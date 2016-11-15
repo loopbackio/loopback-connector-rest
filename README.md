@@ -77,10 +77,10 @@ Configure the REST connector by editing `datasources.json` manually (for examp
 
 For a REST data source, you can define an array of  _operation_ objects to specify the REST API mapping. Each operation object can have the following two properties:
 
-* template: See how to define a custom method template [below](#defining-a-custom-method-using-a-template).
-* functions: An object that maps a JavaScript function to a list of parameter names.
-  For example, a function geocode(street, city, zipcode) will be created so that the first argument will be the value of street variable in the template, second for city, and third for zipcode. 
-  The function can be executed anywhere by the server (in a boot script, through middleware, or within a model's .js file if it is attached to the REST datasource). 
+* `template`: See how to define a custom method template [below](#defining-a-custom-method-using-a-template).
+* `functions`: An object that maps a JavaScript function to a list of parameter names.
+  For example, a function `geocode(street, city, zipcode)` will be created so that the first argument will be the value of street variable in the template, second for city, and third for zipcode. 
+  The function can be executed anywhere by the server (in a boot script, through middleware, or within a model's JavaScript file if attached to the REST datasource). 
 
 ## Configure options for request
 
