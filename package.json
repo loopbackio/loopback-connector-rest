@@ -1,6 +1,9 @@
 {
   "name": "loopback-connector-rest",
   "version": "2.1.0",
+  "publishConfig": {
+    "tag": "lts"
+  },
   "description": "Loopback REST Connector",
   "keywords": [
     "StrongLoop",
