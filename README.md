@@ -31,7 +31,7 @@ $ apic create --type datasource
 For LoopBack 2.x or 3.0:
 
 ```shell
-$ slc loopback:datasource
+$ lb datasource
 ```
 
 When prompted, scroll down in the list of connectors and choose **REST services (supported by StrongLoop)**.
