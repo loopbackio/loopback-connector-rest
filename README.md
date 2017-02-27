@@ -2,7 +2,16 @@
 
 ## Overview
 
-The LoopBack REST connector enables applications to interact with other (third party) REST APIs using a template-driven approach.
+The LoopBack REST connector enables applications to interact with other (third party) REST APIs 
+using a template-driven approach.  The connector performs an asynchronous request to the defined 
+endpoint.
+
+The connector uses the [request](https://www.npmjs.com/package/request) module as the 
+HTTP client.
+You can configure the same options as for the `request()` function.
+See [`request(options, callback)`](https://www.npmjs.com/package/request#request-options-callback).
+
+
 It supports two different styles of API invocations:
 
 * [Resource operations](#resource-operations)
@@ -20,7 +29,8 @@ This will install the module from npm and add it as a dependency to the applicat
 
 ## Creating a REST data source
 
-Use the [data source generator](http://loopback.io/doc/en/lb3/Data-source-generator) to add a REST data source to your application.
+If you are NOT creating your datasource with Javascript, use the [data source generator]
+(http://loopback.io/doc/en/lb3/Data-source-generator) to add a REST data source to your application.
 
 For LoopBack 2.x:
 
@@ -88,10 +98,6 @@ The example above creates a function `geocode(street, city, zipcode)` whose f
 
 ## Configure options for request
 
-The REST connector uses the [request](https://www.npmjs.com/package/request) module as the HTTP client.
-You can configure the same options as for the `request()` function.
-See [`request(options, callback)`](https://www.npmjs.com/package/request#request-options-callback).
-
 You can configure options `options` property at two levels:
 
 * Data source level (common to all operations)
@@ -140,6 +146,8 @@ It also sets `strictSSL` to false so the connector allows self-signed SSL cert
 
 If the REST API supports create, read, update, and delete (CRUD) operations for resources,
 you can simply bind the model to a REST endpoint that follows REST conventions.
+
+NOTE: The following example does not utilize a generated datasource or model.
 
 For example, the following methods would be mixed into your model class:
 
@@ -249,7 +257,7 @@ template: {
   }
 ```
 
-The following table provides several examples:
+The following table provides several examples of variable formatting:
 
 <table>
   <tbody>
@@ -318,17 +326,31 @@ var ds = loopback.createDataSource({
 });
 ```
 
-Now you can invoke the geocode API in Node.js as follows:
+Now you can invoke the geocode API in your code as follows:
 
 ```javascript
-Model.geocode('107 S B St', 'San Mateo', '94401', processResponse);
+module.exports = function(Model) {
+  Model.geocode('107 S B St', 'San Mateo', '94401', function (err, response) {
+    // ...process response here
+  });
+}
 ```
+Model.geocode().then(function() {}).error(function)
+
 
 By default, the REST connector also provides an 'invoke' method to call the REST API with an object of parameters, for example:
 
 ```javascript
-Model.invoke({street: '107 S B St', city: 'San Mateo', zipcode: '94401'}, processResponse);
+module.exports = function(Model) {
+  Model.invoke({street: '107 S B St', city: 'San Mateo', zipcode: '94401'}, function (err, response) {
+    // ...process response here
+  });
+}
 ```
+
+See the following for ['Using Promises'](https://loopback.io/doc/en/lb2/Using-promises.html)
+
+
 
 ## Parameter/variable mapping to HTTP (since 2.0.0)
 
@@ -401,4 +423,7 @@ For the template above, the variables will be mapped as follows:
 * a - body
 * b - header
 
-Please note that path variables are appended to the path, for example, `/myOp/:p.`
+When specifying a path variable, it is appended to the function name in the url path. Using the 
+example above: 
+
+`http://localhost:3000/{p}` becomes `http://localhost:3000/myOp/:p`
