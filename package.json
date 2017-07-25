@@ -4,7 +4,7 @@
   "description": "Loopback REST Connector",
   "engines": {
     "node": ">=4"
-  },  
+  },
   "keywords": [
     "StrongLoop",
     "LoopBack",
@@ -30,7 +30,7 @@
     "traverse": "^0.6.6"
   },
   "devDependencies": {
-    "bluebird": "^3.3.4",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.12.0",
     "eslint": "^2.7.0",
     "eslint-config-loopback": "^1.0.0",
