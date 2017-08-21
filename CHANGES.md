@@ -1,3 +1,41 @@
+2017-08-21, Version 3.0.0
+=========================
+
+ * create pr template (Sakib Hasan)
+
+ * create issue template (Sakib Hasan)
+
+ * Update translated strings Q3 2017 (Allen Boone)
+
+ * Add CODEOWNERS file (Diana Lau)
+
+ * update translation file (Diana Lau)
+
+ * add .travis.yml (Diana Lau)
+
+ * Fix api docs (ssh24)
+
+ * Update lb2 to lb3 links (#91) (ivy ho)
+
+ * Update Readme with lb from slc (#90) (ivy ho)
+
+ * Update README.md (#88) (Rand McKinney)
+
+ * Update ko translation file (Candy)
+
+ * Update paid support URL (Siddhi Pai)
+
+ * Start 3.x + drop support for Node v0.10/v0.12 (siddhipai)
+
+ * Drop support for Node v0.10 and v0.12 (Siddhi Pai)
+
+ * Start the development of the next major version (Siddhi Pai)
+
+ * Update README.md (#78) (Rand McKinney)
+
+ * Update README with correct doc links, etc (Amir Jafarian)
+
+
 2016-10-14, Version 2.1.0
 =========================
 
