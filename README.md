@@ -222,6 +222,7 @@ The `template` object specifies the REST API invocation as a JSON template, with
 | `method`| HTTP method | String (one of "GET", "POST", "PUT", and so on). |
 | `url`| The URL of the request | String; template values allowed. |
 | `headers`| HTTP headers | Object |
+| `returns`| Describes the remote method's callback arguments. See [https://loopback.io/doc/en/lb2/Remote-methods.html#argument-descriptions](https://loopback.io/doc/en/lb2/Remote-methods.html#argument-descriptions) for details. | Object |
 | `query`| Query strings | Object; template values allowed. |
 | `responsePath`| Optional JSONPath applied to the HTTP body. See [https://github.com/s3u/JSONPath](https://github.com/s3u/JSONPath) for syntax of JSON paths.| String |
 
@@ -245,7 +246,10 @@ template: {
       "address": "{street},{city},{zipcode}",
       "sensor": "{sensor=false}"
     },
-    "responsePath": "$.results[0].geometry.location"
+    "responsePath": "$.results[0].geometry.location",
+    "returns": {
+      "type": "object"
+    }
   }
 ```
 
