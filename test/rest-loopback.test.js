@@ -3,6 +3,8 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
+'use strict';
+
 var assert = require('assert');
 
 var DataSource = require('loopback-datasource-juggler').DataSource;
@@ -89,12 +91,12 @@ describe('REST connector', function() {
           approved: Boolean,
           joinedAt: Date,
           age: Number,
-        }, { plural: 'Users' });
+        }, {plural: 'Users'});
 
         ds.attach(User);
         users = [
-          new User({ id: 1, name: 'Ray' }),
-          new User({ id: 2, name: 'Joe' }),
+          new User({id: 1, name: 'Ray'}),
+          new User({id: 2, name: 'Joe'}),
         ];
         // console.log('Server listening on ', server.address().port);
         done(err, data);
@@ -102,7 +104,7 @@ describe('REST connector', function() {
     });
 
     after(function(done) {
-      server && server.close(done);
+      if (server) server.close(done);
     });
 
     it('should find two users', function(done) {
@@ -163,7 +165,7 @@ describe('REST connector', function() {
     });
 
     it('should create a new id named Mary', function(done) {
-      User.create({ name: 'Mary' }, function(err, body) {
+      User.create({name: 'Mary'}, function(err, body) {
         // console.log(body);
         done(err, body);
       });

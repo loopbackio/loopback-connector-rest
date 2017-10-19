@@ -3,6 +3,8 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
+'use strict';
+
 var assert = require('assert');
 
 if (!global.Promise) {
@@ -38,13 +40,13 @@ describe('REST Request Builder', function() {
     });
 
     after(function(done) {
-      server && server.close(done);
+      if (server) server.close(done);
     });
 
     it('should substitute the variables', function(done) {
       var builder = new RequestBuilder('GET', hostURL + '/{p}')
-        .query({ x: '{x}', y: 2 });
-      builder.invoke({ p: 1, x: 'X' },
+        .query({x: '{x}', y: 2});
+      builder.invoke({p: 1, x: 'X'},
         function(err, body, response) {
           // console.log(response.headers);
           assert.equal(200, response.statusCode);
@@ -59,8 +61,8 @@ describe('REST Request Builder', function() {
     });
 
     it('should support default variables', function(done) {
-      var builder = new RequestBuilder('GET', hostURL + '/{p=100}').query({ x: '{x=ME}', y: 2 });
-      builder.invoke({ p: 1 },
+      var builder = new RequestBuilder('GET', hostURL + '/{p=100}').query({x: '{x=ME}', y: 2});
+      builder.invoke({p: 1},
         function(err, body, response) {
           // console.log(response.headers);
           assert.equal(200, response.statusCode);
@@ -76,9 +78,9 @@ describe('REST Request Builder', function() {
     });
 
     it('should support typed variables', function(done) {
-      var builder = new RequestBuilder('POST', hostURL + '/{p=100}').query({ x: '{x=100:number}', y: 2 })
-        .body({ a: '{a=1:number}', b: '{b=true:boolean}' });
-      builder.invoke({ p: 1, a: 100, b: false },
+      var builder = new RequestBuilder('POST', hostURL + '/{p=100}').query({x: '{x=100:number}', y: 2})
+        .body({a: '{a=1:number}', b: '{b=true:boolean}'});
+      builder.invoke({p: 1, a: 100, b: false},
         function(err, body, response) {
           // console.log(response.headers);
           assert.equal(200, response.statusCode);
@@ -96,10 +98,10 @@ describe('REST Request Builder', function() {
     });
 
     it('should report missing required variables', function(done) {
-      var builder = new RequestBuilder('POST', hostURL + '/{!p}').query({ x: '{x=100:number}', y: 2 })
-        .body({ a: '{^a:number}', b: '{!b=true:boolean}' });
+      var builder = new RequestBuilder('POST', hostURL + '/{!p}').query({x: '{x=100:number}', y: 2})
+        .body({a: '{^a:number}', b: '{!b=true:boolean}'});
       try {
-        builder.invoke({ a: 100, b: false },
+        builder.invoke({a: 100, b: false},
           function(err, body, response) {
             // console.log(response.headers);
             assert.equal(200, response.statusCode);
@@ -117,10 +119,10 @@ describe('REST Request Builder', function() {
     });
 
     it('should support required variables', function(done) {
-      var builder = new RequestBuilder('POST', hostURL + '/{!p}').query({ x: '{x=100:number}', y: 2 })
-        .body({ a: '{^a:number}', b: '{!b=true:boolean}' });
+      var builder = new RequestBuilder('POST', hostURL + '/{!p}').query({x: '{x=100:number}', y: 2})
+        .body({a: '{^a:number}', b: '{!b=true:boolean}'});
 
-      builder.invoke({ p: 1, a: 100, b: false },
+      builder.invoke({p: 1, a: 100, b: false},
         function(err, body, response) {
           // console.log(response.headers);
           assert.equal(200, response.statusCode);
@@ -138,7 +140,7 @@ describe('REST Request Builder', function() {
     });
 
     it('should build an operation with the parameter names', function(done) {
-      var builder = new RequestBuilder('POST', hostURL + '/{p}').query({ x: '{x}', y: 2 });
+      var builder = new RequestBuilder('POST', hostURL + '/{p}').query({x: '{x}', y: 2});
 
       var fn = builder.operation(['p', 'x']);
 
@@ -158,7 +160,7 @@ describe('REST Request Builder', function() {
     });
 
     it('should build an operation with the parameter names as args', function(done) {
-      var builder = new RequestBuilder('POST', hostURL + '/{p}').query({ x: '{x}', y: 2 });
+      var builder = new RequestBuilder('POST', hostURL + '/{p}').query({x: '{x}', y: 2});
 
       var fn = builder.operation('p', 'x');
 
@@ -182,7 +184,7 @@ describe('REST Request Builder', function() {
       template.url = hostURL + '/{p}'; // update template.url to dynamic host
       var builder = new RequestBuilder(template);
       // console.log(builder.parse());
-      builder.invoke({ p: 1, a: 100, b: false },
+      builder.invoke({p: 1, a: 100, b: false},
         function(err, body, response) {
           // console.log(response.headers);
           assert.equal(200, response.statusCode);
@@ -200,11 +202,11 @@ describe('REST Request Builder', function() {
     });
 
     it('should support custom request funciton', function(done) {
-      var requestFunc = require('request').defaults({ headers: { 'X-MY-HEADER': 'my-header' }});
+      var requestFunc = require('request').defaults({headers: {'X-MY-HEADER': 'my-header'}});
       var builder = new RequestBuilder(require('./request-template.json'),
         requestFunc);
       // console.log(builder.parse());
-      builder.invoke({ p: 1, a: 100, b: false },
+      builder.invoke({p: 1, a: 100, b: false},
         function(err, body, response) {
           // console.log(response.headers);
           assert.equal(200, response.statusCode);
@@ -217,7 +219,7 @@ describe('REST Request Builder', function() {
   describe('invoke', function() {
     it('should return a promise when no callback is specified', function() {
       var builder = new RequestBuilder(require('./request-template.json'));
-      var promise = builder.invoke({ p: 1, a: 100, b: false });
+      var promise = builder.invoke({p: 1, a: 100, b: false});
       assert(typeof promise['then'] === 'function');
       assert(typeof promise['catch'] === 'function');
     });
@@ -250,7 +252,7 @@ describe('REST Request Builder', function() {
     });
 
     after(function(done) {
-      server && server.close(done);
+      if (server) server.close(done);
     });
 
     it('should consider the response an error', function(done) {
