@@ -31,7 +31,7 @@ describe('REST connector', function() {
       });
 
       server = app.listen(app.get('port'), function(err, data) {
-        // console.log('Server listening on ', server.address().port);
+        if (err) return done(err);
         hostURL += server.address().port;
         done(err, data);
       });
@@ -91,6 +91,7 @@ describe('REST connector', function() {
       assert(model.m1.shared);
       assert.deepEqual(model.m1.http, { verb: 'post', path: '/m1/:p' });
       model.m1('1', 3, 5, false, 'zzz', function(err, result) {
+        if (err) return done(err);
         result.headers.should.have.property('x-test', 'zzz');
         delete result.headers;
         assert.deepEqual(result, { method: 'POST',
@@ -129,11 +130,9 @@ describe('REST connector', function() {
       assert(ds.invoke);
       assert(ds.geocode);
       ds.geocode(40.714224, -73.961452, function(err, result, response) {
-        // console.log(response.headers);
+        if (err) return done(err);
         var body = response.body;
         var address = body.results[0].formatted_address;
-        // console.log(address);
-
         assert.ok(address.match(TEST_ADDRESS));
         done(err, address);
       });
@@ -166,16 +165,14 @@ describe('REST connector', function() {
       var ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.getAddress);
       ds.getAddress('40.714224,-73.961452', function(err, result, response) {
+        if (err) return done(err);
         var body = response.body;
         var address = body.results[0].formatted_address;
-        // console.log('Address', address);
         assert.ok(address.match(TEST_ADDRESS));
         assert(ds.getGeoLocation);
         ds.getGeoLocation('107 S B St, San Mateo, CA', function(err, result, response) {
-          // console.log(response.headers);
           var body = response.body;
           var loc = body.results[0].geometry.location;
-          // console.log('Location', loc);
           done(err, loc);
         });
       });
@@ -203,10 +200,9 @@ describe('REST connector', function() {
       var ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.invoke);
       ds.invoke({ latitude: 40.714224, longitude: -73.961452 }, function(err, result, response) {
-        // console.log(response.headers);
+        if (err) return done(err);
         var body = response.body;
         var address = body.results[0].formatted_address;
-        console.log(address);
         assert.ok(address.match(TEST_ADDRESS));
         done(err, address);
       });
@@ -256,6 +252,7 @@ describe('REST connector', function() {
       var ds = new DataSource(require('../lib/rest-connector'), template);
       var model = ds.createModel('rest');
       model.m1(3, function(err, result) {
+        if (err) return done(err);
         assert.equal(result.headers['x-defaults'], 'defaults');
         assert.equal(result.headers['x-options'], 'options');
         assert.equal(result.headers['x-top'], 'top');

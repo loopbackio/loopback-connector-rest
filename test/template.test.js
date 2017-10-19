@@ -52,6 +52,18 @@ describe('JsonTemplate', function() {
       done(null, result);
     });
 
+    it('should support variable names starts with $ or _', function(done) {
+      var template = new JsonTemplate({
+        url: 'http://localhost:3000/{$p=100}',
+        query: { x: '{_x=ME}', y: 2 },
+      });
+      var result = template.build({ $p: 1, _x: 'YOU' });
+      assert.equal('http://localhost:3000/1', result.url);
+      assert.equal('YOU', result.query.x);
+      assert.equal(2, result.query.y);
+      done(null, result);
+    });
+
     it('should support typed variables', function(done) {
       var template = new JsonTemplate({
         url: 'http://localhost:3000/{p=100}',
@@ -60,7 +72,6 @@ describe('JsonTemplate', function() {
       });
       var result = template.build({ p: 1, a: 100, b: false });
 
-      // console.log(body);
       assert.equal('http://localhost:3000/1', result.url);
       assert.equal(100, result.query.x);
       assert.equal(2, result.query.y);
@@ -167,6 +178,36 @@ describe('JsonTemplate', function() {
           client_secret: 's1' }});
       /* eslint-enable camelcase */
 
+      done();
+    });
+
+    it('should ignore invalid vars', function(done) {
+      var obj = {
+        url: 'http://localhost:3000/test',
+        headers: {
+          'x-lookup-request': '{x+y}{|}{0a}{=4}',
+        },
+      };
+      var template = new JsonTemplate(obj);
+      var result = template.build(template);
+      result.should.be.eql(obj);
+      done();
+    });
+
+    it('should allow stringified json in headers', function(done) {
+      var obj = {
+        url: 'http://localhost:3000/test',
+        headers: {
+          'x-lookup-request': '{"guid":{"region":"NW","role":"MBR"' +
+          '"userId":"100071974","identifier":[{"id":"000035054016",' +
+          '"source":"KP_EBIZ","idType":"SCALMRN"}]},' +
+          '"relid":[{"region":"SCA","identifier":[{"id":"613637391",' +
+          '"source":"KP_EBIZ","idType":"CID"}]}]}',
+        },
+      };
+      var template = new JsonTemplate(obj);
+      var result = template.build(template);
+      result.should.be.eql(obj);
       done();
     });
   });
