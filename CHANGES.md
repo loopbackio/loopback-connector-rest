@@ -1,3 +1,11 @@
+2017-10-19, Version 3.1.0
+=========================
+
+ * Fix the template to allow stringified json (Raymond Feng)
+
+ * Add stalebot configuration (Kevin Delisle)
+
+
 2017-08-21, Version 3.0.0
 =========================
 
