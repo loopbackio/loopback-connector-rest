@@ -132,9 +132,15 @@ describe('REST connector', function() {
       ds.geocode(40.714224, -73.961452, function(err, result, response) {
         if (err) return done(err);
         var body = response.body;
-        var address = body.results[0].formatted_address;
-        assert.ok(address.match(TEST_ADDRESS));
-        done(err, address);
+        if (body.status !== 'OK') {
+          //If the request has been rate limited, check that the status indicates this
+          assert.ok(body.status === 'OVER_QUERY_LIMIT');
+          done(err);
+        } else {
+          var address = body.results[0].formatted_address;
+          assert.ok(address.match(TEST_ADDRESS));
+          done(err, address);
+        }
       });
     });
 
@@ -167,14 +173,26 @@ describe('REST connector', function() {
       ds.getAddress('40.714224,-73.961452', function(err, result, response) {
         if (err) return done(err);
         var body = response.body;
-        var address = body.results[0].formatted_address;
-        assert.ok(address.match(TEST_ADDRESS));
-        assert(ds.getGeoLocation);
-        ds.getGeoLocation('107 S B St, San Mateo, CA', function(err, result, response) {
-          var body = response.body;
-          var loc = body.results[0].geometry.location;
-          done(err, loc);
-        });
+        if (body.status !== 'OK') {
+          //If the request has been rate limited, check that the status indicates this
+          assert.ok(body.status == 'OVER_QUERY_LIMIT');
+          done(err);
+        } else {
+          var address = body.results[0].formatted_address;
+          assert.ok(address.match(TEST_ADDRESS));
+          assert(ds.getGeoLocation);
+          ds.getGeoLocation('107 S B St, San Mateo, CA', function(err, result, response) {
+            var body = response.body;
+            if (body.status !== 'OK') {
+              //If the request has been rate limited, check that the status indicates this
+              assert.ok(body.status == 'OVER_QUERY_LIMIT');
+              done(err);
+            } else {
+              var loc = body.results[0].geometry.location;
+              done(err, loc);
+            }
+          });
+        }
       });
     });
 
@@ -202,9 +220,15 @@ describe('REST connector', function() {
       ds.invoke({ latitude: 40.714224, longitude: -73.961452 }, function(err, result, response) {
         if (err) return done(err);
         var body = response.body;
-        var address = body.results[0].formatted_address;
-        assert.ok(address.match(TEST_ADDRESS));
-        done(err, address);
+        if (body.status !== 'OK') {
+          //If the request has been rate limited, check that the status indicates this
+          assert.ok(body.status == 'OVER_QUERY_LIMIT');
+          done(err);
+        } else {
+          var address = body.results[0].formatted_address;
+          assert.ok(address.match(TEST_ADDRESS));
+          done(err, address);
+        }
       });
     });
 
