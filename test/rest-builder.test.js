@@ -46,12 +46,10 @@ describe('REST Request Builder', function() {
         .query({ x: '{x}', y: 2 });
       builder.invoke({ p: 1, x: 'X' },
         function(err, body, response) {
-          // console.log(response.headers);
           assert.equal(200, response.statusCode);
           if (typeof body === 'string') {
             body = JSON.parse(body);
           }
-          // console.log(body);
           assert.equal(body.query.x, 'X');
           assert.equal(body.query.y, 2);
           done(err, body);
@@ -62,12 +60,10 @@ describe('REST Request Builder', function() {
       var builder = new RequestBuilder('GET', hostURL + '/{p=100}').query({ x: '{x=ME}', y: 2 });
       builder.invoke({ p: 1 },
         function(err, body, response) {
-          // console.log(response.headers);
           assert.equal(200, response.statusCode);
           if (typeof body === 'string') {
             body = JSON.parse(body);
           }
-          // console.log(body);
           assert.equal(0, body.url.indexOf('/1'));
           assert.equal('ME', body.query.x);
           assert.equal(2, body.query.y);
@@ -80,12 +76,10 @@ describe('REST Request Builder', function() {
         .body({ a: '{a=1:number}', b: '{b=true:boolean}' });
       builder.invoke({ p: 1, a: 100, b: false },
         function(err, body, response) {
-          // console.log(response.headers);
           assert.equal(200, response.statusCode);
           if (typeof body === 'string') {
             body = JSON.parse(body);
           }
-          // console.log(body);
           assert.equal(0, body.url.indexOf('/1'));
           assert.equal(100, body.query.x);
           assert.equal(2, body.query.y);
@@ -259,7 +253,8 @@ describe('REST Request Builder', function() {
         function(err, body, response) {
           assert.equal(400, response.statusCode);
           assert.equal(400, err.statusCode);
-          assert.deepEqual({}, err.message.body);
+          assert(typeof err == 'object');
+          assert(typeof err.message == 'string');
           done();
         });
     });
@@ -272,7 +267,8 @@ describe('REST Request Builder', function() {
         })
         .catch(function(err) {
           assert.equal(400, err.statusCode);
-          assert.deepEqual({}, err.message.body);
+          assert(typeof err == 'object');
+          assert(typeof err.message == 'string');
           done();
         });
     });
