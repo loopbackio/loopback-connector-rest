@@ -129,9 +129,8 @@ describe('REST connector', function() {
       var ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.invoke);
       assert(ds.geocode);
-      ds.geocode(40.714224, -73.961452, function(err, result, response) {
-        if (err) return done(err);
-        var body = response.body;
+      ds.geocode(40.714224, -73.961452, function(err, body, response) {
+        if (!checkGoogleMapAPIResult(err, response, done)) return;
         var address = body.results[0].formatted_address;
         assert.ok(address.match(TEST_ADDRESS));
         done(err, address);
@@ -164,14 +163,13 @@ describe('REST connector', function() {
         ] };
       var ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.getAddress);
-      ds.getAddress('40.714224,-73.961452', function(err, result, response) {
-        if (err) return done(err);
-        var body = response.body;
+      ds.getAddress('40.714224,-73.961452', function(err, body, response) {
+        if (!checkGoogleMapAPIResult(err, response, done)) return;
         var address = body.results[0].formatted_address;
         assert.ok(address.match(TEST_ADDRESS));
         assert(ds.getGeoLocation);
-        ds.getGeoLocation('107 S B St, San Mateo, CA', function(err, result, response) {
-          var body = response.body;
+        ds.getGeoLocation('107 S B St, San Mateo, CA', function(err, body, response) {
+          if (!checkGoogleMapAPIResult(err, response, done)) return;
           var loc = body.results[0].geometry.location;
           done(err, loc);
         });
@@ -199,9 +197,8 @@ describe('REST connector', function() {
         ] };
       var ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.invoke);
-      ds.invoke({ latitude: 40.714224, longitude: -73.961452 }, function(err, result, response) {
-        if (err) return done(err);
-        var body = response.body;
+      ds.invoke({ latitude: 40.714224, longitude: -73.961452 }, function(err, body, response) {
+        if (!checkGoogleMapAPIResult(err, response, done)) return;
         var address = body.results[0].formatted_address;
         assert.ok(address.match(TEST_ADDRESS));
         done(err, address);
@@ -261,3 +258,21 @@ describe('REST connector', function() {
     });
   });
 });
+
+function checkGoogleMapAPIResult(err, res, done) {
+  if (err) {
+    done(err);
+    return false;
+  }
+  if (res.statusCode !== 200) {
+    done(new Error('Google Map API call fails: ' + res.statusCode));
+    return false;
+  }
+  if (res.body.status === 'OVER_QUERY_LIMIT') {
+    console.warn(res.body.error_message);
+    done();
+    return false;
+  }
+  assert.equal(res.body.status, 'OK', res.body.error_message);
+  return true;
+}
