@@ -1,3 +1,15 @@
+2018-03-30, Version 3.1.1
+=========================
+
+ * allow tests to detect google map api rate limiting (Raymond Feng)
+
+ * issue 118 object object return in error stack (Elankeeran Vaithiyanathan)
+
+ * Update LICENSE (Diana Lau)
+
+ * chore: update license (Diana Lau)
+
+
 2017-10-19, Version 3.1.0
 =========================
 
