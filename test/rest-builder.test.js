@@ -214,6 +214,9 @@ describe('REST Request Builder', function() {
       var promise = builder.invoke({ p: 1, a: 100, b: false });
       assert(typeof promise['then'] === 'function');
       assert(typeof promise['catch'] === 'function');
+      return promise.catch(function(err) {
+        // Ignore the error
+      });
     });
   });
 
