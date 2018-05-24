@@ -3,6 +3,8 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
+'use strict';
+
 var assert = require('assert');
 var should = require('should');
 
@@ -38,7 +40,7 @@ describe('REST connector', function() {
     });
 
     after(function(done) {
-      server && server.close(done);
+      if (server) server.close(done);
     });
 
     it('should configure remote methods', function(done) {
@@ -48,7 +50,7 @@ describe('REST connector', function() {
         operations: [
           {
             template: spec, functions: {
-              m1: ['p', 'x', 'a', { name: 'b', source: 'header' }, 'z'],
+              m1: ['p', 'x', 'a', {name: 'b', source: 'header'}, 'z'],
             },
           },
         ],
@@ -59,7 +61,7 @@ describe('REST connector', function() {
       assert.deepEqual(model.m1.accepts, [
         {
           arg: 'p',
-          http: { source: 'path' },
+          http: {source: 'path'},
           required: false,
           type: 'string',
         },
@@ -67,37 +69,37 @@ describe('REST connector', function() {
           arg: 'x',
           type: 'number',
           required: false,
-          http: { source: 'query' },
+          http: {source: 'query'},
         },
         {
           arg: 'a',
           type: 'number',
           required: false,
-          http: { source: 'body' },
+          http: {source: 'body'},
         },
         {
           arg: 'b',
           type: 'boolean',
           required: false,
-          http: { source: 'header' },
+          http: {source: 'header'},
         },
         {
           arg: 'z',
           type: 'string',
           required: false,
-          http: { source: 'header' },
+          http: {source: 'header'},
         }]
       );
       assert(model.m1.shared);
-      assert.deepEqual(model.m1.http, { verb: 'post', path: '/m1/:p' });
+      assert.deepEqual(model.m1.http, {verb: 'post', path: '/m1/:p'});
       model.m1('1', 3, 5, false, 'zzz', function(err, result) {
         if (err) return done(err);
         result.headers.should.have.property('x-test', 'zzz');
         delete result.headers;
-        assert.deepEqual(result, { method: 'POST',
+        assert.deepEqual(result, {method: 'POST',
           url: '/1?x=3&y=2',
-          query: { x: '3', y: '2' },
-          body: { a: 5, b: false }});
+          query: {x: '3', y: '2'},
+          body: {a: 5, b: false}});
         done(err, result);
       });
     });
@@ -125,7 +127,7 @@ describe('REST connector', function() {
               'geocode': ['latitude', 'longitude'],
             },
           },
-        ] };
+        ]};
       var ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.invoke);
       assert(ds.geocode);
@@ -160,7 +162,7 @@ describe('REST connector', function() {
               'getGeoLocation': ['address'],
             },
           },
-        ] };
+        ]};
       var ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.getAddress);
       ds.getAddress('40.714224,-73.961452', function(err, body, response) {
@@ -194,10 +196,10 @@ describe('REST connector', function() {
               },
             },
           },
-        ] };
+        ]};
       var ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.invoke);
-      ds.invoke({ latitude: 40.714224, longitude: -73.961452 }, function(err, body, response) {
+      ds.invoke({latitude: 40.714224, longitude: -73.961452}, function(err, body, response) {
         if (!checkGoogleMapAPIResult(err, response, done)) return;
         var address = body.results[0].formatted_address;
         assert.ok(address.match(TEST_ADDRESS));
@@ -211,7 +213,7 @@ describe('REST connector', function() {
         clientKey: 'CLIENT.KEY',
         clientCert: 'CLIENT.CERT',
         operations: [
-          { template: spec, functions: {
+          {template: spec, functions: {
             m1: ['x'],
           }},
         ],
@@ -241,7 +243,7 @@ describe('REST connector', function() {
           },
         },
         operations: [
-          { template: spec, functions: {
+          {template: spec, functions: {
             m1: ['x'],
           }},
         ],
