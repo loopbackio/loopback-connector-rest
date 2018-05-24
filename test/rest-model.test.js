@@ -3,6 +3,8 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
+'use strict';
+
 var assert = require('assert');
 
 var ModelBuilder = require('loopback-datasource-juggler').ModelBuilder;
@@ -28,7 +30,7 @@ describe('REST connector', function() {
       var app = require('./express-helper')();
 
       var count = 2;
-      var users = [new User({ id: 1, name: 'Ray' }), new User({ id: 2, name: 'Joe' })];
+      var users = [new User({id: 1, name: 'Ray'}), new User({id: 2, name: 'Joe'})];
 
       app.get('/Users', function(req, res, next) {
         res.setHeader('Content-Type', 'application/json');
@@ -93,7 +95,7 @@ describe('REST connector', function() {
     });
 
     after(function(done) {
-      server && server.close(done);
+      if (server) server.close(done);
     });
 
     it('should find two users', function(done) {
@@ -126,7 +128,7 @@ describe('REST connector', function() {
     });
 
     it('should update user 1', function(done) {
-      rest.update(1, new User({ id: 1, name: 'Raymond' }), function(err, body, response) {
+      rest.update(1, new User({id: 1, name: 'Raymond'}), function(err, body, response) {
         assert.equal(200, response.statusCode);
         // console.log(err, response && response.statusCode);
         done(err, body);
@@ -142,7 +144,7 @@ describe('REST connector', function() {
     });
 
     it('should create a new id named Mary', function(done) {
-      rest.create(new User({ name: 'Mary' }), function(err, body, response) {
+      rest.create(new User({name: 'Mary'}), function(err, body, response) {
         assert.equal(201, response.statusCode);
         // console.log(response && response.statusCode);
         // console.log(response && response.headers['location']);
