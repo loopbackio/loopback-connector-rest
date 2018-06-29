@@ -1,0 +1,12 @@
+{
+  "1ac3e8c0df67a21b80179ec52ff48740": "{{undefined}} není platný {{uri}} nebo objekt {{options}}.",
+  "3bdb97496df54e709e9b333f198925c2": "Neplatný parametr: {0}",
+  "a4b088cf7543f9d0e894a32cc84481a2": "Odezva na chybu: {0} {1}",
+  "aa7f77e663b832d5b0e544c5511e680c": "Nepodporováno",
+  "bb91384646d1ca486e4bed8a042c5b9c": "Požadovaná proměnná {0} nemá žádnou hodnotu",
+  "c7cccf453e329268ca20cdd6fed14431": "Odezva na chybu: {0} {1}",
+  "d9773c20f7f37550e52375be23b0d5be": "Kombinování v metodě: {0} {1}",
+  "db47a57922ba3074885610d2fd9bd292": "Chybí šablona operace: {0}",
+  "efeb8cb16bb3cdcedb893b716ab1bfff": "Prostředek pro {0} není definován"
+}
+

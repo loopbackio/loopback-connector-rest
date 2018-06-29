@@ -1,0 +1,12 @@
+{
+  "1ac3e8c0df67a21b80179ec52ff48740": "{{undefined}} nie jest poprawną właściwością {{uri}} lub {{options}}.",
+  "3bdb97496df54e709e9b333f198925c2": "Niepoprawny parametr: {0}",
+  "a4b088cf7543f9d0e894a32cc84481a2": "Odpowiedź z błędem: {0} {1}",
+  "aa7f77e663b832d5b0e544c5511e680c": "Nieobsługiwane",
+  "bb91384646d1ca486e4bed8a042c5b9c": "Wymagana zmienna {0} nie ma wartości",
+  "c7cccf453e329268ca20cdd6fed14431": "Odpowiedź z błędem: {0} {1}",
+  "d9773c20f7f37550e52375be23b0d5be": "Mieszanie w metodzie: {0} {1}",
+  "db47a57922ba3074885610d2fd9bd292": "Brak szablonu operacji: {0}",
+  "efeb8cb16bb3cdcedb893b716ab1bfff": "Zasób dla {0} nie został zdefiniowany"
+}
+
