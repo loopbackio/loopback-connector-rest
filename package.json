@@ -3,7 +3,7 @@
   "version": "3.1.1",
   "description": "Loopback REST Connector",
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "keywords": [
     "StrongLoop",
@@ -26,7 +26,7 @@
     "mime": "^2.3.1",
     "qs": "^6.1.0",
     "request": "^2.53.0",
-    "strong-globalize": "^3.3.0",
+    "strong-globalize": "^4.1.1",
     "traverse": "^0.6.6"
   },
   "devDependencies": {

@@ -49,7 +49,8 @@ describe('REST connector', function() {
       var template = {
         operations: [
           {
-            template: spec, functions: {
+            template: spec,
+            functions: {
               m1: ['p', 'x', 'a', {name: 'b', source: 'header'}, 'z'],
             },
           },
@@ -88,18 +89,20 @@ describe('REST connector', function() {
           type: 'string',
           required: false,
           http: {source: 'header'},
-        }]
-      );
+        },
+      ]);
       assert(model.m1.shared);
       assert.deepEqual(model.m1.http, {verb: 'post', path: '/m1/:p'});
       model.m1('1', 3, 5, false, 'zzz', function(err, result) {
         if (err) return done(err);
         result.headers.should.have.property('x-test', 'zzz');
         delete result.headers;
-        assert.deepEqual(result, {method: 'POST',
+        assert.deepEqual(result, {
+          method: 'POST',
           url: '/1?x=3&y=2',
           query: {x: '3', y: '2'},
-          body: {a: 5, b: false}});
+          body: {a: 5, b: false},
+        });
         done(err, result);
       });
     });
@@ -110,24 +113,25 @@ describe('REST connector', function() {
         operations: [
           {
             template: {
-              'method': 'GET',
-              'url': 'http://maps.googleapis.com/maps/api/geocode/{format=json}',
-              'headers': {
-                'accept': 'application/json',
+              method: 'GET',
+              url: 'http://maps.googleapis.com/maps/api/geocode/{format=json}',
+              headers: {
+                accept: 'application/json',
                 'content-type': 'application/json',
               },
-              'query': {
-                'latlng': '{latitude},{longitude}',
-                'sensor': '{sensor=true}',
+              query: {
+                latlng: '{latitude},{longitude}',
+                sensor: '{sensor=true}',
               },
             },
             // Bind the template to one or more JavaScript functions
             // The key is the function name and the value is an array of variable names
             functions: {
-              'geocode': ['latitude', 'longitude'],
+              geocode: ['latitude', 'longitude'],
             },
           },
-        ]};
+        ],
+      };
       var ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.invoke);
       assert(ds.geocode);
@@ -145,24 +149,25 @@ describe('REST connector', function() {
         operations: [
           {
             template: {
-              'method': 'GET',
-              'url': 'http://maps.googleapis.com/maps/api/geocode/{format=json}',
-              'headers': {
-                'accept': 'application/json',
+              method: 'GET',
+              url: 'http://maps.googleapis.com/maps/api/geocode/{format=json}',
+              headers: {
+                accept: 'application/json',
                 'content-type': 'application/json',
               },
-              'query': {
-                'latlng': '{location}',
-                'address': '{address}',
-                'sensor': '{sensor=true}',
+              query: {
+                latlng: '{location}',
+                address: '{address}',
+                sensor: '{sensor=true}',
               },
             },
             functions: {
-              'getAddress': ['location'],
-              'getGeoLocation': ['address'],
+              getAddress: ['location'],
+              getGeoLocation: ['address'],
             },
           },
-        ]};
+        ],
+      };
       var ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.getAddress);
       ds.getAddress('40.714224,-73.961452', function(err, body, response) {
@@ -170,7 +175,11 @@ describe('REST connector', function() {
         var address = body.results[0].formatted_address;
         assert.ok(address.match(TEST_ADDRESS));
         assert(ds.getGeoLocation);
-        ds.getGeoLocation('107 S B St, San Mateo, CA', function(err, body, response) {
+        ds.getGeoLocation('107 S B St, San Mateo, CA', function(
+          err,
+          body,
+          response
+        ) {
           if (!checkGoogleMapAPIResult(err, response, done)) return;
           var loc = body.results[0].geometry.location;
           done(err, loc);
@@ -184,22 +193,27 @@ describe('REST connector', function() {
         operations: [
           {
             template: {
-              'method': 'GET',
-              'url': 'http://maps.googleapis.com/maps/api/geocode/{format=json}',
-              'headers': {
-                'accept': 'application/json',
+              method: 'GET',
+              url: 'http://maps.googleapis.com/maps/api/geocode/{format=json}',
+              headers: {
+                accept: 'application/json',
                 'content-type': 'application/json',
               },
-              'query': {
-                'latlng': '{latitude},{longitude}',
-                'sensor': '{sensor=true}',
+              query: {
+                latlng: '{latitude},{longitude}',
+                sensor: '{sensor=true}',
               },
             },
           },
-        ]};
+        ],
+      };
       var ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.invoke);
-      ds.invoke({latitude: 40.714224, longitude: -73.961452}, function(err, body, response) {
+      ds.invoke({latitude: 40.714224, longitude: -73.961452}, function(
+        err,
+        body,
+        response
+      ) {
         if (!checkGoogleMapAPIResult(err, response, done)) return;
         var address = body.results[0].formatted_address;
         assert.ok(address.match(TEST_ADDRESS));
@@ -213,9 +227,12 @@ describe('REST connector', function() {
         clientKey: 'CLIENT.KEY',
         clientCert: 'CLIENT.CERT',
         operations: [
-          {template: spec, functions: {
-            m1: ['x'],
-          }},
+          {
+            template: spec,
+            functions: {
+              m1: ['x'],
+            },
+          },
         ],
       };
       var ds = new DataSource(require('../lib/rest-connector'), template);
@@ -227,25 +244,28 @@ describe('REST connector', function() {
       var spec = require('./request-template.json');
       var template = {
         options: {
-          'headers': {
+          headers: {
             'x-options': 'options',
           },
         },
-        'headers': {
+        headers: {
           'x-top': 'top',
           'x-options': 'top',
         },
         defaults: {
-          'headers': {
+          headers: {
             'x-defaults': 'defaults',
             'x-options': 'defaults',
             'x-top': 'defaults',
           },
         },
         operations: [
-          {template: spec, functions: {
-            m1: ['x'],
-          }},
+          {
+            template: spec,
+            functions: {
+              m1: ['x'],
+            },
+          },
         ],
       };
       var ds = new DataSource(require('../lib/rest-connector'), template);
