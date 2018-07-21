@@ -1,3 +1,15 @@
+2018-07-21, Version 3.2.0
+=========================
+
+ * chore: Drop Node.js 4 in CI (Diana Lau)
+
+ * [WebFM] cs/pl/ru translation (candytangnb)
+
+ * Update dependencies to latest (Miroslav Bajtoš)
+
+ * Update eslint + config to latest (Miroslav Bajtoš)
+
+
 2018-03-30, Version 3.1.1
 =========================
 
