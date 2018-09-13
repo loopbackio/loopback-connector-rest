@@ -5,14 +5,24 @@
 
 'use strict';
 
-var express = require('express');
+const express = require('express');
+const multer = require('multer');
+const upload = multer();
 
 module.exports = function createApp() {
-  var app = express();
+  const app = express();
 
   // dynamically allocate available PORT if no port provided
   app.set('port', process.env.PORT || 0);
   app.use(require('body-parser').json());
+
+  app.post('/upload', upload.single('file'), (req, res) => {
+    if (req.file) {
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(500);
+    }
+  });
 
   return app;
 };

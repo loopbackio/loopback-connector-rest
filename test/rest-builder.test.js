@@ -6,6 +6,7 @@
 'use strict';
 
 var assert = require('assert');
+const path = require('path');
 
 if (!global.Promise) {
   global.Promise = require('bluebird');
@@ -214,6 +215,15 @@ describe('REST Request Builder', function() {
         // console.log(response.headers);
         assert.equal(200, response.statusCode);
         assert.equal(body.headers['x-my-header'], 'my-header');
+        done(err, body);
+      });
+    });
+
+    it('should support attachments', done => {
+      const filePath = path.join(__dirname, 'request-template.json');
+      const builder = new RequestBuilder('POST', hostURL + '/upload').attach('file', filePath);
+      builder.invoke({}, (err, body, response) => {
+        assert.equal(200, response.statusCode);
         done(err, body);
       });
     });
