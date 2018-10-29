@@ -1,4 +1,16 @@
-2018-09-13, Version 3.3.0
+2018-10-29, Version 3.4.0
+=========================
+
+ * Update deps (Raymond Feng)
+
+ * Changed testcase description (Ivan Dovgan)
+
+ * Fix lint issue and add test case (xiaoyu zhou)
+
+ * Add support for default values in function defs (Ivan Dovgan)
+
+
+2018-09-12, Version 3.3.0
 =========================
 
  * fix adding attachments to form data (Brian Kwon)
