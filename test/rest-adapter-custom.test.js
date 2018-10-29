@@ -187,7 +187,7 @@ describe('REST connector', function() {
       });
     });
 
-    it('should mix in custom path in all functions', function(done) {
+    it('should mix in predefined default values for all functions', function(done) {
       const TEST_ADDRESS = '107 S B St, San Mateo, CA 94401, USA';
       const TEST_TIMEZONE = /.*Australia.*/;
       var spec = {
