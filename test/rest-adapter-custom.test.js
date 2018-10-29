@@ -187,6 +187,50 @@ describe('REST connector', function() {
       });
     });
 
+    it('should mix in predefined default values for all functions', function(done) {
+      const TEST_ADDRESS = '107 S B St, San Mateo, CA 94401, USA';
+      const TEST_TIMEZONE = /.*Australia.*/;
+      var spec = {
+        debug: false,
+        operations: [
+          {
+            template: {
+              'method': 'GET',
+              'url': 'https://maps.googleapis.com/maps/api/{path}/{format=json}',
+              'headers': {
+                'accept': 'application/json',
+                'content-type': 'application/json',
+              },
+              'query': {
+                'address': '{address}',
+                'location': '{location}',
+                'timestamp': '1514768461',
+              },
+            },
+            functions: {
+              'getAddress': ['address', 'path=geocode'],
+              'getTimezone': ['location', 'path=timezone'],
+            },
+          },
+        ]};
+      var ds = new DataSource(require('../lib/rest-connector'), spec);
+      assert(ds.getAddress);
+      ds.getAddress('107 S B St, San Mateo, CA', function(err, body, response) {
+        if (!checkGoogleMapAPIResult(err, response, done)) return;
+        var address = body.results[0].formatted_address;
+        assert.ok(address.match(TEST_ADDRESS));
+        assert(ds.getTimezone);
+        ds.getTimezone('-33.86,151.20', function(err, body, response) {
+          if (!checkGoogleMapAPIResult(err, response, done)) return;
+          var timeZoneId = body.timeZoneId;
+          assert.equal(timeZoneId.match(TEST_TIMEZONE).length, 1, 'Incorrect Time Zone ID');
+          var timeZone = body.timeZoneName;
+          assert.equal(timeZone.match(TEST_TIMEZONE).length, 1, 'Incorrect Time Zone Name');
+          done(err, body);
+        });
+      });
+    });
+
     it('should mix in invoke method', function(done) {
       var spec = {
         debug: false,
