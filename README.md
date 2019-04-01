@@ -69,7 +69,8 @@ Configure the REST connector by editing `datasources.json` manually (for examp
         "address": "{street},{city},{zipcode}",
         "sensor": "{sensor=false}"
       },
-      "responsePath": "$.results[0].geometry.location"
+      "responsePath": "$.results[0].geometry.location",
+      "responseHeaders": true
     },
     "functions": {
       "geocode": ["street", "city", "zipcode"]
@@ -126,7 +127,8 @@ It also sets `strictSSL` to false so the connector allows self-signed SSL cert
           "strictSSL": true,
           "useQuerystring": true
         },
-        "responsePath": "$.results[0].geometry.location"
+        "responsePath": "$.results[0].geometry.location",
+        "responseHeaders": true
       },
       "functions": {
         "geocode": ["street", "city", "zipcode"]
@@ -224,6 +226,7 @@ The `template` object specifies the REST API invocation as a JSON template, with
 | `headers`| HTTP headers | Object |
 | `query`| Query strings | Object; template values allowed. |
 | `responsePath`| Optional JSONPath applied to the HTTP body. See [https://github.com/s3u/JSONPath](https://github.com/s3u/JSONPath) for syntax of JSON paths.| String |
+| `responseHeaders`| A flag to indicate whether or not response headers. (Since 3.4.2) | boolean |
 
 The template variable syntax is:
 
@@ -245,7 +248,8 @@ template: {
       "address": "{street},{city},{zipcode}",
       "sensor": "{sensor=false}"
     },
-    "responsePath": "$.results[0].geometry.location"
+    "responsePath": "$.results[0].geometry.location",
+    "responseHeaders": true
   }
 ```
 
@@ -309,7 +313,8 @@ var ds = loopback.createDataSource({
         "address": "{street},{city},{zipcode}",
         "sensor": "{sensor=false}"
       },
-      "responsePath": "$.results[0].geometry.location"
+      "responsePath": "$.results[0].geometry.location",
+      "responseHeaders": true
     },
     functions: {
       "geocode": ["street", "city", "zipcode"]
