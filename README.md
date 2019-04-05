@@ -1,4 +1,4 @@
-# loopback-connector-rest
+# loopback-connector-rest-hdr
 
 ## Overview
 
@@ -41,7 +41,7 @@ This adds an entry to [datasources.json](http://loopback.io/doc/en/lb3/datasour
 ...
   "myRESTdatasource": {
     "name": "myRESTdatasource",
-    "connector": "rest"
+    "connector": "rest-hdr"
   }
 ...
 ```
@@ -55,7 +55,7 @@ Configure the REST connector by editing `datasources.json` manually (for examp
 ```javascript
 ...
 "geoRest": {
-  "connector": "rest",
+  "connector": "rest-hdr",
   "debug": "false",
   "operations": [{
     "template": {
@@ -105,7 +105,7 @@ It also sets `strictSSL` to false so the connector allows self-signed SSL cert
 
 ```javascript
 {
-  "connector": "rest",
+  "connector": "rest-hdr",
   "debug": false,
   "options": {
     "headers": {
