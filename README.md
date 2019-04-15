@@ -13,7 +13,7 @@ It supports two different styles of API invocations:
 In your application root directory, enter:
 
 ```shell
-$ npm install loopback-connector-rest --save
+$ npm install loopback-connector-rest-hdr --save
 ```
 
 This will install the module from npm and add it as a dependency to the application's [package.json](http://loopback.io/doc/en/lb3/package.json.html) file.
@@ -158,7 +158,7 @@ For example:
 ```javascript
 module.exports = function(app) {
   var ds = app.loopback.createDataSource({
-    connector: require("loopback-connector-rest"),
+    connector: require("loopback-connector-rest-hdr"),
     debug: false,
     baseURL: 'http://localhost:3000'
   });
@@ -226,7 +226,7 @@ The `template` object specifies the REST API invocation as a JSON template, with
 | `headers`| HTTP headers | Object |
 | `query`| Query strings | Object; template values allowed. |
 | `responsePath`| Optional JSONPath applied to the HTTP body. See [https://github.com/s3u/JSONPath](https://github.com/s3u/JSONPath) for syntax of JSON paths.| String |
-| `responseHeaders`| A flag to indicate whether or not response headers. (Since 3.4.2) | boolean |
+| `responseHeaders`| A flag to indicate whether or not response headers. (Since 3.4.5) | boolean |
 
 The template variable syntax is:
 
@@ -299,7 +299,7 @@ To use custom methods, configure the REST connector with the `operations` prop
 var loopback = require("loopback");
 
 var ds = loopback.createDataSource({
-  connector: require("loopback-connector-rest"),
+  connector: require("loopback-connector-rest-hdr"),
   debug: false,
   operations: [{
     template: {
@@ -337,7 +337,7 @@ Model.invoke({street: '107 S B St', city: 'San Mateo', zipcode: '94401'}, proces
 
 ## Parameter/variable mapping to HTTP (since 2.0.0)
 
-NOTE: This feature is available with `loopback-connector-rest` version 2.0.0 and later.
+NOTE: This feature is available with `loopback-connector-rest-hdr` version 2.0.0 and later.
 
 By default, variables in the template are mapped to HTTP sources based on their root property.
 

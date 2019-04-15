@@ -1,6 +1,6 @@
 {
   "name": "loopback-connector-rest-hdr",
-  "version": "3.4.4",
+  "version": "3.4.5",
   "description": "Loopback REST Connector being able to response with headers",
   "engines": {
     "node": ">=6"
