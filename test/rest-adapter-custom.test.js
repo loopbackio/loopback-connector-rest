@@ -12,40 +12,35 @@ var DataSource = require('loopback-datasource-juggler').DataSource;
 
 var TEST_ADDRESS = /Bedford Ave.*, Brooklyn, NY 11211, USA/;
 
+const geocoderRoutes = require('./fixtures/geocoder-stub');
+
 describe('REST connector', function() {
   describe('custom operations', function() {
+    var app = null;
     var server = null;
-    var hostURL = 'http://localhost:';
+    var hostURL;
 
-    before(function(done) {
-      var app = require('./express-helper')();
-
-      app.all('*', function(req, res, next) {
-        res.setHeader('Content-Type', 'application/json');
-        var payload = {
-          method: req.method,
-          url: req.url,
-          headers: req.headers,
-          query: req.query,
-          body: req.body,
-        };
-        res.status(200).json(payload);
-      });
-
-      server = app.listen(app.get('port'), function(err, data) {
+    beforeEach(function createAppAndListeningServer(done) {
+      app = require('./express-helper')();
+      server = app.listen(app.get('port'), function(err) {
         if (err) return done(err);
-        hostURL += server.address().port;
-        done(err, data);
+        hostURL = 'http://localhost:' + server.address().port;
+        done(err);
       });
     });
 
-    after(function(done) {
-      if (server) server.close(done);
+    afterEach(function closeServerAndApp(done) {
+      if (server) {
+        server.close(done);
+        server = null;
+      }
+      app = null;
     });
 
     it('should configure remote methods', function(done) {
-      var spec = require('./request-template.json');
-      spec.url = hostURL + '/{p}'; // replace template.url to use current host
+      app.all('*', dumpRequest);
+
+      var spec = getRequestTemplate();
       var template = {
         operations: [
           {
@@ -108,13 +103,15 @@ describe('REST connector', function() {
     });
 
     it('should mix in custom methods', function(done) {
+      app.use(geocoderRoutes);
+
       var spec = {
         debug: false,
         operations: [
           {
             template: {
               method: 'GET',
-              url: 'http://maps.googleapis.com/maps/api/geocode/{format=json}',
+              url: hostURL + '/maps/api/geocode/{format=json}',
               headers: {
                 accept: 'application/json',
                 'content-type': 'application/json',
@@ -144,13 +141,15 @@ describe('REST connector', function() {
     });
 
     it('should mix in custom methods for all functions', function(done) {
+      app.use(geocoderRoutes);
+
       var spec = {
         debug: false,
         operations: [
           {
             template: {
               method: 'GET',
-              url: 'http://maps.googleapis.com/maps/api/geocode/{format=json}',
+              url: hostURL + '/maps/api/geocode/{format=json}',
               headers: {
                 accept: 'application/json',
                 'content-type': 'application/json',
@@ -188,6 +187,8 @@ describe('REST connector', function() {
     });
 
     it('should mix in predefined default values for all functions', function(done) {
+      app.use(geocoderRoutes);
+
       const TEST_ADDRESS = '107 S B St, San Mateo, CA 94401, USA';
       const TEST_TIMEZONE = /.*Australia.*/;
       var spec = {
@@ -196,7 +197,7 @@ describe('REST connector', function() {
           {
             template: {
               'method': 'GET',
-              'url': 'https://maps.googleapis.com/maps/api/{path}/{format=json}',
+              'url': hostURL + '/maps/api/{path}/{format=json}',
               'headers': {
                 'accept': 'application/json',
                 'content-type': 'application/json',
@@ -232,13 +233,15 @@ describe('REST connector', function() {
     });
 
     it('should mix in invoke method', function(done) {
+      app.use(geocoderRoutes);
+
       var spec = {
         debug: false,
         operations: [
           {
             template: {
               method: 'GET',
-              url: 'http://maps.googleapis.com/maps/api/geocode/{format=json}',
+              url: hostURL + '/maps/api/geocode/{format=json}',
               headers: {
                 accept: 'application/json',
                 'content-type': 'application/json',
@@ -266,7 +269,7 @@ describe('REST connector', function() {
     });
 
     it('should map clientKey and clientCert to key and cert for backwards compat', function() {
-      var spec = require('./request-template.json');
+      var spec = getRequestTemplate();
       var template = {
         clientKey: 'CLIENT.KEY',
         clientCert: 'CLIENT.CERT',
@@ -285,7 +288,9 @@ describe('REST connector', function() {
     });
 
     it('should keep order of precedence: options, top level, and defaults', function(done) {
-      var spec = require('./request-template.json');
+      app.all('*', dumpRequest);
+
+      var spec = getRequestTemplate();
       var template = {
         options: {
           headers: {
@@ -322,6 +327,12 @@ describe('REST connector', function() {
         done(err, result);
       });
     });
+
+    function getRequestTemplate() {
+      const spec = require('./request-template.json');
+      spec.url = hostURL + '/{p}'; // replace template.url to use current host
+      return spec;
+    }
   });
 });
 
@@ -334,11 +345,33 @@ function checkGoogleMapAPIResult(err, res, done) {
     done(new Error('Google Map API call fails: ' + res.statusCode));
     return false;
   }
-  if (res.body.status === 'OVER_QUERY_LIMIT') {
-    console.warn(res.body.error_message);
-    done();
-    return false;
-  }
   assert.equal(res.body.status, 'OK', res.body.error_message);
   return true;
+}
+
+function dumpRequest(req, res, next) {
+  res.setHeader('Content-Type', 'application/json');
+  var payload = {
+    method: req.method,
+    url: req.url,
+    headers: req.headers,
+    query: req.query,
+    body: req.body,
+  };
+  res.status(200).json(payload);
+}
+
+function requestChecker(fn) {
+  return function assertRequest(req, res, next) {
+    // escape Express' error handler and let assertions fail the test
+    process.nextTick(() => {
+      try {
+        fn(req);
+        next();
+      } catch (err) {
+        res.end();
+        throw err;
+      }
+    });
+  };
 }
