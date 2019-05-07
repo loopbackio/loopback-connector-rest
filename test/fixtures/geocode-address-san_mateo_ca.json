@@ -1,0 +1,104 @@
+{
+  "results": [
+    {
+      "address_components": [
+        {
+          "long_name": "107",
+          "short_name": "107",
+          "types": [
+            "street_number"
+          ]
+        },
+        {
+          "long_name": "South B Street",
+          "short_name": "S B St",
+          "types": [
+            "route"
+          ]
+        },
+        {
+          "long_name": "Downtown",
+          "short_name": "Downtown",
+          "types": [
+            "neighborhood",
+            "political"
+          ]
+        },
+        {
+          "long_name": "San Mateo",
+          "short_name": "San Mateo",
+          "types": [
+            "locality",
+            "political"
+          ]
+        },
+        {
+          "long_name": "San Mateo County",
+          "short_name": "San Mateo County",
+          "types": [
+            "administrative_area_level_2",
+            "political"
+          ]
+        },
+        {
+          "long_name": "California",
+          "short_name": "CA",
+          "types": [
+            "administrative_area_level_1",
+            "political"
+          ]
+        },
+        {
+          "long_name": "United States",
+          "short_name": "US",
+          "types": [
+            "country",
+            "political"
+          ]
+        },
+        {
+          "long_name": "94401",
+          "short_name": "94401",
+          "types": [
+            "postal_code"
+          ]
+        },
+        {
+          "long_name": "3993",
+          "short_name": "3993",
+          "types": [
+            "postal_code_suffix"
+          ]
+        }
+      ],
+      "formatted_address": "107 S B St, San Mateo, CA 94401, USA",
+      "geometry": {
+        "location": {
+          "lat": 37.5669986,
+          "lng": -122.3237495
+        },
+        "location_type": "ROOFTOP",
+        "viewport": {
+          "northeast": {
+            "lat": 37.56834758029149,
+            "lng": -122.3224005197085
+          },
+          "southwest": {
+            "lat": 37.56564961970849,
+            "lng": -122.3250984802915
+          }
+        }
+      },
+      "place_id": "ChIJX9EAz3Cej4ARJ3u8MO2Zdgc",
+      "plus_code": {
+        "compound_code": "HM8G+QG San Mateo, California, United States",
+        "global_code": "849VHM8G+QG"
+      },
+      "types": [
+        "street_address"
+      ]
+    }
+  ],
+  "status": "OK"
+}
+
