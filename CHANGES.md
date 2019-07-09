@@ -1,3 +1,13 @@
+2019-07-09, Version 3.4.2
+=========================
+
+ * fix: update lodash (jannyHou)
+
+ * chore: update copyrights years (Agnes Lin)
+
+ * test: use a local stub of Google Map API (Miroslav Bajtoš)
+
+
 2018-10-29, Version 3.4.1
 =========================
 
