@@ -1,3 +1,11 @@
+2019-09-19, Version 3.5.0
+=========================
+
+ * add node 12 to CI (Nora)
+
+ * drop support for node 6 (Nora)
+
+
 2019-07-09, Version 3.4.2
 =========================
 
