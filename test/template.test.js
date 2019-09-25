@@ -139,9 +139,12 @@ describe('JsonTemplate', function() {
         });
 
         var bodyContent = {id: 1, template: 'this is a normal content with ${var} variables'};
+        // deep clone bodyContent, as template.build will mutate it
+        var cloned = JSON.parse(JSON.stringify(bodyContent));
 
         var result = template.build({body: bodyContent});
-        assert.equal(bodyContent, result.body);
+        assert.equal(cloned.id, result.body.id);
+        assert.equal(cloned.template, result.body.template);
         done(null, result);
       });
 
