@@ -1,3 +1,11 @@
+2019-10-10, Version 3.6.0
+=========================
+
+ * update jsonpath-plus dependency to 1.x (Raymond Feng)
+
+ * Updated to correct index on template build (Jee Mok)
+
+
 2019-09-19, Version 3.5.0
 =========================
 
