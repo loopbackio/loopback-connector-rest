@@ -297,4 +297,59 @@ describe('REST Request Builder', function() {
         });
     });
   });
+
+  describe('supplying fullResponse flag', function() {
+    var hostURL = 'http://localhost:';
+    var server = null;
+
+    before(function(done) {
+      var app = require('./express-helper')();
+
+      app.all('*', function(req, res, next) {
+        res.setHeader('Content-Type', 'application/json');
+        var payload = {
+          exampleParamater: 'testing',
+        };
+        res.status(200).json(payload);
+      });
+
+      server = app.listen(app.get('port'), function(err, data) {
+        // console.log('Server listening on ', server.address().port);
+        hostURL += server.address().port;
+        done(err, data);
+      });
+    });
+
+    after(function(done) {
+      if (server) server.close(done);
+    });
+
+    it('should return full response', function(done) {
+      var builder = new RequestBuilder({method: 'GET', url: hostURL, fullResponse: true});
+      builder
+        .invoke()
+        .then(function(response) {
+          assert(typeof response.body == 'object');
+          assert(typeof response.body.exampleParamater == 'string');
+          assert(typeof response.headers == 'object');
+          done();
+        })
+        .catch(function(err) {
+          assert.fail();
+        });
+    });
+    it('should return body only', function(done) {
+      var builder = new RequestBuilder({method: 'POST', url: hostURL, fullResponse: false});
+      builder
+        .invoke()
+        .then(function(response) {
+          assert(typeof response == 'object');
+          assert(typeof response.exampleParamater == 'string');
+          done();
+        })
+        .catch(function(err) {
+          assert.fail();
+        });
+    });
+  });
 });
