@@ -1,3 +1,19 @@
+2020-06-22, Version 3.7.0
+=========================
+
+ * fix docs (Tom Riley)
+
+ * Add tests for fullResponse flag (Tom Riley)
+
+ * feat: Implement a flag to return the full response (Tom Riley)
+
+ * chore: update strong-globalize version (Diana Lau)
+
+ * chore: update copyrights year (Diana Lau)
+
+ * chore: improve issue and PR templates (Nora)
+
+
 2019-10-10, Version 3.6.0
 =========================
 
