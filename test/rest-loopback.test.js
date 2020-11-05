@@ -5,19 +5,19 @@
 
 'use strict';
 
-var assert = require('assert');
+const assert = require('assert');
 
-var DataSource = require('loopback-datasource-juggler').DataSource;
-var ds, User;
+const DataSource = require('loopback-datasource-juggler').DataSource;
+let ds, User;
 
 describe('REST connector', function() {
   describe('CRUD apis', function() {
-    var server = null;
+    let server = null;
     before(function(done) {
-      var app = require('./express-helper')();
+      const app = require('./express-helper')();
 
-      var count = 2;
-      var users;
+      let count = 2;
+      let users;
 
       app.get('/Users', function(req, res, next) {
         res.setHeader('Content-Type', 'application/json');
@@ -26,7 +26,7 @@ describe('REST connector', function() {
 
       app.post('/Users', function(req, res, next) {
         res.setHeader('Content-Type', 'application/json');
-        var body = req.body;
+        const body = req.body;
         if (!body.id) {
           body.id = (++count);
         }
@@ -36,8 +36,8 @@ describe('REST connector', function() {
       });
 
       app.put('/Users/:id', function(req, res, next) {
-        for (var i = 0; i < users.length; i++) {
-          var user = users[i];
+        for (let i = 0; i < users.length; i++) {
+          const user = users[i];
           if (user.id == req.params.id) {
             res.setHeader('Content-Type', 'application/json');
             users[i] = req.body;
@@ -49,8 +49,8 @@ describe('REST connector', function() {
       });
 
       app.delete('/Users/:id', function(req, res, next) {
-        for (var i = 0; i < users.length; i++) {
-          var user = users[i];
+        for (let i = 0; i < users.length; i++) {
+          const user = users[i];
           if (user.id == req.params.id) {
             res.setHeader('Content-Type', 'application/json');
             users.splice(i, 1);
@@ -62,8 +62,8 @@ describe('REST connector', function() {
       });
 
       app.get('/Users/:id', function(req, res, next) {
-        for (var i = 0; i < users.length; i++) {
-          var user = users[i];
+        for (let i = 0; i < users.length; i++) {
+          const user = users[i];
           if (user.id == req.params.id) {
             res.setHeader('Content-Type', 'application/json');
             user.myHeader = req.get('x-my-header');
@@ -115,7 +115,7 @@ describe('REST connector', function() {
       });
     });
 
-    var user1;
+    let user1;
     it('should find the user with id 1', function(done) {
       User.findById(1, function(err, body) {
         // console.log(body);
@@ -180,8 +180,8 @@ describe('REST connector', function() {
     });
 
     it('should invoke hooks', function(done) {
-      var events = [];
-      var connector = ds.connector;
+      const events = [];
+      const connector = ds.connector;
       connector.observe('before execute', function(ctx, next) {
         assert(ctx.req);
         events.push('before execute');
