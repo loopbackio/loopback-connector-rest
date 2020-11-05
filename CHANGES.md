@@ -1,3 +1,17 @@
+2020-11-05, Version 4.0.0
+=========================
+
+ * Fix template handling for values with {} (Raymond Feng)
+
+ * update dependencies and fix eslint issues (Raymond Feng)
+
+ * Drop Node 8.x support (Raymond Feng)
+
+ * chore: switch to DCO (Diana Lau)
+
+ * chore: add Node.js 14 to CI (Diana Lau)
+
+
 2020-06-22, Version 3.7.0
 =========================
 
