@@ -131,6 +131,22 @@ describe('JsonTemplate', function() {
       done(null, result);
     });
 
+    it('should support object variables with {} key', function(done) {
+      const template = new JsonTemplate({
+        url: 'http://localhost:3000/{!p}',
+        query: {x: '{x=100:number}', y: 2},
+        body: '{body}',
+      });
+      const result = template.build({p: 1, body: {'{a}': 100, b: false}});
+
+      assert.equal('http://localhost:3000/1', result.url);
+      assert.equal(100, result.query.x);
+      assert.equal(2, result.query.y);
+      assert.equal(100, result.body['{a}']);
+      assert.equal(false, result.body.b);
+      done(null, result);
+    });
+
     it('should support object variables with expressions {var} when is not defined in template',
       function(done) {
         const template = new JsonTemplate({
