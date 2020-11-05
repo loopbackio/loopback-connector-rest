@@ -5,19 +5,19 @@
 
 'use strict';
 
-var assert = require('assert');
-var should = require('should');
+const assert = require('assert');
+const should = require('should');
 
-var JsonTemplate = require('../lib/template');
+const JsonTemplate = require('../lib/template');
 
 describe('JsonTemplate', function() {
   describe('Request templating', function() {
     it('should substitute the variables', function(done) {
-      var template = new JsonTemplate({
+      const template = new JsonTemplate({
         url: 'http://localhost:3000/{p}',
         query: {x: '{x}', y: 2},
       });
-      var result = template.build({p: 1, x: 'X'});
+      const result = template.build({p: 1, x: 'X'});
       assert.equal('http://localhost:3000/1', result.url);
       assert.equal('X', result.query.x);
       assert.equal(2, result.query.y);
@@ -25,11 +25,11 @@ describe('JsonTemplate', function() {
     });
 
     it('should substitute the variables independently', function(done) {
-      var template = new JsonTemplate({
+      const template = new JsonTemplate({
         url: 'http://localhost:3000/{p}',
         query: {x: '{x}', y: 2},
       });
-      var result = template.build({p: 1, x: 'X'});
+      let result = template.build({p: 1, x: 'X'});
       assert.equal('http://localhost:3000/1', result.url);
       assert.equal('X', result.query.x);
       assert.equal(2, result.query.y);
@@ -43,11 +43,11 @@ describe('JsonTemplate', function() {
     });
 
     it('should support default variables', function(done) {
-      var template = new JsonTemplate({
+      const template = new JsonTemplate({
         url: 'http://localhost:3000/{p=100}',
         query: {x: '{x=ME}', y: 2},
       });
-      var result = template.build({p: 1});
+      const result = template.build({p: 1});
       assert.equal('http://localhost:3000/1', result.url);
       assert.equal('ME', result.query.x);
       assert.equal(2, result.query.y);
@@ -55,11 +55,11 @@ describe('JsonTemplate', function() {
     });
 
     it('should support variable names starts with $ or _', function(done) {
-      var template = new JsonTemplate({
+      const template = new JsonTemplate({
         url: 'http://localhost:3000/{$p=100}',
         query: {x: '{_x=ME}', y: 2},
       });
-      var result = template.build({$p: 1, _x: 'YOU'});
+      const result = template.build({$p: 1, _x: 'YOU'});
       assert.equal('http://localhost:3000/1', result.url);
       assert.equal('YOU', result.query.x);
       assert.equal(2, result.query.y);
@@ -67,12 +67,12 @@ describe('JsonTemplate', function() {
     });
 
     it('should support typed variables', function(done) {
-      var template = new JsonTemplate({
+      const template = new JsonTemplate({
         url: 'http://localhost:3000/{p=100}',
         query: {x: '{x=100:number}', y: 2},
         body: {a: '{a=1:number}', b: '{b=true:boolean}', c: '{c=[99]:json}'},
       });
-      var result = template.build({p: 1, a: 100, b: false});
+      const result = template.build({p: 1, a: 100, b: false});
 
       assert.equal('http://localhost:3000/1', result.url);
       assert.equal(100, result.query.x);
@@ -85,13 +85,13 @@ describe('JsonTemplate', function() {
     });
 
     it('should report missing required variables', function(done) {
-      var template = new JsonTemplate({
+      const template = new JsonTemplate({
         url: 'http://localhost:3000/{!p}',
         query: {x: '{x=100:number}', y: 2},
         body: {a: '{^a:number}', b: '{!b=true:boolean}'},
       });
       try {
-        var result = template.build({a: 100, b: false});
+        const result = template.build({a: 100, b: false});
         assert.fail();
       } catch (err) {
         // This is expected
@@ -100,12 +100,12 @@ describe('JsonTemplate', function() {
     });
 
     it('should support required variables', function(done) {
-      var template = new JsonTemplate({
+      const template = new JsonTemplate({
         url: 'http://localhost:3000/{!p}',
         query: {x: '{x=100:number}', y: 2},
         body: {a: '{^a:number}', b: '{!b=true:boolean}'},
       });
-      var result = template.build({p: 1, a: 100, b: false});
+      const result = template.build({p: 1, a: 100, b: false});
 
       assert.equal('http://localhost:3000/1', result.url);
       assert.equal(100, result.query.x);
@@ -116,12 +116,12 @@ describe('JsonTemplate', function() {
     });
 
     it('should support object variables', function(done) {
-      var template = new JsonTemplate({
+      const template = new JsonTemplate({
         url: 'http://localhost:3000/{!p}',
         query: {x: '{x=100:number}', y: 2},
         body: '{body}',
       });
-      var result = template.build({p: 1, body: {a: 100, b: false}});
+      const result = template.build({p: 1, body: {a: 100, b: false}});
 
       assert.equal('http://localhost:3000/1', result.url);
       assert.equal(100, result.query.x);
@@ -131,30 +131,46 @@ describe('JsonTemplate', function() {
       done(null, result);
     });
 
+    it('should support object variables with {} key', function(done) {
+      const template = new JsonTemplate({
+        url: 'http://localhost:3000/{!p}',
+        query: {x: '{x=100:number}', y: 2},
+        body: '{body}',
+      });
+      const result = template.build({p: 1, body: {'{a}': 100, b: false}});
+
+      assert.equal('http://localhost:3000/1', result.url);
+      assert.equal(100, result.query.x);
+      assert.equal(2, result.query.y);
+      assert.equal(100, result.body['{a}']);
+      assert.equal(false, result.body.b);
+      done(null, result);
+    });
+
     it('should support object variables with expressions {var} when is not defined in template',
       function(done) {
-        var template = new JsonTemplate({
+        const template = new JsonTemplate({
           url: 'http://localhost:3000/update',
           body: '{body}',
         });
 
-        var bodyContent = {id: 1, template: 'this is a normal content with ${var} variables'};
+        const bodyContent = {id: 1, template: 'this is a normal content with ${var} variables'};
         // deep clone bodyContent, as template.build will mutate it
-        var cloned = JSON.parse(JSON.stringify(bodyContent));
+        const cloned = JSON.parse(JSON.stringify(bodyContent));
 
-        var result = template.build({body: bodyContent});
+        const result = template.build({body: bodyContent});
         assert.equal(cloned.id, result.body.id);
         assert.equal(cloned.template, result.body.template);
         done(null, result);
       });
 
     it('should support array variables', function(done) {
-      var template = new JsonTemplate({
+      const template = new JsonTemplate({
         url: 'http://localhost:3000/{!p}',
         query: {x: '{x=100:number}', y: 2},
         body: [1, 2, '{z:number}'],
       });
-      var result = template.build({p: 1, z: 3});
+      const result = template.build({p: 1, z: 3});
 
       assert.equal('http://localhost:3000/1', result.url);
       assert.equal(100, result.query.x);
@@ -166,10 +182,10 @@ describe('JsonTemplate', function() {
     });
 
     it('should allow template with vars in keys', function(done) {
-      var json = require('./request-template-with-key-var.json');
+      const json = require('./request-template-with-key-var.json');
 
-      var template = new JsonTemplate(json);
-      var result = template.build({uniqueId: 1, email: 'x@y.com',
+      const template = new JsonTemplate(json);
+      const result = template.build({uniqueId: 1, email: 'x@y.com',
         clientId: 'c1', clientSecret: 's1'});
       /* eslint-disable camelcase */
       result.should.be.eql({method: 'POST',
@@ -187,20 +203,20 @@ describe('JsonTemplate', function() {
     });
 
     it('should ignore invalid vars', function(done) {
-      var obj = {
+      const obj = {
         url: 'http://localhost:3000/test',
         headers: {
           'x-lookup-request': '{x+y}{|}{0a}{=4}',
         },
       };
-      var template = new JsonTemplate(obj);
-      var result = template.build(template);
+      const template = new JsonTemplate(obj);
+      const result = template.build(template);
       result.should.be.eql(obj);
       done();
     });
 
     it('should allow stringified json in headers', function(done) {
-      var obj = {
+      const obj = {
         url: 'http://localhost:3000/test',
         headers: {
           'x-lookup-request': '{"guid":{"region":"NW","role":"MBR"' +
@@ -210,8 +226,8 @@ describe('JsonTemplate', function() {
           '"source":"KP_EBIZ","idType":"CID"}]}]}',
         },
       };
-      var template = new JsonTemplate(obj);
-      var result = template.build(template);
+      const template = new JsonTemplate(obj);
+      const result = template.build(template);
       result.should.be.eql(obj);
       done();
     });

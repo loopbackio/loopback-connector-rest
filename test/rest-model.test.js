@@ -5,13 +5,13 @@
 
 'use strict';
 
-var assert = require('assert');
+const assert = require('assert');
 
-var ModelBuilder = require('loopback-datasource-juggler').ModelBuilder;
-var modelBuilder = new ModelBuilder();
+const ModelBuilder = require('loopback-datasource-juggler').ModelBuilder;
+const modelBuilder = new ModelBuilder();
 
 // simplier way to describe model
-var User = modelBuilder.define('User', {
+const User = modelBuilder.define('User', {
   name: String,
   bio: ModelBuilder.Text,
   approved: Boolean,
@@ -19,18 +19,18 @@ var User = modelBuilder.define('User', {
   age: Number,
 });
 
-var RestResource = require('../lib/rest-model');
+const RestResource = require('../lib/rest-model');
 
-var rest;
+let rest;
 
 describe('REST connector', function() {
   describe('CRUD methods supported', function() {
-    var server = null;
+    let server = null;
     before(function(done) {
-      var app = require('./express-helper')();
+      const app = require('./express-helper')();
 
-      var count = 2;
-      var users = [new User({id: 1, name: 'Ray'}), new User({id: 2, name: 'Joe'})];
+      let count = 2;
+      const users = [new User({id: 1, name: 'Ray'}), new User({id: 2, name: 'Joe'})];
 
       app.get('/Users', function(req, res, next) {
         res.setHeader('Content-Type', 'application/json');
@@ -39,7 +39,7 @@ describe('REST connector', function() {
 
       app.post('/Users', function(req, res, next) {
         res.setHeader('Content-Type', 'application/json');
-        var body = req.body;
+        const body = req.body;
         if (!body.id) {
           body.id = (++count);
         }
@@ -49,8 +49,8 @@ describe('REST connector', function() {
       });
 
       app.put('/Users/:id', function(req, res, next) {
-        for (var i = 0; i < users.length; i++) {
-          var user = users[i];
+        for (let i = 0; i < users.length; i++) {
+          const user = users[i];
           if (user.id == req.params.id) {
             res.setHeader('Content-Type', 'application/json');
             users[i] = req.body;
@@ -62,8 +62,8 @@ describe('REST connector', function() {
       });
 
       app.delete('/Users/:id', function(req, res, next) {
-        for (var i = 0; i < users.length; i++) {
-          var user = users[i];
+        for (let i = 0; i < users.length; i++) {
+          const user = users[i];
           if (user.id == req.params.id) {
             res.setHeader('Content-Type', 'application/json');
             users.splice(i, 1);
@@ -75,8 +75,8 @@ describe('REST connector', function() {
       });
 
       app.get('/Users/:id', function(req, res, next) {
-        for (var i = 0; i < users.length; i++) {
-          var user = users[i];
+        for (let i = 0; i < users.length; i++) {
+          const user = users[i];
           if (user.id == req.params.id) {
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json(user);

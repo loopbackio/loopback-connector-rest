@@ -5,20 +5,20 @@
 
 'use strict';
 
-var assert = require('assert');
-var should = require('should');
+const assert = require('assert');
+const should = require('should');
 
-var DataSource = require('loopback-datasource-juggler').DataSource;
+const DataSource = require('loopback-datasource-juggler').DataSource;
 
-var TEST_ADDRESS = /Bedford Ave.*, Brooklyn, NY 11211, USA/;
+const TEST_ADDRESS = /Bedford Ave.*, Brooklyn, NY 11211, USA/;
 
 const geocoderRoutes = require('./fixtures/geocoder-stub');
 
 describe('REST connector', function() {
   describe('custom operations', function() {
-    var app = null;
-    var server = null;
-    var hostURL;
+    let app = null;
+    let server = null;
+    let hostURL;
 
     beforeEach(function createAppAndListeningServer(done) {
       app = require('./express-helper')();
@@ -40,8 +40,8 @@ describe('REST connector', function() {
     it('should configure remote methods', function(done) {
       app.all('*', dumpRequest);
 
-      var spec = getRequestTemplate();
-      var template = {
+      const spec = getRequestTemplate();
+      const template = {
         operations: [
           {
             template: spec,
@@ -51,8 +51,8 @@ describe('REST connector', function() {
           },
         ],
       };
-      var ds = new DataSource(require('../lib/rest-connector'), template);
-      var model = ds.createModel('rest');
+      const ds = new DataSource(require('../lib/rest-connector'), template);
+      const model = ds.createModel('rest');
       assert(model.m1);
       assert.deepEqual(model.m1.accepts, [
         {
@@ -105,7 +105,7 @@ describe('REST connector', function() {
     it('should mix in custom methods', function(done) {
       app.use(geocoderRoutes);
 
-      var spec = {
+      const spec = {
         debug: false,
         operations: [
           {
@@ -129,12 +129,12 @@ describe('REST connector', function() {
           },
         ],
       };
-      var ds = new DataSource(require('../lib/rest-connector'), spec);
+      const ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.invoke);
       assert(ds.geocode);
       ds.geocode(40.714224, -73.961452, function(err, body, response) {
         if (!checkGoogleMapAPIResult(err, response, done)) return;
-        var address = body.results[0].formatted_address;
+        const address = body.results[0].formatted_address;
         assert.ok(address.match(TEST_ADDRESS));
         done(err, address);
       });
@@ -143,7 +143,7 @@ describe('REST connector', function() {
     it('should mix in custom methods for all functions', function(done) {
       app.use(geocoderRoutes);
 
-      var spec = {
+      const spec = {
         debug: false,
         operations: [
           {
@@ -167,20 +167,20 @@ describe('REST connector', function() {
           },
         ],
       };
-      var ds = new DataSource(require('../lib/rest-connector'), spec);
+      const ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.getAddress);
       ds.getAddress('40.714224,-73.961452', function(err, body, response) {
         if (!checkGoogleMapAPIResult(err, response, done)) return;
-        var address = body.results[0].formatted_address;
+        const address = body.results[0].formatted_address;
         assert.ok(address.match(TEST_ADDRESS));
         assert(ds.getGeoLocation);
         ds.getGeoLocation('107 S B St, San Mateo, CA', function(
           err,
           body,
-          response
+          response,
         ) {
           if (!checkGoogleMapAPIResult(err, response, done)) return;
-          var loc = body.results[0].geometry.location;
+          const loc = body.results[0].geometry.location;
           done(err, loc);
         });
       });
@@ -191,7 +191,7 @@ describe('REST connector', function() {
 
       const TEST_ADDRESS = '107 S B St, San Mateo, CA 94401, USA';
       const TEST_TIMEZONE = /.*Australia.*/;
-      var spec = {
+      const spec = {
         debug: false,
         operations: [
           {
@@ -214,18 +214,18 @@ describe('REST connector', function() {
             },
           },
         ]};
-      var ds = new DataSource(require('../lib/rest-connector'), spec);
+      const ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.getAddress);
       ds.getAddress('107 S B St, San Mateo, CA', function(err, body, response) {
         if (!checkGoogleMapAPIResult(err, response, done)) return;
-        var address = body.results[0].formatted_address;
+        const address = body.results[0].formatted_address;
         assert.ok(address.match(TEST_ADDRESS));
         assert(ds.getTimezone);
         ds.getTimezone('-33.86,151.20', function(err, body, response) {
           if (!checkGoogleMapAPIResult(err, response, done)) return;
-          var timeZoneId = body.timeZoneId;
+          const timeZoneId = body.timeZoneId;
           assert.equal(timeZoneId.match(TEST_TIMEZONE).length, 1, 'Incorrect Time Zone ID');
-          var timeZone = body.timeZoneName;
+          const timeZone = body.timeZoneName;
           assert.equal(timeZone.match(TEST_TIMEZONE).length, 1, 'Incorrect Time Zone Name');
           done(err, body);
         });
@@ -235,7 +235,7 @@ describe('REST connector', function() {
     it('should mix in invoke method', function(done) {
       app.use(geocoderRoutes);
 
-      var spec = {
+      const spec = {
         debug: false,
         operations: [
           {
@@ -254,23 +254,23 @@ describe('REST connector', function() {
           },
         ],
       };
-      var ds = new DataSource(require('../lib/rest-connector'), spec);
+      const ds = new DataSource(require('../lib/rest-connector'), spec);
       assert(ds.invoke);
       ds.invoke({latitude: 40.714224, longitude: -73.961452}, function(
         err,
         body,
-        response
+        response,
       ) {
         if (!checkGoogleMapAPIResult(err, response, done)) return;
-        var address = body.results[0].formatted_address;
+        const address = body.results[0].formatted_address;
         assert.ok(address.match(TEST_ADDRESS));
         done(err, address);
       });
     });
 
     it('should map clientKey and clientCert to key and cert for backwards compat', function() {
-      var spec = getRequestTemplate();
-      var template = {
+      const spec = getRequestTemplate();
+      const template = {
         clientKey: 'CLIENT.KEY',
         clientCert: 'CLIENT.CERT',
         operations: [
@@ -282,7 +282,7 @@ describe('REST connector', function() {
           },
         ],
       };
-      var ds = new DataSource(require('../lib/rest-connector'), template);
+      const ds = new DataSource(require('../lib/rest-connector'), template);
       assert.equal(ds.connector._settings.key, template.clientKey);
       assert.equal(ds.connector._settings.cert, template.clientCert);
     });
@@ -290,8 +290,8 @@ describe('REST connector', function() {
     it('should keep order of precedence: options, top level, and defaults', function(done) {
       app.all('*', dumpRequest);
 
-      var spec = getRequestTemplate();
-      var template = {
+      const spec = getRequestTemplate();
+      const template = {
         options: {
           headers: {
             'x-options': 'options',
@@ -317,8 +317,8 @@ describe('REST connector', function() {
           },
         ],
       };
-      var ds = new DataSource(require('../lib/rest-connector'), template);
-      var model = ds.createModel('rest');
+      const ds = new DataSource(require('../lib/rest-connector'), template);
+      const model = ds.createModel('rest');
       model.m1(3, function(err, result) {
         if (err) return done(err);
         assert.equal(result.headers['x-defaults'], 'defaults');
@@ -351,7 +351,7 @@ function checkGoogleMapAPIResult(err, res, done) {
 
 function dumpRequest(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
-  var payload = {
+  const payload = {
     method: req.method,
     url: req.url,
     headers: req.headers,

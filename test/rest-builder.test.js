@@ -5,26 +5,26 @@
 
 'use strict';
 
-var assert = require('assert');
+const assert = require('assert');
 const path = require('path');
 
 if (!global.Promise) {
   global.Promise = require('bluebird');
 }
 
-var RequestBuilder = require('../lib/rest-builder');
+const RequestBuilder = require('../lib/rest-builder');
 
 describe('REST Request Builder', function() {
   describe('Request templating', function() {
-    var hostURL = 'http://localhost:';
-    var server = null;
+    let hostURL = 'http://localhost:';
+    let server = null;
 
     before(function(done) {
-      var app = require('./express-helper')();
+      const app = require('./express-helper')();
 
       app.all('*', function(req, res, next) {
         res.setHeader('Content-Type', 'application/json');
-        var payload = {
+        const payload = {
           method: req.method,
           url: req.url,
           headers: req.headers,
@@ -45,7 +45,7 @@ describe('REST Request Builder', function() {
     });
 
     it('should substitute the variables', function(done) {
-      var builder = new RequestBuilder('GET', hostURL + '/{p}').query({
+      const builder = new RequestBuilder('GET', hostURL + '/{p}').query({
         x: '{x}',
         y: 2,
       });
@@ -61,7 +61,7 @@ describe('REST Request Builder', function() {
     });
 
     it('should support default variables', function(done) {
-      var builder = new RequestBuilder('GET', hostURL + '/{p=100}').query({
+      const builder = new RequestBuilder('GET', hostURL + '/{p=100}').query({
         x: '{x=ME}',
         y: 2,
       });
@@ -78,7 +78,7 @@ describe('REST Request Builder', function() {
     });
 
     it('should support typed variables', function(done) {
-      var builder = new RequestBuilder('POST', hostURL + '/{p=100}')
+      const builder = new RequestBuilder('POST', hostURL + '/{p=100}')
         .query({x: '{x=100:number}', y: 2})
         .body({a: '{a=1:number}', b: '{b=true:boolean}'});
       builder.invoke({p: 1, a: 100, b: false}, function(err, body, response) {
@@ -96,7 +96,7 @@ describe('REST Request Builder', function() {
     });
 
     it('should report missing required variables', function(done) {
-      var builder = new RequestBuilder('POST', hostURL + '/{!p}')
+      const builder = new RequestBuilder('POST', hostURL + '/{!p}')
         .query({x: '{x=100:number}', y: 2})
         .body({a: '{^a:number}', b: '{!b=true:boolean}'});
       try {
@@ -117,7 +117,7 @@ describe('REST Request Builder', function() {
     });
 
     it('should support required variables', function(done) {
-      var builder = new RequestBuilder('POST', hostURL + '/{!p}')
+      const builder = new RequestBuilder('POST', hostURL + '/{!p}')
         .query({x: '{x=100:number}', y: 2})
         .body({a: '{^a:number}', b: '{!b=true:boolean}'});
 
@@ -138,12 +138,12 @@ describe('REST Request Builder', function() {
     });
 
     it('should build an operation with the parameter names', function(done) {
-      var builder = new RequestBuilder('POST', hostURL + '/{p}').query({
+      const builder = new RequestBuilder('POST', hostURL + '/{p}').query({
         x: '{x}',
         y: 2,
       });
 
-      var fn = builder.operation(['p', 'x']);
+      const fn = builder.operation(['p', 'x']);
 
       fn(1, 'X', function(err, body, response) {
         assert.equal(200, response.statusCode);
@@ -160,12 +160,12 @@ describe('REST Request Builder', function() {
     });
 
     it('should build an operation with the parameter names as args', function(done) {
-      var builder = new RequestBuilder('POST', hostURL + '/{p}').query({
+      const builder = new RequestBuilder('POST', hostURL + '/{p}').query({
         x: '{x}',
         y: 2,
       });
 
-      var fn = builder.operation('p', 'x');
+      const fn = builder.operation('p', 'x');
 
       fn(1, 'X', function(err, body, response) {
         assert.equal(200, response.statusCode);
@@ -182,9 +182,9 @@ describe('REST Request Builder', function() {
     });
 
     it('should build from a json doc', function(done) {
-      var template = require('./request-template.json');
+      const template = require('./request-template.json');
       template.url = hostURL + '/{p}'; // update template.url to dynamic host
-      var builder = new RequestBuilder(template);
+      const builder = new RequestBuilder(template);
       // console.log(builder.parse());
       builder.invoke({p: 1, a: 100, b: false}, function(err, body, response) {
         // console.log(response.headers);
@@ -203,12 +203,12 @@ describe('REST Request Builder', function() {
     });
 
     it('should support custom request funciton', function(done) {
-      var requestFunc = require('request').defaults({
+      const requestFunc = require('request').defaults({
         headers: {'X-MY-HEADER': 'my-header'},
       });
-      var builder = new RequestBuilder(
+      const builder = new RequestBuilder(
         require('./request-template.json'),
-        requestFunc
+        requestFunc,
       );
       // console.log(builder.parse());
       builder.invoke({p: 1, a: 100, b: false}, function(err, body, response) {
@@ -231,8 +231,8 @@ describe('REST Request Builder', function() {
 
   describe('invoke', function() {
     it('should return a promise when no callback is specified', function() {
-      var builder = new RequestBuilder(require('./request-template.json'));
-      var promise = builder.invoke({p: 1, a: 100, b: false});
+      const builder = new RequestBuilder(require('./request-template.json'));
+      const promise = builder.invoke({p: 1, a: 100, b: false});
       assert(typeof promise['then'] === 'function');
       assert(typeof promise['catch'] === 'function');
       return promise.catch(function(err) {
@@ -242,15 +242,15 @@ describe('REST Request Builder', function() {
   });
 
   describe('handling of 4XX status codes', function() {
-    var hostURL = 'http://localhost:';
-    var server = null;
+    let hostURL = 'http://localhost:';
+    let server = null;
 
     before(function(done) {
-      var app = require('./express-helper')();
+      const app = require('./express-helper')();
 
       app.all('*', function(req, res, next) {
         res.setHeader('Content-Type', 'application/json');
-        var payload = {
+        const payload = {
           method: req.method,
           url: req.url,
           headers: req.headers,
@@ -272,7 +272,7 @@ describe('REST Request Builder', function() {
     });
 
     it('should consider the response an error', function(done) {
-      var builder = new RequestBuilder('GET', hostURL);
+      const builder = new RequestBuilder('GET', hostURL);
       builder.invoke(function(err, body, response) {
         assert.equal(400, response.statusCode);
         assert.equal(400, err.statusCode);
@@ -283,7 +283,7 @@ describe('REST Request Builder', function() {
     });
 
     it('should consider the promise failed', function(done) {
-      var builder = new RequestBuilder('GET', hostURL);
+      const builder = new RequestBuilder('GET', hostURL);
       builder
         .invoke()
         .then(function() {
@@ -299,15 +299,15 @@ describe('REST Request Builder', function() {
   });
 
   describe('supplying fullResponse flag', function() {
-    var hostURL = 'http://localhost:';
-    var server = null;
+    let hostURL = 'http://localhost:';
+    let server = null;
 
     before(function(done) {
-      var app = require('./express-helper')();
+      const app = require('./express-helper')();
 
       app.all('*', function(req, res, next) {
         res.setHeader('Content-Type', 'application/json');
-        var payload = {
+        const payload = {
           exampleParamater: 'testing',
         };
         res.status(200).json(payload);
@@ -325,7 +325,7 @@ describe('REST Request Builder', function() {
     });
 
     it('should return full response', function(done) {
-      var builder = new RequestBuilder({method: 'GET', url: hostURL, fullResponse: true});
+      const builder = new RequestBuilder({method: 'GET', url: hostURL, fullResponse: true});
       builder
         .invoke()
         .then(function(response) {
@@ -339,7 +339,7 @@ describe('REST Request Builder', function() {
         });
     });
     it('should return body only', function(done) {
-      var builder = new RequestBuilder({method: 'POST', url: hostURL, fullResponse: false});
+      const builder = new RequestBuilder({method: 'POST', url: hostURL, fullResponse: false});
       builder
         .invoke()
         .then(function(response) {
