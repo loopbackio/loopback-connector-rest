@@ -1,3 +1,9 @@
+2020-11-10, Version 4.0.1
+=========================
+
+ * feat: force mime define to avoid conflicts (Raymond Feng)
+
+
 2020-11-05, Version 4.0.0
 =========================
 
