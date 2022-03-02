@@ -50,7 +50,7 @@ const config = {
           accepts: 'application/json',
           'content-type': 'application/json'
         },
-        query : {
+        query: {
           address: '{street},{city},{zipcode}',
           sensor: '{sensor=false}'
         },
@@ -95,27 +95,27 @@ const config = {
       'content-type': 'application/json'
     },
     strictSSL: false
-    },
-    operations: [
-      {
-        template: {
-          method: 'GET',
-          url: 'https://maps.googleapis.com/maps/api/geocode/{format=json}',
-          query: {
-            address: '{street},{city},{zipcode}',
-            sensor: '{sensor=false}'
-          },
-          options: {
-            strictSSL: true,
-            useQuerystring: true
-          },
-          responsePath: '$.results[0].geometry.location'
+  },
+  operations: [
+    {
+      template: {
+        method: 'GET',
+        url: 'https://maps.googleapis.com/maps/api/geocode/{format=json}',
+        query: {
+          address: '{street},{city},{zipcode}',
+          sensor: '{sensor=false}'
         },
-        functions: {
-          geocode: ['street', 'city', 'zipcode']
-        }
+        options: {
+          strictSSL: true,
+          useQuerystring: true
+        },
+        responsePath: '$.results[0].geometry.location'
+      },
+      functions: {
+        geocode: ['street', 'city', 'zipcode']
       }
-    ]
+    }
+  ]
 }
 ```
 
