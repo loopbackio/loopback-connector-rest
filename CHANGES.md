@@ -1,3 +1,21 @@
+2022-11-14, Version 4.0.2
+=========================
+
+ * chore: update dependencies (dhmlau)
+
+ * docs: add loopback 4 usage (Shubham Prajapat)
+
+ * docs: add SECURITY.md (Diana Lau)
+
+ * docs: update coc (Diana Lau)
+
+ * docs: add code of conduct (Diana Lau)
+
+ * chore: move repo to loopbackio org (Diana Lau)
+
+ * ci: convert from travis to github actions (Agnes Lin)
+
+
 2020-11-10, Version 4.0.1
 =========================
 
