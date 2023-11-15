@@ -3,7 +3,7 @@
   "version": "4.0.3",
   "description": "Loopback REST Connector",
   "engines": {
-    "node": ">=10"
+    "node": ">=18"
   },
   "keywords": [
     "LoopBack",
