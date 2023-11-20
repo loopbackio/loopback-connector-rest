@@ -1,3 +1,9 @@
+2023-11-20, Version 5.0.0
+=========================
+
+ * chore: drop support for nodejs16 and lower BREAKING CHANGE: drop support for nodejs16 and lower (Samarpan Bhattacharya)
+
+
 2023-03-09, Version 4.0.3
 =========================
 
