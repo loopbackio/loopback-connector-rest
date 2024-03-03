@@ -203,7 +203,7 @@ describe('REST Request Builder', function() {
     });
 
     it('should support custom request funciton', function(done) {
-      const requestFunc = require('request').defaults({
+      const requestFunc = require('postman-request').defaults({
         headers: {'X-MY-HEADER': 'my-header'},
       });
       const builder = new RequestBuilder(
