@@ -1,3 +1,13 @@
+2024-03-07, Version 5.0.1
+=========================
+
+ * feat: replace request with postman-request fork as a drop-in replacement (Samarpan Bhattacharya)
+
+ * fix: fix renovate configs (dhmlau)
+
+ * chore: add renovate.json (renovate[bot])
+
+
 2023-11-20, Version 5.0.0
 =========================
 
