@@ -1,6 +1,6 @@
 {
   "name": "loopback-connector-rest",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Loopback REST Connector",
   "engines": {
     "node": ">=18"
