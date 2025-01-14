@@ -1,5 +1,18 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>loopbackio/cicd//shared-configs/renovate/base"
+    ":dependencyDashboard",
+    ":semanticPrefixFixDepsChoreOthers",
+    ":gitSignOff",
+    ":ignoreModulesAndTests",
+    ":prConcurrentLimit10",
+    "workarounds:typesNodeVersioning"
+  ],
+  "lockFileMaintenance": {
+    "extends": [
+      "schedule:monthly"
+    ],
+    "enabled": true,
+    "automerge": true
+  }
 }
