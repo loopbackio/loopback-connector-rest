@@ -1,3 +1,25 @@
+2025-02-17, Version 5.0.3
+=========================
+
+ * chore(deps): update dependency mocha to v10.8.2 (renovate[bot])
+
+ * chore(deps): update dependency eslint-plugin-mocha to v10.5.0 (renovate[bot])
+
+ * fix(deps): update dependency traverse to v0.6.11 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v17.8.1 (renovate[bot])
+
+ * fix(deps): update dependency postman-request to v2.88.1-postman.40 (renovate[bot])
+
+ * chore(deps): update dependency eslint to v8.57.1 (renovate[bot])
+
+ * chore(deps): update dependency express to v4.21.2 (renovate[bot])
+
+ * fix(deps): update dependency jsonpath-plus to v10.2.0 [security] (renovate[bot])
+
+ * chore: update renovate bot (dhmlau)
+
+
 2024-10-17, Version 5.0.2
 =========================
 
