@@ -1,4 +1,32 @@
-2025-02-17, Version 5.0.3
+2025-03-18, Version 5.0.4
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.6 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v19.8.0 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#203) (renovate[bot])
+
+ * fix(deps): update dependency postman-request to v2.88.1-postman.42 (renovate[bot])
+
+ * fix(deps): update dependency jsonpath-plus to v10.3.0 [security] (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v19 (renovate[bot])
+
+ * chore(deps): update actions/setup-node action to v4 (renovate[bot])
+
+ * chore(deps): update actions/checkout action to v4 (renovate[bot])
+
+ * fix(deps): update dependency mime to v2.6.0 (renovate[bot])
+
+ * fix(deps): update dependency qs to v6.14.0 (renovate[bot])
+
+
+2025-02-16, Version 5.0.3
 =========================
 
  * chore(deps): update dependency mocha to v10.8.2 (renovate[bot])
