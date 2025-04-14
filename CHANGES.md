@@ -1,3 +1,15 @@
+2025-04-14, Version 5.0.5
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.7 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#209) (renovate[bot])
+
+ * chore(deps): update dependency body-parser to v2 (renovate[bot])
+
+ * chore(deps): update dependency multer to v1.4.5-lts.2 (renovate[bot])
+
+
 2025-03-18, Version 5.0.4
 =========================
 
