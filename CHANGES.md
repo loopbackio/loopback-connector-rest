@@ -1,3 +1,15 @@
+2025-05-12, Version 5.0.6
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.8 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v19.8.1 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.2.2 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#212) (renovate[bot])
+
+
 2025-04-14, Version 5.0.5
 =========================
 
