@@ -1,3 +1,19 @@
+2025-06-09, Version 5.0.7
+=========================
+
+ * chore(deps): update dependency mocha to v11.6.0 (renovate[bot])
+
+ * chore(deps): update dependency multer to v2.0.1 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#219) (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.5.0 (renovate[bot])
+
+ * chore(deps): update dependency multer to v2 (renovate[bot])
+
+ * fix(deps): update dependency debug to v4.4.1 (renovate[bot])
+
+
 2025-05-12, Version 5.0.6
 =========================
 
