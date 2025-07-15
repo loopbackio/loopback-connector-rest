@@ -1,3 +1,19 @@
+2025-07-15, Version 5.0.8
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.10 (renovate[bot])
+
+ * fix: do not include symbols in js-traverse (Martin Pražák)
+
+ * chore(deps): lock file maintenance (#225) (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.7.1 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.7.0 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.9 (renovate[bot])
+
+
 2025-06-09, Version 5.0.7
 =========================
 
