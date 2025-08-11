@@ -1,3 +1,19 @@
+2025-08-11, Version 5.0.9
+=========================
+
+ * chore(deps): update actions/checkout action to v5 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v5.1.11 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#231) (renovate[bot])
+
+ * fix(deps): update dependency postman-request to v2.88.1-postman.43 (renovate[bot])
+
+ * fix: update js-traverse version (Martin Pražák)
+
+ * chore(deps): update dependency multer to v2.0.2 (renovate[bot])
+
+
 2025-07-15, Version 5.0.8
 =========================
 
