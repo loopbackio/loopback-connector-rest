@@ -1,3 +1,11 @@
+2025-09-09, Version 5.0.10
+==========================
+
+ * chore(deps): update actions/setup-node action to v5 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.7.2 (renovate[bot])
+
+
 2025-08-11, Version 5.0.9
 =========================
 
