@@ -29,7 +29,7 @@
     "traverse": "^0.6.8"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^19.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "bluebird": "^3.3.4",
     "body-parser": "^2.0.0",
     "eslint": "^8.27.0",
