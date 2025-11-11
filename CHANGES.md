@@ -1,3 +1,17 @@
+2025-11-11, Version 6.0.1
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v6 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.7.5 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#249) (renovate[bot])
+
+ * chore(deps): update dependency eslint-config-loopback to v14 (renovate[bot])
+
+ * chore(deps): update dependency postman-request to v2.88.1-postman.45 (renovate[bot])
+
+
 2025-10-15, Version 6.0.0
 =========================
 
