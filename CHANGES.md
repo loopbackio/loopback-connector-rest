@@ -1,3 +1,19 @@
+2025-12-09, Version 6.0.2
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v6.0.1 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v20.2.0 (renovate[bot])
+
+ * chore(deps): update dependency express to v4.22.1 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#254) (renovate[bot])
+
+ * chore(deps): update dependency body-parser to v2.2.1 (renovate[bot])
+
+ * chore(deps): update actions/checkout action to v6 (renovate[bot])
+
+
 2025-11-11, Version 6.0.1
 =========================
 
