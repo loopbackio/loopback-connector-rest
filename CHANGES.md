@@ -1,3 +1,19 @@
+2026-01-12, Version 6.0.3
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v6.0.2 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v20.3.1 (renovate[bot])
+
+ * chore(deps): update dependency body-parser to v2.2.2 (renovate[bot])
+
+ * chore(deps): update dependency qs to v6.14.1 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v20.3.0 (renovate[bot])
+
+ * chore(deps): update dependency postman-request to v2.88.1-postman.47 (renovate[bot])
+
+
 2025-12-09, Version 6.0.2
 =========================
 
