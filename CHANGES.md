@@ -1,3 +1,19 @@
+2026-02-09, Version 6.0.4
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v6.0.3 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v20.4.1 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#269) (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v20.4.0 (renovate[bot])
+
+ * chore(deps): update dependency lodash to v4.17.23 (renovate[bot])
+
+ * chore(deps): update dependency postman-request to v2.88.1-postman.48 (renovate[bot])
+
+
 2026-01-12, Version 6.0.3
 =========================
 
