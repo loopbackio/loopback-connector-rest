@@ -1,3 +1,21 @@
+2026-03-09, Version 6.0.5
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v6.0.4 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v20.4.3 (renovate[bot])
+
+ * chore(deps): update dependency multer to v2.1.1 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#278) (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v20.4.2 (renovate[bot])
+
+ * chore(deps): update dependency jsonpath-plus to v10.4.0 (renovate[bot])
+
+ * chore(deps): update dependency qs to v6.15.0 (renovate[bot])
+
+
 2026-02-09, Version 6.0.4
 =========================
 
