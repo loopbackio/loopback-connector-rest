@@ -1,3 +1,17 @@
+2026-04-13, Version 6.0.6
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v6.0.5 (renovate[bot])
+
+ * chore(deps): update dependency qs to v6.15.1 (renovate[bot])
+
+ * chore(deps): update dependency lodash to v4.18.1 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#282) (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v20.5.0 (renovate[bot])
+
+
 2026-03-09, Version 6.0.5
 =========================
 
