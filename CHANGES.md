@@ -1,3 +1,13 @@
+2026-05-12, Version 6.0.7
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v6.0.6 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v21 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#287) (renovate[bot])
+
+
 2026-04-13, Version 6.0.6
 =========================
 
