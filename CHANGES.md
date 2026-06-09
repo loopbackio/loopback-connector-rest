@@ -1,3 +1,17 @@
+2026-06-09, Version 7.0.0
+=========================
+
+ * chore(deps): update dependency @commitlint/config-conventional to v21.0.2 (renovate[bot])
+
+ * chore(deps): update dependency qs to v6.15.2 [security] (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.7.6 (renovate[bot])
+
+ * chore: drop Node.js 20 support BREAKING CHANGE: drop Node.js 20 support (dhmlau)
+
+ * chore(deps): update dependency express to v4.22.2 (renovate[bot])
+
+
 2026-05-12, Version 6.0.7
 =========================
 
