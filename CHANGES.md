@@ -1,3 +1,23 @@
+2026-07-16, Version 7.0.1
+=========================
+
+ * chore(deps): update actions/setup-node action to v7 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v21.2.0 (renovate[bot])
+
+ * chore(deps): update dependency qs to v6.15.3 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v21.1.0 (renovate[bot])
+
+ * chore(deps): update dependency multer to v2.2.0 [security] (renovate[bot])
+
+ * chore(deps): update actions/checkout action to v7 (renovate[bot])
+
+ * chore(deps): update dependency body-parser to v2.3.0 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v7 (renovate[bot])
+
+
 2026-06-09, Version 7.0.0
 =========================
 
