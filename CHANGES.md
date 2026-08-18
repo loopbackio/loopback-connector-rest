@@ -1,4 +1,16 @@
-2026-07-16, Version 7.0.1
+2026-08-18, Version 7.0.2
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v7.0.2 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v21.2.2 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v11.8.0 (renovate[bot])
+
+ * chore(deps): update dependency postman-request to v2.88.1-postman.49 (renovate[bot])
+
+
+2026-07-15, Version 7.0.1
 =========================
 
  * chore(deps): update actions/setup-node action to v7 (renovate[bot])
