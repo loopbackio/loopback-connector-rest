@@ -1,3 +1,19 @@
+2026-09-15, Version 7.0.3
+=========================
+
+ * chore(deps): update dependency mocha to v12.0.1 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v7.0.3 (renovate[bot])
+
+ * chore(deps): update dependency multer to v2.4.0 (renovate[bot])
+
+ * chore(deps): update dependency express to v4.22.3 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v12 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#313) (renovate[bot])
+
+
 2026-08-18, Version 7.0.2
 =========================
 
