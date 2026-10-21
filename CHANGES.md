@@ -1,3 +1,23 @@
+2026-10-21, Version 7.0.4
+=========================
+
+ * chore(deps): update dependency postman-request to v2.88.1-postman.51 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v21.2.4 (renovate[bot])
+
+ * chore(deps): update dependency qs to v6.16.1 (renovate[bot])
+
+ * chore(deps): update dependency loopback-datasource-juggler to v7.0.4 (renovate[bot])
+
+ * chore(deps): update dependency traverse to v0.6.14 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v12.0.3 (renovate[bot])
+
+ * chore(deps): update dependency @commitlint/config-conventional to v21.2.3 (renovate[bot])
+
+ * chore(deps): update dependency mocha to v12.0.2 (renovate[bot])
+
+
 2026-09-15, Version 7.0.3
 =========================
 
