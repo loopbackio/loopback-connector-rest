@@ -1,3 +1,21 @@
+2026-11-13, Version 7.0.5
+=========================
+
+ * chore(deps): update dependency loopback-datasource-juggler to v7.0.5 (renovate[bot])
+
+ * chore(deps): update dependency node to v26 (renovate[bot])
+
+ * chore(deps): update dependency postman-request to v2.88.1-postman.52 (renovate[bot])
+
+ * fix(deps): update dependency jsonpath-plus to v11 (renovate[bot])
+
+ * chore(deps): lock file maintenance (#331) (renovate[bot])
+
+ * chore(deps): update dependency multer to v2.5.0 (renovate[bot])
+
+ * chore(deps): update dependency body-parser to v2.4.0 (renovate[bot])
+
+
 2026-10-21, Version 7.0.4
 =========================
 
